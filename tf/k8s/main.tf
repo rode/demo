@@ -47,6 +47,14 @@ module "grafeas" {
   ]
 }
 
+module "rode" {
+  source = "../modules/rode"
+
+  depends_on = [
+    module.grafeas
+  ]
+}
+
 module "nginx" {
   count  = var.enable_nginx ? 1 : 0
   source = "../modules/nginx"
@@ -55,5 +63,7 @@ module "nginx" {
 module "harbor" {
   source = "../modules/harbor"
 
-  host = var.harbor_host
+  host        = var.harbor_host
+  cert_source = var.harbor_cert_source
+  protocol    = var.harbor_protocol
 }
