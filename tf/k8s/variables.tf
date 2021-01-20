@@ -9,3 +9,6 @@ variable "harbor_cert_source" {
 variable "enable_nginx" {
   default = true
 }
+variable "rode_host" {
+  default = ""
+}

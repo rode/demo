@@ -50,6 +50,8 @@ module "grafeas" {
 module "rode" {
   source = "../modules/rode"
 
+  host = var.rode_host
+
   depends_on = [
     module.grafeas
   ]
