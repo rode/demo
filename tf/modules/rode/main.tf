@@ -33,6 +33,20 @@ resource "kubernetes_ingress" "rode" {
       service_port = 50051
     }
 
+    rule {
+      host = var.host
+
+      http {
+        path {
+          path = "/"
+          backend {
+            service_name = "rode"
+            service_port = 50051
+          }
+        }
+      }
+    }
+
     tls {
       hosts = [
         var.host

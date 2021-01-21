@@ -12,3 +12,6 @@ variable "enable_nginx" {
 variable "rode_host" {
   default = ""
 }
+variable "grafeas_host" {
+  default = ""
+}

@@ -14,7 +14,7 @@ resource "helm_release" "harbor" {
   namespace  = kubernetes_namespace.harbor.metadata[0].name
   chart      = "harbor"
   repository = "https://helm.goharbor.io"
-  version    = "v1.5.3"
+  version    = "1.5.3"
   wait       = true
 
   set_sensitive {

@@ -42,6 +42,8 @@ module "grafeas" {
   elasticsearch_username = module.elasticsearch.username
   elasticsearch_password = module.elasticsearch.password
 
+  grafeas_host = var.grafeas_host
+
   depends_on = [
     module.elasticsearch
   ]
