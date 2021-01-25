@@ -9,7 +9,8 @@ pipeline {
             steps {
               container('docker') {
                 echo 'hello world'
-                sh 'docker build -t node/sample-web-app .'
+                echo 'ls'
+                sh 'docker build -t node/sample-web-app ./app'
                 sh 'docker images'
               }
             }
