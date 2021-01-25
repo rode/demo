@@ -31,6 +31,7 @@ provider "helm" {
   }
 }
 
+/*
 module "elasticsearch" {
   source = "../modules/elasticsearch"
 }
@@ -46,7 +47,7 @@ module "grafeas" {
     module.elasticsearch
   ]
 }
-
+*/
 module "nginx" {
   count  = var.enable_nginx ? 1 : 0
   source = "../modules/nginx"
@@ -56,4 +57,8 @@ module "harbor" {
   source = "../modules/harbor"
 
   host = var.harbor_host
+}
+
+module "jenkins" {
+  source = "../modules/jenkins"
 }
