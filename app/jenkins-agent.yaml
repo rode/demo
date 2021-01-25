@@ -1,0 +1,10 @@
+metadata:
+  labels:
+    agent: k8s
+spec:
+  containers:
+    - name: node
+      image: node/current-alpine3.12
+      command:
+        - cat
+      tty: true

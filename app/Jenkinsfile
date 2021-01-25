@@ -1,9 +1,15 @@
 pipeline {
-    agent any 
+    agent {
+        kubernetes {
+            yamlFile "app/jenkins-agent.yaml"
+        }
+    } 
     stages {
         stage('echo') {
             steps {
-              echo 'hello world'
+              container('node') {
+                echo 'hello world'
+              }
             }
         }
     }
