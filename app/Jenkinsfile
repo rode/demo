@@ -9,8 +9,7 @@ pipeline {
             steps {
               container('kaniko') {
                 echo 'hello world'
-                sh 'docker build -t node/sample-web-app ./app'
-                sh 'docker images'
+                sh 'executor -c app --no-push"'
               }
             }
         }
