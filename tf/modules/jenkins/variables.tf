@@ -1,0 +1,1 @@
+variable "harbor_host" {}

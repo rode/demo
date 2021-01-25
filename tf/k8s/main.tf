@@ -61,4 +61,6 @@ module "harbor" {
 
 module "jenkins" {
   source = "../modules/jenkins"
+
+  depends_on = [ module.harbor ]
 }

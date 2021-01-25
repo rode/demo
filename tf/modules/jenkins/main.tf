@@ -1,3 +1,27 @@
+data "kubernetes_secret" "harbor_auth" {
+  metadata {
+    name      = "harbor-harbor-registry"
+    namespace = "harbor"
+  }
+}
+
+resource "kubernetes_secret" "jenkins_docker_config" {
+  metadata {
+    name      = "jenkins-docker-config"
+    namespace = "harbor"
+  }
+
+  data = {
+    "config.json" = templatefile("${path.module}/dockercfg.tpl", {
+      email = "admin@liatr.io"
+      url   = "http://${var.harbor_host}:5000"
+      auth  = kubernetes_secret.harbor_auth.data.REGISTRY_HTPASSWD //harbor-harbor-registry secret 
+    })
+  }
+
+  type = "Opaque"
+}
+
 locals {
   jenkins_plugins = [
     "job-dsl:1.77",
