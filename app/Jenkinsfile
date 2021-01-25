@@ -9,7 +9,7 @@ pipeline {
             steps {
               container('kaniko') {
                 echo 'hello world'
-                sh 'executor -c app --no-push"'
+                sh 'executor -c app --no-push'
               }
             }
         }
