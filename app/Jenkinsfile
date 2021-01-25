@@ -7,9 +7,8 @@ pipeline {
     stages {
         stage('echo') {
             steps {
-              container('docker') {
+              container('kaniko') {
                 echo 'hello world'
-                echo 'ls'
                 sh 'docker build -t node/sample-web-app ./app'
                 sh 'docker images'
               }
