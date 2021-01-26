@@ -15,7 +15,7 @@ resource "random_password" "harbor_registry_password" {
 }
 
 locals {
-  harbor_registry_user     = "harbor_registry_user"
+  harbor_registry_user = "harbor_registry_user"
 }
 
 resource "helm_release" "harbor" {
@@ -39,6 +39,10 @@ resource "helm_release" "harbor" {
   set_sensitive {
     name  = "registry.credentials.htpasswd"
     value = "${local.harbor_registry_user}:${bcrypt(random_password.harbor_registry_password.result)}"
+  }
+
+  lifecycle {
+    ignore_changes = [set_sensitive]
   }
 
   values = [

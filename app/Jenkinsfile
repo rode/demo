@@ -5,11 +5,16 @@ pipeline {
         }
     } 
     stages {
-        stage('echo') {
+        stage('build') {
             steps {
-              container('kaniko') {
-                sh 'executor -c app --skip-tls-verify -d harbor.localhost/library/rode-demo-node-app:latest'
-              }
+                container('git') {
+                    script {
+                        tag = sh(script: 'git rev-parse --short HEAD', returnStdout: true).trim()
+                    }
+                }
+                container('kaniko') {
+                    sh "executor -c app --skip-tls-verify -d harbor.localhost/library/rode-demo-node-app:${tag}"
+                }
             }
         }
     }

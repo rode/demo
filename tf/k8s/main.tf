@@ -16,10 +16,20 @@ terraform {
       source  = "hashicorp/random"
       version = "3.0.1"
     }
+
+    kubectl = {
+      source  = "gavinbunney/kubectl"
+      version = ">= 1.7.0"
+    }
   }
 }
 
 provider "kubernetes" {
+  config_context = var.kube_context
+  config_path    = "~/.kube/config"
+}
+
+provider "kubectl" {
   config_context = var.kube_context
   config_path    = "~/.kube/config"
 }
@@ -57,6 +67,19 @@ module "harbor" {
   source = "../modules/harbor"
 
   host = var.harbor_host
+}
+
+module "coredns" {
+  count  = var.enable_nginx ? 1 : 0
+  source = "../modules/coredns"
+
+  harbor_host       = var.harbor_host
+  nginx_service_url = module.nginx[0].service_url
+
+  depends_on = [
+    module.nginx,
+    module.harbor
+  ]
 }
 
 module "jenkins" {
