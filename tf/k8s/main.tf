@@ -62,5 +62,10 @@ module "harbor" {
 module "jenkins" {
   source = "../modules/jenkins"
 
-  depends_on = [ module.harbor ]
+  harbor_namespace     = module.harbor.namespace
+  harbor_registry_host = module.harbor.registry_host
+  harbor_registry_user = module.harbor.registry_user
+  harbor_registry_pass = module.harbor.registry_pass
+
+  depends_on = [module.harbor]
 }

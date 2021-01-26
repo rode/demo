@@ -1,21 +1,20 @@
-data "kubernetes_secret" "harbor_auth" {
+resource "kubernetes_namespace" "jenkins" {
   metadata {
-    name      = "harbor-harbor-registry"
-    namespace = "harbor"
+    name = "jenkins"
   }
 }
 
 resource "kubernetes_secret" "jenkins_docker_config" {
   metadata {
     name      = "jenkins-docker-config"
-    namespace = "harbor"
+    namespace = kubernetes_namespace.jenkins.metadata[0].name
   }
 
   data = {
     "config.json" = templatefile("${path.module}/dockercfg.tpl", {
       email = "admin@liatr.io"
-      url   = "http://${var.harbor_host}:5000"
-      auth  = kubernetes_secret.harbor_auth.data.REGISTRY_HTPASSWD //harbor-harbor-registry secret 
+      url   = "http://${var.harbor_registry_host}:5000"
+      auth  = base64encode("${var.harbor_registry_user}:${var.harbor_registry_pass}")
     })
   }
 
@@ -35,7 +34,7 @@ resource "helm_release" "jenkins" {
   name       = "jenkins"
   repository = "https://charts.jenkins.io"
   version    = "2.13.1"
-  namespace  = "harbor"
+  namespace  = kubernetes_namespace.jenkins.metadata[0].name
 
   set {
     name  = "master.additionalPlugins"
@@ -46,7 +45,7 @@ resource "helm_release" "jenkins" {
 data "kubernetes_secret" "jenkins" {
   metadata {
     name      = "jenkins"
-    namespace = "harbor"
+    namespace = kubernetes_namespace.jenkins.metadata[0].name
   }
 
   depends_on = [
@@ -61,8 +60,8 @@ output "jenkins_admin_password" {
 resource "kubernetes_config_map" "jcasc_pipelines" {
   metadata {
     name      = "${helm_release.jenkins.name}-jcasc-pipelines"
-    namespace = "harbor"
-    labels    = {
+    namespace = kubernetes_namespace.jenkins.metadata[0].name
+    labels = {
       "${helm_release.jenkins.name}-jenkins-config" = "true"
     }
   }

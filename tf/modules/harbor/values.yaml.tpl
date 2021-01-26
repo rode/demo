@@ -6,4 +6,8 @@ expose:
     hosts:
       core: ${harbor_host}
 
+registry:
+  credentials:
+    username: ${registry_user}
+
 externalURL: http://${harbor_host}
