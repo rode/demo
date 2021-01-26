@@ -10,4 +10,4 @@ registry:
   credentials:
     username: ${registry_user}
 
-externalURL: http://${harbor_host}
+externalURL: https://${harbor_host}

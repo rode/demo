@@ -4,6 +4,13 @@ resource "kubernetes_namespace" "jenkins" {
   }
 }
 
+data "kubernetes_secret" "harbor_auth" {
+  metadata {
+    name      = "harbor-harbor-core"
+    namespace = var.harbor_namespace
+  }
+}
+
 resource "kubernetes_secret" "jenkins_docker_config" {
   metadata {
     name      = "jenkins-docker-config"
@@ -13,8 +20,8 @@ resource "kubernetes_secret" "jenkins_docker_config" {
   data = {
     "config.json" = templatefile("${path.module}/dockercfg.tpl", {
       email = "admin@liatr.io"
-      url   = "http://${var.harbor_registry_host}:5000"
-      auth  = base64encode("${var.harbor_registry_user}:${var.harbor_registry_pass}")
+      url   = "https://${var.harbor_host}"
+      auth  = base64encode("admin:${data.kubernetes_secret.harbor_auth.data.HARBOR_ADMIN_PASSWORD}")
     })
   }
 

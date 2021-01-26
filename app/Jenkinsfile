@@ -8,8 +8,7 @@ pipeline {
         stage('echo') {
             steps {
               container('kaniko') {
-                echo 'hello world'
-                sh 'executor -c app --insecure -d harbor-harbor-registry.harbor.svc.cluster.local:5000/docker/node-app:latest'
+                sh 'executor -c app --skip-tls-verify -d harbor.localhost/library/rode-demo-node-app:latest'
               }
             }
         }
