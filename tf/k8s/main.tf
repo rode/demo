@@ -54,6 +54,10 @@ module "rode" {
 
   host = var.rode_host
 
+  harbor_host     = var.harbor_host
+  harbor_password = module.harbor.harbor_password
+  harbor_username = module.harbor.harbor_username
+
   depends_on = [
     module.grafeas
   ]
