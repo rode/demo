@@ -3,6 +3,6 @@ rode:
   insecure: true
 
 harbor:
-  host: https://${harbor_host}
+  host: ${harbor_url}
   username: ${harbor_username}
   password: "${harbor_password}"

@@ -12,3 +12,6 @@ variable "rode_host" {
 variable "grafeas_host" {
   default = ""
 }
+variable "rode_collector_use_internal_network" {
+  default = true
+}

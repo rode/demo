@@ -65,7 +65,7 @@ resource "helm_release" "rode_collector_harbor" {
 
   values = [
     templatefile("${path.module}/rode-collector-harbor-values.yaml.tpl", {
-      harbor_host     = var.harbor_host
+      harbor_url      = var.harbor_url == "" ? "https://harbor-harbor-core.harbor.svc.cluster.local" : var.harbor_url
       harbor_username = var.harbor_username
       harbor_password = var.harbor_password
     })
