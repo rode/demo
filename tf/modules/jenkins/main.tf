@@ -47,6 +47,12 @@ resource "helm_release" "jenkins" {
     name  = "master.additionalPlugins"
     value = "{${join(",", local.jenkins_plugins)}}"
   }
+
+  values = [
+    templatefile("${path.module}/values.yaml.tpl", {
+      jenkins_host = var.jenkins_host
+    })
+  ]
 }
 
 data "kubernetes_secret" "jenkins" {

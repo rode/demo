@@ -85,8 +85,12 @@ module "coredns" {
 module "jenkins" {
   source = "../modules/jenkins"
 
+  jenkins_host     = var.jenkins_host
   harbor_namespace = module.harbor.namespace
   harbor_host      = var.harbor_host
 
-  depends_on = [module.harbor]
+  depends_on = [
+    module.nginx,
+    module.harbor
+  ]
 }
