@@ -26,7 +26,6 @@ resource "helm_release" "harbor" {
     templatefile("${path.module}/values.yaml.tpl", {
       harbor_host        = var.host
       harbor_cert_source = var.cert_source
-      harbor_protocol    = var.protocol
     })
   ]
 }

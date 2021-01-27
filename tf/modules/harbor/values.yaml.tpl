@@ -8,4 +8,4 @@ expose:
     hosts:
       core: ${harbor_host}
 
-externalURL: ${harbor_protocol}://${harbor_host}
+externalURL: https://${harbor_host}

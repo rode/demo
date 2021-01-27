@@ -73,5 +73,4 @@ module "harbor" {
 
   host        = var.harbor_host
   cert_source = var.harbor_cert_source
-  protocol    = var.harbor_protocol
 }
