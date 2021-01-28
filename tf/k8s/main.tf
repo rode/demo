@@ -56,4 +56,34 @@ module "harbor" {
   source = "../modules/harbor"
 
   host = var.harbor_host
+
+  depends_on = [
+    module.nginx
+  ]
+}
+
+module "coredns" {
+  count  = var.enable_nginx && var.update_coredns ? 1 : 0
+  source = "../modules/coredns"
+
+  harbor_host       = var.harbor_host
+  nginx_service_url = module.nginx[0].service_url
+
+  depends_on = [
+    module.nginx,
+    module.harbor
+  ]
+}
+
+module "jenkins" {
+  source = "../modules/jenkins"
+
+  jenkins_host     = var.jenkins_host
+  harbor_namespace = module.harbor.namespace
+  harbor_host      = var.harbor_host
+
+  depends_on = [
+    module.nginx,
+    module.harbor
+  ]
 }
