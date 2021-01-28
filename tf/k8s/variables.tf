@@ -4,3 +4,6 @@ variable "jenkins_host" {}
 variable "enable_nginx" {
   default = true
 }
+variable "update_coredns" {
+  default = true
+}

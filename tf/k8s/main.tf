@@ -16,20 +16,10 @@ terraform {
       source  = "hashicorp/random"
       version = "3.0.1"
     }
-
-    kubectl = {
-      source  = "gavinbunney/kubectl"
-      version = ">= 1.7.0"
-    }
   }
 }
 
 provider "kubernetes" {
-  config_context = var.kube_context
-  config_path    = "~/.kube/config"
-}
-
-provider "kubectl" {
   config_context = var.kube_context
   config_path    = "~/.kube/config"
 }
@@ -40,7 +30,6 @@ provider "helm" {
     config_path    = "~/.kube/config"
   }
 }
-
 
 module "elasticsearch" {
   source = "../modules/elasticsearch"
@@ -68,13 +57,13 @@ module "harbor" {
 
   host = var.harbor_host
 
-  depends_on = [ 
+  depends_on = [
     module.nginx
-   ]
+  ]
 }
 
 module "coredns" {
-  count  = var.enable_nginx ? 1 : 0
+  count  = var.enable_nginx && var.update_coredns ? 1 : 0
   source = "../modules/coredns"
 
   harbor_host       = var.harbor_host

@@ -14,6 +14,7 @@ Simply change the base image in the Dockerfile to `node:current-alpine3.12`, to 
 - Terraform >= 0.13.0
 - Terragrunt
 - A Kubernetes cluster (the cluster that comes with Docker Desktop for Mac is recommended)
+- kubectl
 
 ## Usage
 
@@ -30,7 +31,9 @@ Copy and paste the two lines below to your /etc/hosts file.
 127.0.0.1 jenkins.localhost
 ```
 ---
-Additionally, a rewrite may need to be added to your clusters DNS server to send Harbor traffic through the nginx controller. Automation is in place to update the CoreDNS configmap to include this rewrite, but in the event of a failed image deployment to Harbor inside the cluster, you may look to add the rewrite show below in the data block.
+Additionally, a rewrite may need to be added to your clusters DNS server to send Harbor traffic through the nginx controller. Automation is in place to update the CoreDNS configmap to include this rewrite, but in the event of a failed image deployment to Harbor inside the cluster, you may look to add the rewrite show below in the data block. (If your cluster is
+not using CoreDNS, you can disable this automation by setting the variable `update_coredns`
+to false. You will need to find another way to direct traffic to Harbor.)
 
 ```
 rewrite name harbor.localhost ingress-nginx-controller.nginx.svc.cluster.local
