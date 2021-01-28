@@ -1,6 +1,6 @@
 resource "kubernetes_namespace" "rode" {
   metadata {
-    name = "rode"
+    name = var.namespace
   }
 }
 
@@ -9,11 +9,13 @@ resource "helm_release" "rode" {
   namespace  = kubernetes_namespace.rode.metadata[0].name
   chart      = "rode"
   repository = "https://rode.github.io/charts"
-  version    = "0.0.3"
+  version    = "0.0.4"
   wait       = true
 
   values = [
-    templatefile("${path.module}/rode-values.yaml.tpl", {})
+    templatefile("${path.module}/rode-values.yaml.tpl", {
+      grafeas_namespace = var.grafeas_namespace
+    })
   ]
 }
 
@@ -21,8 +23,8 @@ resource "kubernetes_ingress" "rode" {
   count = var.host == "" ? 0 : 1
 
   metadata {
-    namespace   = kubernetes_namespace.rode.metadata[0].name
-    name        = "rode"
+    namespace = kubernetes_namespace.rode.metadata[0].name
+    name      = "rode"
     annotations = {
       "nginx.ingress.kubernetes.io/backend-protocol" = "GRPC"
     }
@@ -65,6 +67,7 @@ resource "helm_release" "rode_collector_harbor" {
 
   values = [
     templatefile("${path.module}/rode-collector-harbor-values.yaml.tpl", {
+      namespace       = kubernetes_namespace.rode.metadata[0].name
       harbor_url      = var.harbor_url == "" ? "https://harbor-harbor-core.harbor.svc.cluster.local" : var.harbor_url
       harbor_username = var.harbor_username
       harbor_password = var.harbor_password

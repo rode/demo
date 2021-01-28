@@ -1,6 +1,6 @@
 resource "kubernetes_namespace" "grafeas" {
   metadata {
-    name = "grafeas"
+    name = var.namespace
   }
 }
 
@@ -9,7 +9,7 @@ resource "helm_release" "grafeas" {
   namespace  = kubernetes_namespace.grafeas.metadata[0].name
   chart      = "grafeas-elasticsearch"
   repository = "https://rode.github.io/charts"
-  version    = "0.0.4"
+  version    = "0.0.6"
   wait       = true
 
   values = [

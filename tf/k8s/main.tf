@@ -32,12 +32,14 @@ provider "helm" {
 }
 
 module "elasticsearch" {
-  source = "../modules/elasticsearch"
+  source    = "../modules/elasticsearch"
+  namespace = "rode-demo-elasticsearch"
 }
 
 module "grafeas" {
   source = "../modules/grafeas"
 
+  namespace              = "rode-demo-grafeas"
   elasticsearch_host     = module.elasticsearch.host
   elasticsearch_username = module.elasticsearch.username
   elasticsearch_password = module.elasticsearch.password
@@ -57,6 +59,8 @@ module "rode" {
   harbor_url     = var.rode_collector_use_internal_network ? "" : "https://${var.harbor_host}"
   harbor_password = module.harbor.harbor_password
   harbor_username = module.harbor.harbor_username
+  namespace = "rode-demo"
+  grafeas_namespace = "rode-demo-grafeas"
 
   depends_on = [
     module.grafeas
@@ -64,13 +68,15 @@ module "rode" {
 }
 
 module "nginx" {
-  count  = var.enable_nginx ? 1 : 0
-  source = "../modules/nginx"
+  count     = var.enable_nginx ? 1 : 0
+  source    = "../modules/nginx"
+  namespace = "rode-demo-nginx"
 }
 
 module "harbor" {
   source = "../modules/harbor"
 
+  namespace   = "rode-demo-harbor"
   host        = var.harbor_host
   cert_source = var.harbor_cert_source
 }

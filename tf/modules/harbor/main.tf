@@ -1,6 +1,6 @@
 resource "kubernetes_namespace" "harbor" {
   metadata {
-    name = "harbor"
+    name = var.namespace
   }
 }
 

@@ -4,7 +4,7 @@ locals {
 
 resource "kubernetes_namespace" "nginx" {
   metadata {
-    name = "nginx"
+    name = var.namespace
   }
 }
 

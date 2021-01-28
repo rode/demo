@@ -4,7 +4,7 @@ locals {
 
 resource "kubernetes_namespace" "elasticsearch" {
   metadata {
-    name = "elasticsearch"
+    name = var.namespace
   }
 }
 
