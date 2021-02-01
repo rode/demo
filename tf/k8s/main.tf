@@ -56,9 +56,10 @@ module "rode" {
 
   host = var.rode_host
 
-  harbor_url     = var.rode_collector_use_internal_network ? "" : "https://${var.harbor_host}"
+  harbor_url      = "https://${var.harbor_host}"
   harbor_password = module.harbor.harbor_password
   harbor_username = module.harbor.harbor_username
+  harbor_insecure = var.harbor_insecure
   namespace = "rode-demo"
   grafeas_namespace = "rode-demo-grafeas"
 
@@ -99,6 +100,7 @@ module "coredns" {
 }
 
 module "jenkins" {
+  count = var.enable_jenkins ? 1 : 0
   source = "../modules/jenkins"
 
   jenkins_host     = var.jenkins_host

@@ -1,11 +1,10 @@
 variable "host" {
   default = ""
 }
-variable "harbor_url" {
-  default = ""
-}
+variable "harbor_url" {}
 variable "harbor_username" {}
 variable "harbor_password" {}
+variable "harbor_insecure" {}
 variable "namespace" {
   default = "rode"
 }

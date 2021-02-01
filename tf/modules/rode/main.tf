@@ -62,15 +62,16 @@ resource "helm_release" "rode_collector_harbor" {
   namespace  = kubernetes_namespace.rode.metadata[0].name
   chart      = "rode-collector-harbor"
   repository = "https://rode.github.io/charts"
-  version    = "0.0.2"
+  version    = "0.0.3"
   wait       = true
 
   values = [
     templatefile("${path.module}/rode-collector-harbor-values.yaml.tpl", {
       namespace       = kubernetes_namespace.rode.metadata[0].name
-      harbor_url      = var.harbor_url == "" ? "https://harbor-harbor-core.harbor.svc.cluster.local" : var.harbor_url
+      harbor_url      = var.harbor_url
       harbor_username = var.harbor_username
       harbor_password = var.harbor_password
+      harbor_insecure = var.harbor_insecure
     })
   ]
 
