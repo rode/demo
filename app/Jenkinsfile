@@ -1,0 +1,21 @@
+pipeline {
+    agent {
+        kubernetes {
+            yamlFile "app/jenkins-agent.yaml"
+        }
+    } 
+    stages {
+        stage('build') {
+            steps {
+                container('git') {
+                    script {
+                        tag = sh(script: 'git rev-parse --short HEAD', returnStdout: true).trim()
+                    }
+                }
+                container('kaniko') {
+                    sh "executor -c app --skip-tls-verify -d harbor.localhost/library/rode-demo-node-app:${tag}"
+                }
+            }
+        }
+    }
+}

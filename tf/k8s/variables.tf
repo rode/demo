@@ -3,6 +3,7 @@ variable "harbor_host" {}
 variable "harbor_cert_source" {
   default = "auto"
 }
+variable "jenkins_host" {}
 variable "enable_nginx" {
   default = true
 }
@@ -13,5 +14,8 @@ variable "grafeas_host" {
   default = ""
 }
 variable "rode_collector_use_internal_network" {
+  default = true
+}
+variable "update_coredns" {
   default = true
 }

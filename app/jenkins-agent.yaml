@@ -1,0 +1,22 @@
+metadata:
+  labels:
+    agent: k8s
+spec:
+  containers:
+    - name: git
+      image: alpine/git
+      command:
+        - cat
+      tty: true
+    - name: kaniko
+      image: gcr.io/kaniko-project/executor:debug
+      command:
+        - cat
+      tty: true
+      volumeMounts:
+        - name: docker-config
+          mountPath: "/kaniko/.docker"
+  volumes:
+    - name: docker-config
+      secret:
+        secretName: "jenkins-docker-config"
