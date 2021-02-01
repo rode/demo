@@ -68,3 +68,36 @@ To retrieve the Harbor admin password for authentication use the command below t
 ```
 kubectl get secret -n harbor harbor-harbor-core -o jsonpath="{.data.HARBOR_ADMIN_PASSWORD}" | base64 --decode | pbcopy
 ```
+
+## Configuring Harbor
+
+Some manual setup for Harbor is required after Harbor has been deployed. You can log in with the `admin` user using
+the credentials you obtained in the previous section to do this.
+
+After logging in, navigate to the "library" project. In the "Configuration" tab, check the box labeled "Automatically scan
+images on push", then save your changes.
+
+Next, navigate to the "Webhooks" tab, and add a new webhook with the following settings:
+- Name: You can set this to any string you want
+- Notify Type: `http`
+- Event Type:
+  - [x] `Artifact Pushed`
+  - [x] `Scanning Finished`
+  - [x] `Scanning Failed`
+- Endpoint URL: `http://rode-collector-harbor.rode-demo.svc.cluster.local/webhook/event`
+
+## Pushing Images To Harbor
+
+When running locally using an auto-generated certificate for Harbor, you will need to add Harbor as an [insecure Docker registry](https://docs.docker.com/registry/insecure/).
+
+Before pushing an image, you will need to log in to Harbor using the Docker CLI:
+```bash
+$ docker login harbor.localhost -u admin -p ${admin_password}
+```
+
+Then, you can push an image using `docker push`. We recommend pulling an existing image, tagging it, then pushing it to Harbor:
+```bash
+$ docker pull alpine:latest
+$ docker tag alpine:latest harbor.localhost/library/alpine:latest
+$ docker push harbor.localhost/library/alpine:latest
+```
