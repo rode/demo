@@ -1,6 +1,6 @@
 resource "kubernetes_namespace" "harbor" {
   metadata {
-    name = "harbor"
+    name = var.namespace
   }
 }
 
@@ -23,7 +23,7 @@ resource "helm_release" "harbor" {
   namespace  = kubernetes_namespace.harbor.metadata[0].name
   chart      = "harbor"
   repository = "https://helm.goharbor.io"
-  version    = "v1.5.3"
+  version    = "1.5.3"
   wait       = true
 
   set_sensitive {
@@ -47,8 +47,9 @@ resource "helm_release" "harbor" {
 
   values = [
     templatefile("${path.module}/values.yaml.tpl", {
-      harbor_host   = var.host
-      registry_user = local.harbor_registry_user
+      harbor_host        = var.host
+      harbor_cert_source = var.cert_source
+      registry_user      = local.harbor_registry_user
     })
   ]
 }

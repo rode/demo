@@ -32,30 +32,54 @@ provider "helm" {
 }
 
 module "elasticsearch" {
-  source = "../modules/elasticsearch"
+  source    = "../modules/elasticsearch"
+  namespace = "rode-demo-elasticsearch"
 }
 
 module "grafeas" {
   source = "../modules/grafeas"
 
+  namespace              = "rode-demo-grafeas"
   elasticsearch_host     = module.elasticsearch.host
   elasticsearch_username = module.elasticsearch.username
   elasticsearch_password = module.elasticsearch.password
+
+  grafeas_host = var.grafeas_host
 
   depends_on = [
     module.elasticsearch
   ]
 }
 
+module "rode" {
+  source = "../modules/rode"
+
+  host = var.rode_host
+
+  harbor_url      = "https://${var.harbor_host}"
+  harbor_password = module.harbor.harbor_password
+  harbor_username = module.harbor.harbor_username
+  harbor_insecure = var.harbor_insecure
+  namespace = "rode-demo"
+  grafeas_namespace = "rode-demo-grafeas"
+
+  depends_on = [
+    module.grafeas
+  ]
+}
+
 module "nginx" {
-  count  = var.enable_nginx ? 1 : 0
-  source = "../modules/nginx"
+  count     = var.enable_nginx ? 1 : 0
+  source    = "../modules/nginx"
+  namespace = "rode-demo-nginx"
 }
 
 module "harbor" {
   source = "../modules/harbor"
 
-  host = var.harbor_host
+  namespace   = "rode-demo-harbor"
+  host        = var.harbor_host
+  cert_source = var.harbor_cert_source
 
   depends_on = [
     module.nginx
@@ -76,6 +100,7 @@ module "coredns" {
 }
 
 module "jenkins" {
+  count = var.enable_jenkins ? 1 : 0
   source = "../modules/jenkins"
 
   jenkins_host     = var.jenkins_host
