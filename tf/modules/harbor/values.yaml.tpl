@@ -7,6 +7,8 @@ expose:
   ingress:
     hosts:
       core: ${harbor_host}
+updateStrategy:
+  type: Recreate
 
 registry:
   credentials:
