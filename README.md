@@ -66,7 +66,7 @@ kubectl get secret -n jenkins jenkins -o jsonpath="{.data.jenkins-admin-password
 To retrieve the Harbor admin password for authentication use the command below to copy it to your clipboard.
 
 ```
-kubectl get secret -n harbor harbor-harbor-core -o jsonpath="{.data.HARBOR_ADMIN_PASSWORD}" | base64 --decode | pbcopy
+kubectl get secret -n rode-demo-harbor harbor-harbor-core -o jsonpath="{.data.HARBOR_ADMIN_PASSWORD}" | base64 --decode | pbcopy
 ```
 
 ## Configuring Harbor
