@@ -16,12 +16,23 @@ terraform {
       source  = "hashicorp/random"
       version = "3.0.1"
     }
+    harbor = {
+      source = "liatrio/harbor"
+      version = "0.3.1"
+    }
   }
 }
 
 provider "kubernetes" {
   config_context = var.kube_context
   config_path    = "~/.kube/config"
+}
+
+provider "harbor" {
+  url = "https://${module.harbor.harbor_host}"
+  username = module.harbor.harbor_username
+  password = module.harbor.harbor_password
+  tls_insecure_skip_verify = true
 }
 
 provider "helm" {
@@ -109,6 +120,15 @@ module "jenkins" {
 
   depends_on = [
     module.nginx,
+    module.harbor
+  ]
+}
+
+module "harbor_config" {
+  source = "../modules/harbor-config"
+
+  webhook_endpoint = "http://rode-collector-harbor.rode-demo.svc.cluster.local/webhook/event"
+  depends_on = [
     module.harbor
   ]
 }
