@@ -18,7 +18,7 @@ resource "helm_release" "rode" {
 
   values = [
     templatefile("${path.module}/rode-values.yaml.tpl", {
-      grafeas_namespace = var.grafeas_namespace
+      grafeas_namespace  = var.grafeas_namespace
       elasticsearch_host = var.elasticsearch_host
     })
   ]
@@ -28,8 +28,8 @@ resource "kubernetes_ingress" "rode" {
   count = var.host == "" ? 0 : 1
 
   metadata {
-    namespace = kubernetes_namespace.rode.metadata[0].name
-    name      = "rode"
+    namespace   = kubernetes_namespace.rode.metadata[0].name
+    name        = "rode"
     annotations = {
       "nginx.ingress.kubernetes.io/backend-protocol" = "GRPC"
     }
@@ -97,7 +97,7 @@ resource "helm_release" "rode_ui" {
     templatefile("${path.module}/rode-ui-values.yaml.tpl", {
       namespace       = kubernetes_namespace.rode.metadata[0].name
       rode_ui_version = local.rode_ui_version
-      rode_ui_host = var.rode_ui_host
+      rode_ui_host    = var.rode_ui_host
     })
   ]
 
