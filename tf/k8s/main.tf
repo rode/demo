@@ -71,6 +71,7 @@ module "rode" {
   grafeas_namespace  = "rode-demo-grafeas"
   elasticsearch_host = module.elasticsearch.host
   rode_ui_host       = var.rode_ui_host
+  rode_ui_version    = var.rode_ui_version
 
   depends_on = [
     module.grafeas

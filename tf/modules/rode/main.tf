@@ -1,7 +1,3 @@
-locals {
-  rode_ui_version = "v0.1.1"
-}
-
 resource "kubernetes_namespace" "rode" {
   metadata {
     name = var.namespace
@@ -96,7 +92,7 @@ resource "helm_release" "rode_ui" {
   values = [
     templatefile("${path.module}/rode-ui-values.yaml.tpl", {
       namespace       = kubernetes_namespace.rode.metadata[0].name
-      rode_ui_version = local.rode_ui_version
+      rode_ui_version = var.rode_ui_version
       rode_ui_host    = var.rode_ui_host
     })
   ]
