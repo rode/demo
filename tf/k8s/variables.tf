@@ -24,3 +24,4 @@ variable "jenkins_host" {
 variable "enable_jenkins" {
   default = true
 }
+variable "rode_ui_host" {}

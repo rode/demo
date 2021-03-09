@@ -12,4 +12,5 @@ inputs = {
 
   enable_nginx = true
   enable_jenkins = true
+  rode_ui_host = "rode-ui.localhost"
 }
