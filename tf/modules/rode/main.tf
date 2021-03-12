@@ -9,12 +9,13 @@ resource "helm_release" "rode" {
   namespace  = kubernetes_namespace.rode.metadata[0].name
   chart      = "rode"
   repository = "https://rode.github.io/charts"
-  version    = "0.0.4"
+  version    = "0.1.0"
   wait       = true
 
   values = [
     templatefile("${path.module}/rode-values.yaml.tpl", {
-      grafeas_namespace = var.grafeas_namespace
+      grafeas_namespace  = var.grafeas_namespace
+      elasticsearch_host = var.elasticsearch_host
     })
   ]
 }
@@ -23,8 +24,8 @@ resource "kubernetes_ingress" "rode" {
   count = var.host == "" ? 0 : 1
 
   metadata {
-    namespace = kubernetes_namespace.rode.metadata[0].name
-    name      = "rode"
+    namespace   = kubernetes_namespace.rode.metadata[0].name
+    name        = "rode"
     annotations = {
       "nginx.ingress.kubernetes.io/backend-protocol" = "GRPC"
     }
@@ -72,6 +73,27 @@ resource "helm_release" "rode_collector_harbor" {
       harbor_username = var.harbor_username
       harbor_password = var.harbor_password
       harbor_insecure = var.harbor_insecure
+    })
+  ]
+
+  depends_on = [
+    helm_release.rode
+  ]
+}
+
+resource "helm_release" "rode_ui" {
+  name       = "rode-ui"
+  namespace  = kubernetes_namespace.rode.metadata[0].name
+  chart      = "rode-ui"
+  repository = "https://rode.github.io/charts"
+  version    = "0.1.0"
+  wait       = true
+
+  values = [
+    templatefile("${path.module}/rode-ui-values.yaml.tpl", {
+      namespace       = kubernetes_namespace.rode.metadata[0].name
+      rode_ui_version = var.rode_ui_version
+      rode_ui_host    = var.rode_ui_host
     })
   ]
 

@@ -11,3 +11,6 @@ variable "namespace" {
 variable "grafeas_namespace" {
   default = "grafeas"
 }
+variable "elasticsearch_host" {}
+variable "rode_ui_host" {}
+variable "rode_ui_version" {}
