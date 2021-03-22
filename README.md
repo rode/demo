@@ -25,10 +25,11 @@ For local access to Jenkins and Harbor through the created ingress, new entries 
 sudo vi /etc/hosts
 ```
 
-Copy and paste the two lines below to your /etc/hosts file.
+Copy and paste the lines below to your /etc/hosts file.
 ```
 127.0.0.1 harbor.localhost
 127.0.0.1 jenkins.localhost
+127.0.0.1 rode-ui.localhost
 ```
 ---
 Additionally, a rewrite may need to be added to your clusters DNS server to send Harbor traffic through the nginx controller. Automation is in place to update the CoreDNS configmap to include this rewrite, but in the event of a failed image deployment to Harbor inside the cluster, you may look to add the rewrite show below in the data block. (If your cluster is
