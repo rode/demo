@@ -31,7 +31,7 @@ When running locally using an auto-generated certificate for Harbor, you will ne
 
 ## Install Demo
 
-The Terraform plan modifies the CoreDNS configurations in the cluster to allow Docker images to by pushed to the Harbor container registry from your local environment. If you are not using CoreDNS or experience problems with the Harbor container registry see [Setup DNS](1-Setup-DNS.md) for more information.
+The Terraform plan modifies the CoreDNS configurations in the cluster to allow Docker images to be pushed to the Harbor container registry from your local environment. If you are not using CoreDNS or experience problems with the Harbor container registry see [Setup DNS](1-Setup-DNS.md) for more information.
 
 To deploy the Rode stack, switch to the `tf` directory, then run
 
