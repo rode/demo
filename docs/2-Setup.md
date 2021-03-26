@@ -1,6 +1,6 @@
 # Rode Demo - Setup
 
-This demo includes a Terraform plan to install Rode, it dependencies and related tools into a Kubernetes cluster to demonstrate basic use cases for Rode and automated governance. It has been tested with Docker for Desktop for Mac with 16gb of memory.
+This demo includes a Terraform plan to install Rode, its dependencies and related tools into a Kubernetes cluster to demonstrate basic use cases for Rode and automated governance. It has been tested with Docker for Desktop for Mac with 16gb of memory.
 
 ## Prerequisites
 
