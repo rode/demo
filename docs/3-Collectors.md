@@ -6,7 +6,7 @@ In this demonstration we use a collector which generates metadata about image vu
 
 ## Generate Vulnerability Occurrences
 
-To generate vulnerability occurrences for an image we need to push an image to the Harbor container registry. Harbor will automatically scan the image, notify the Harbor Collector that the scan was completed. The Harbor Collector in turn fetches the vulnerabilities for the image from Harbor and populates them as occurrences in Rode.
+To generate vulnerability occurrences for an image we need to push an image to the Harbor container registry. Harbor will automatically scan the image and notify the Harbor Collector that the scan was completed. The Harbor Collector in turn fetches the vulnerabilities for the image from Harbor and populates them as occurrences in Rode.
 
 Before pushing an image, we will need to log in to Harbor using the Docker CLI:
 
