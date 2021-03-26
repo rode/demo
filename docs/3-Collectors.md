@@ -36,6 +36,11 @@ docker push harbor.localhost/rode-demo/alpine:latest
 
 ## Fetch Occurrences from API
 
+Port forward the Rode API port to your local system (note: open a new terminal to continue working and keep the port open)
+```
+kubectl port-forward -n rode-demo svc/rode 50052:50052
+```
+
 Verify that the Harbor Collector created vulnerability occurrences in Rode
 ```
 curl --location --request GET 'localhost:50052/v1alpha1/occurrences?filter="resource.uri".contains("alpine")' | jq
