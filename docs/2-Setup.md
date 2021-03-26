@@ -16,7 +16,7 @@ For local access to Jenkins and Harbor through the created ingress, new entries 
 sudo vi /etc/hosts
 ```
 
-Copy and paste the two lines below to your /etc/hosts file.
+Copy and paste the lines below to your /etc/hosts file.
 ```
 127.0.0.1 rode-ui.localhost
 127.0.0.1 harbor.localhost
