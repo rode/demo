@@ -31,8 +31,8 @@ resource "kubernetes_secret" "jenkins_docker_config" {
 locals {
   jenkins_plugins = [
     "job-dsl:1.77",
-    "kubernetes-credentials-provider:0.15",
-    "sonar:2.12"
+    "kubernetes-credentials-provider:0.17",
+    "sonar:2.13"
   ]
 }
 
@@ -40,11 +40,11 @@ resource "helm_release" "jenkins" {
   chart      = "jenkins"
   name       = "jenkins"
   repository = "https://charts.jenkins.io"
-  version    = "2.13.1"
+  version    = "3.3.0"
   namespace  = kubernetes_namespace.jenkins.metadata[0].name
 
   set {
-    name  = "master.additionalPlugins"
+    name  = "controller.additionalPlugins"
     value = "{${join(",", local.jenkins_plugins)}}"
   }
 
