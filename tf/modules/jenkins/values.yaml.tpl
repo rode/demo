@@ -1,4 +1,4 @@
-master:
+controller:
    ingress:
        enabled: true
        apiVersion: "extensions/v1beta1"
