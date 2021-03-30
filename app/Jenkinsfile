@@ -13,7 +13,7 @@ pipeline {
                     }
                 }
                 container('kaniko') {
-                    sh "executor -c app --skip-tls-verify -d harbor.localhost/library/rode-demo-node-app:${tag}"
+                    sh "executor -c app --skip-tls-verify -d harbor.localhost/rode-demo/rode-demo-node-app:${tag}"
                 }
             }
         }
