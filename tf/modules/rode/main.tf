@@ -24,8 +24,8 @@ resource "kubernetes_ingress" "rode" {
   count = var.host == "" ? 0 : 1
 
   metadata {
-    namespace   = kubernetes_namespace.rode.metadata[0].name
-    name        = "rode"
+    namespace = kubernetes_namespace.rode.metadata[0].name
+    name      = "rode"
     annotations = {
       "nginx.ingress.kubernetes.io/backend-protocol" = "GRPC"
     }
@@ -94,6 +94,24 @@ resource "helm_release" "rode_ui" {
       namespace       = kubernetes_namespace.rode.metadata[0].name
       rode_ui_version = var.rode_ui_version
       rode_ui_host    = var.rode_ui_host
+    })
+  ]
+
+  depends_on = [
+    helm_release.rode
+  ]
+}
+
+resource "helm_release" "rode_collector_build" {
+  name      = "rode-collector-build"
+  namespace = kubernetes_namespace.rode.metadata[0].name
+  chart     = "/Users/brad/charts/charts/rode-collector-build"
+  version   = "0.1.0"
+  wait      = true
+
+  values = [
+    templatefile("${path.module}/rode-collector-build-values.yaml.tpl", {
+      namespace = kubernetes_namespace.rode.metadata[0].name
     })
   ]
 
