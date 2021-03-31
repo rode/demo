@@ -17,7 +17,7 @@ pipeline {
                 }
                 container('git') {
                     sh "cat image"
-                    sh """wget -O- --post-data='{
+                    sh '''wget -O- --post-data='{
 	                    "repository": "https://github.com/rode/demo",
                         "artifacts": [
                             "harbor.localhost/rode-demo/rode-demo-node-app@'$(cat image | tr -d '[:space:]')'"
@@ -25,7 +25,7 @@ pipeline {
                         "commit_id": "'$(git rev-parse HEAD)'"}' \
                     --header='Content-Type:application/json' \
                     'http://rode-collector-build.rode-demo.svc.cluster.local:8083/v1alpha1/builds'
-                    """
+                    '''
                     // sh """wget --request POST \
                     // --url http://rode-collector-build.rode-demo.svc.cluster.local:8083/v1alpha1/builds \
                     // --header 'Content-Type: application/json' \
