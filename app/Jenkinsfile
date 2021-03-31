@@ -16,26 +16,20 @@ pipeline {
                     sh "executor -c app --skip-tls-verify --digest-file image -d harbor.localhost/rode-demo/rode-demo-node-app:${tag}"
                 }
                 container('git') {
-                    sh "cat image"
-                    sh '''wget -O- --post-data='{
+                    sh '''
+                    image=$(cat image | tr -d '[:space:]')
+                    commit=$(git rev-parse HEAD)
+                    wget -O- \
+                    --post-data='{
 	                    "repository": "https://github.com/rode/demo",
                         "artifacts": [
-                            "harbor.localhost/rode-demo/rode-demo-node-app@'$(cat image | tr -d '[:space:]')'"
+                            "harbor.localhost/rode-demo/rode-demo-node-app@'$image'"
                         ],
-                        "commit_id": "'$(git rev-parse HEAD)'"}' \
+                        "commit_id": "'$commit'"
+                    }' \
                     --header='Content-Type:application/json' \
                     'http://rode-collector-build.rode-demo.svc.cluster.local:8083/v1alpha1/builds'
                     '''
-                    // sh """wget --request POST \
-                    // --url http://rode-collector-build.rode-demo.svc.cluster.local:8083/v1alpha1/builds \
-                    // --header 'Content-Type: application/json' \
-                    // --data '{
-	                //     "repository": "https://github.com/rode/demo",
-                    //     "artifacts": [
-                    //         "harbor.localhost/rode-demo/rode-demo-node-app@sha256:8d4fa54b121be39290055ab79d95543ebcd4b13526026801dfb0697ff3b40700"
-                    //     ],
-                    //     "commit_id": "'$(git rev-parse HEAD)'"
-                    // }'"""
                 }
             }
         }
