@@ -18,7 +18,7 @@ terraform {
     }
     harbor = {
       source  = "liatrio/harbor"
-      version = "0.3.1"
+      version = "0.3.4"
     }
   }
 }
