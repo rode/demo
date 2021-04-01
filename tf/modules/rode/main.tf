@@ -103,11 +103,12 @@ resource "helm_release" "rode_ui" {
 }
 
 resource "helm_release" "rode_collector_build" {
-  name      = "rode-collector-build"
-  namespace = kubernetes_namespace.rode.metadata[0].name
-  chart     = "/Users/brad/charts/charts/rode-collector-build"
-  version   = "0.1.0"
-  wait      = true
+  name       = "rode-collector-build"
+  namespace  = kubernetes_namespace.rode.metadata[0].name
+  repository = "https://rode.github.io/charts"
+  chart      = "rode-collector-build"
+  version    = "0.1.0"
+  wait       = true
 
   values = [
     templatefile("${path.module}/rode-collector-build-values.yaml.tpl", {
