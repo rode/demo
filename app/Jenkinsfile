@@ -21,13 +21,13 @@ pipeline {
                     commit=$(git rev-parse HEAD)
                     wget -O- \
                     --post-data='{
-	                    "repository": "https://github.com/rode/demo",
+                        "repository": "https://github.com/rode/demo",
                         "artifacts": [
                             "https://harbor.localhost/rode-demo/rode-demo-node-app@'$image'"
                         ],
                         "commit_id": "'$commit'"
                     }' \
-                    --header='Content-Type:application/json' \
+                    --header='Content-Type: application/json' \
                     'http://rode-collector-build.rode-demo.svc.cluster.local:8083/v1alpha1/builds'
                     '''
                 }
