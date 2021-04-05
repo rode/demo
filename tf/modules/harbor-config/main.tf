@@ -1,14 +1,14 @@
 resource "harbor_project" "project" {
-  name = "rode-demo"
+  name      = "rode-demo"
   auto_scan = true
 }
 
 resource "harbor_webhook" "webhook" {
-  project_id = harbor_project.project.id
-  name = "Rode"
+  project_id  = harbor_project.project.id
+  name        = "Rode"
   event_types = ["PUSH_ARTIFACT", "SCANNING_COMPLETED", "SCANNING_FAILED"]
   target {
-    type = "http"
+    type    = "http"
     address = var.webhook_endpoint
   }
 }

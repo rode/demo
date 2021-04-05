@@ -127,7 +127,7 @@ module "harbor_config" {
   source = "../modules/harbor-config"
 
   webhook_endpoint = "http://rode-collector-harbor.rode-demo.svc.cluster.local/webhook/event"
-  depends_on       = [
+  depends_on = [
     module.harbor
   ]
 }

@@ -14,7 +14,7 @@ resource "helm_release" "grafeas" {
 
   values = [
     templatefile("${path.module}/values.yaml.tpl", {
-      elasticsearch_url = "http://${var.elasticsearch_host}"
+      elasticsearch_url      = "http://${var.elasticsearch_host}"
       elasticsearch_username = var.elasticsearch_username
       elasticsearch_password = var.elasticsearch_host
     })
