@@ -4,12 +4,12 @@ terraform {
   required_providers {
     kubernetes = {
       source  = "hashicorp/kubernetes"
-      version = "1.13.3"
+      version = "2.0.0"
     }
 
     helm = {
       source  = "hashicorp/helm"
-      version = "2.0.1"
+      version = "2.0.3"
     }
 
     random = {
@@ -18,7 +18,7 @@ terraform {
     }
     harbor = {
       source  = "liatrio/harbor"
-      version = "0.3.1"
+      version = "0.3.4"
     }
   }
 }
@@ -127,7 +127,7 @@ module "harbor_config" {
   source = "../modules/harbor-config"
 
   webhook_endpoint = "http://rode-collector-harbor.rode-demo.svc.cluster.local/webhook/event"
-  depends_on       = [
+  depends_on = [
     module.harbor
   ]
 }
