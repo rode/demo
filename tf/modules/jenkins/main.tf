@@ -82,7 +82,7 @@ resource "kubernetes_config_map" "jcasc_pipelines" {
   data = {
     "pipelines.yaml" = templatefile("${path.module}/pipelines.yaml.tpl", {
       pipelineOrg           = "rode"
-      pipelineRepo          = "demo"
+      pipelineRepo          = "demo-app"
       credentialsSecretName = ""
     })
   }
