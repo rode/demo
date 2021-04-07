@@ -8,7 +8,7 @@ jobs:
         }
         factory {
           workflowBranchProjectFactory {
-            scriptPath('app/Jenkinsfile')
+            scriptPath('Jenkinsfile')
           }
         }
         branchSources {
