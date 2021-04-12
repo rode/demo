@@ -40,5 +40,5 @@ jobs:
       - name: Terragrunt plan
         run: ./terragrunt plan --terragrunt-non-interactive --terragrunt-working-dir ./tf/environments/aws/
 
-#      - name: Apply
-#        run: ./terragrunt apply -auto-approve
+      - name: Apply
+        run: ./terragrunt apply -auto-approve --terragrunt-working-dir ./tf/environments/aws/
