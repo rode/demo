@@ -103,6 +103,7 @@ resource "kubernetes_job" "load_policy" {
   wait_for_completion = true
 
   depends_on = [
+    helm_release.rode,
     kubernetes_config_map.policy
   ]
 }
