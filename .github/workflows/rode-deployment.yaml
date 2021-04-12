@@ -39,7 +39,7 @@ jobs:
 
       - name: Terragrunt plan
         run: |
-          ./terraform force-unlock 4cbeb908-5bd4-365a-61f0-2369a62ffaf0
+          ./terragrunt force-unlock 4cbeb908-5bd4-365a-61f0-2369a62ffaf0
           ./terragrunt plan --terragrunt-non-interactive --terragrunt-working-dir ./tf/environments/aws/
 
 #      - name: Apply
