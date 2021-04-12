@@ -18,5 +18,5 @@ remote_state {
 }
 
 terraform {
-  source = "../../k8s"
+  source = "../../k8s/environments/aws/"
 }
