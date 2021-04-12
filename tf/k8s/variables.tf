@@ -22,6 +22,9 @@ variable "update_coredns" {
 variable "jenkins_host" {
   default = ""
 }
+variable "jenkins_host" {
+  default = "rode-demo-jenkins"
+}
 variable "enable_jenkins" {
   default = true
 }

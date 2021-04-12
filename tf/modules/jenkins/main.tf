@@ -1,6 +1,6 @@
 resource "kubernetes_namespace" "jenkins" {
   metadata {
-    name = "jenkins"
+    name = var.namespace
   }
 }
 
