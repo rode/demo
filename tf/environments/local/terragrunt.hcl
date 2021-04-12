@@ -4,3 +4,7 @@ remote_state {
     path = "${path_relative_to_include()}.tfstate"
   }
 }
+
+terraform {
+  source = "../../k8s"
+}
