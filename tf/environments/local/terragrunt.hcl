@@ -6,5 +6,5 @@ remote_state {
 }
 
 terraform {
-  source = "../../k8s/environments/local/"
+  source = "../..//k8s/environments/local/"
 }
