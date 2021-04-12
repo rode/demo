@@ -23,28 +23,6 @@ terraform {
   }
 }
 
-provider "aws" {
-  region  = "us-east-1"
-
-  skip_metadata_api_check = true
-}
-
-data "aws_eks_cluster" "cluster" {
-  name = "lead"
-}
-
-data "aws_caller_identity" "current" {}
-
-provider "kubernetes" {
-  host                   = data.aws_eks_cluster.cluster.endpoint
-  cluster_ca_certificate = base64decode(data.aws_eks_cluster.cluster.certificate_authority[0].data)
-  exec {
-    api_version = "client.authentication.k8s.io/v1alpha1"
-    args        = ["eks", "get-token", "--cluster-name", "lead"]
-    command     = "aws"
-  }
-}
-
 provider "harbor" {
   url                      = "https://${module.harbor.harbor_host}"
   username                 = module.harbor.harbor_username
