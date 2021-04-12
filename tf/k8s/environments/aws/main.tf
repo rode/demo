@@ -23,6 +23,12 @@ terraform {
   }
 }
 
+provider "aws" {
+  region  = "us-east-1"
+
+  skip_metadata_api_check = true
+}
+
 data "aws_eks_cluster" "cluster" {
   name = var.cluster_name
 }
