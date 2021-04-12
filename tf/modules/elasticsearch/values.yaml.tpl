@@ -1,4 +1,4 @@
-replicas: 1
+replicas: ${replicas}
 
 resources:
   requests:

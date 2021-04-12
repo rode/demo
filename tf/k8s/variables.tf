@@ -1,5 +1,8 @@
 variable "kube_context" {}
 variable "kube_config" {}
+variable "elasticsearch_replicas" {
+  default = "1"  
+}
 variable "harbor_host" {}
 variable "harbor_cert_source" {
   default = "auto"
@@ -22,7 +25,7 @@ variable "update_coredns" {
 variable "jenkins_host" {
   default = ""
 }
-variable "jenkins_host" {
+variable "jenkins_namespace" {
   default = "rode-demo-jenkins"
 }
 variable "enable_jenkins" {

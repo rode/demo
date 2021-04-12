@@ -44,6 +44,8 @@ provider "helm" {
 module "elasticsearch" {
   source    = "../modules/elasticsearch"
   namespace = "rode-demo-elasticsearch"
+
+  replicas = var.elasticsearch_replicas
 }
 
 module "grafeas" {

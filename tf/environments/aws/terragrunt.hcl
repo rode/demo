@@ -29,14 +29,15 @@ inputs = {
   kube_context = ""
   kube_config  = ""
 
-  harbor_host     = "harbor.localhost"
+  harbor_host     = "harbor.rode.lead.prod.liatr.io"
   harbor_insecure = true
 
-  jenkins_host = "jenkins.localhost"
+  jenkins_host = "jenkins.rode.lead.prod.liatr.io"
 
   enable_nginx    = true
   enable_jenkins  = true
-  rode_ui_host    = "rode-ui.localhost"
+  elasticsearch_replicas = "3"
+  rode_ui_host    = "rode-ui.rode.lead.prod.liatr.io"
   rode_ui_version = "v0.2.0"
   update_coredns  = "false"
 }
