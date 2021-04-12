@@ -42,12 +42,12 @@ provider "helm" {
 }
 
 module "elasticsearch" {
-  source    = "../../../modules/elasticsearch"
+  source    = "../modules/elasticsearch"
   namespace = "rode-demo-elasticsearch"
 }
 
 module "grafeas" {
-  source = "../../../modules/grafeas"
+  source = "../modules/grafeas"
 
   namespace              = "rode-demo-grafeas"
   elasticsearch_host     = module.elasticsearch.host
@@ -58,7 +58,7 @@ module "grafeas" {
 }
 
 module "rode" {
-  source = "../../../modules/rode"
+  source = "../modules/rode"
 
   host = var.rode_host
 
@@ -79,12 +79,12 @@ module "rode" {
 
 module "nginx" {
   count     = var.enable_nginx ? 1 : 0
-  source    = "../../../modules/nginx"
+  source    = "../modules/nginx"
   namespace = "rode-demo-nginx"
 }
 
 module "harbor" {
-  source = "../../../modules/harbor"
+  source = "../modules/harbor"
 
   namespace   = "rode-demo-harbor"
   host        = var.harbor_host
@@ -97,7 +97,7 @@ module "harbor" {
 
 module "coredns" {
   count  = var.enable_nginx && var.update_coredns ? 1 : 0
-  source = "../../../modules/coredns"
+  source = "../modules/coredns"
 
   harbor_host       = var.harbor_host
   nginx_service_url = module.nginx[0].service_url
@@ -110,7 +110,7 @@ module "coredns" {
 
 module "jenkins" {
   count  = var.enable_jenkins ? 1 : 0
-  source = "../../../modules/jenkins"
+  source = "../modules/jenkins"
 
   jenkins_host     = var.jenkins_host
   harbor_namespace = module.harbor.namespace
@@ -123,7 +123,7 @@ module "jenkins" {
 }
 
 module "harbor_config" {
-  source = "../../../modules/harbor-config"
+  source = "../modules/harbor-config"
 
   webhook_endpoint = "http://rode-collector-harbor.rode-demo.svc.cluster.local/webhook/event"
   depends_on = [
