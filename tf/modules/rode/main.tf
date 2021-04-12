@@ -79,8 +79,8 @@ resource "kubernetes_job" "load_policy" {
       metadata {}
       spec {
         container {
-          name    = "alpine-curl"
-          image   = "byrnedo/alpine-curl"
+          name    = "alpine"
+          image   = "alpine"
           command = ["/bin/sh", "-c", "ls /root/ && cat /root/loadpolicy.sh && ./root/loadpolicy.sh"]
           volume_mount {
             name = "policy-configmap-volume"
@@ -101,7 +101,7 @@ resource "kubernetes_job" "load_policy" {
     backoff_limit = 2
   }
   wait_for_completion = true
-  
+
   depends_on = [
     kubernetes_config_map.policy
   ]
