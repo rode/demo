@@ -1,4 +1,5 @@
 variable "kube_context" {}
+variable "kube_config" {}
 variable "harbor_host" {}
 variable "harbor_cert_source" {
   default = "auto"

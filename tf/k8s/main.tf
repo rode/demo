@@ -1,5 +1,4 @@
 terraform {
-  backend "s3" {}
 
   required_providers {
     kubernetes = {
@@ -21,6 +20,11 @@ terraform {
       version = "0.3.4"
     }
   }
+}
+
+provider "kubernetes" {
+  config_context = var.kube_context
+  config_path    = var.kube_config
 }
 
 provider "harbor" {

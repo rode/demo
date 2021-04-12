@@ -1,5 +1,9 @@
 remote_state {
   backend = "s3"
+  generate = {
+    path      = "backend.tf"
+    if_exists = "overwrite"
+  }
   config = {
     bucket = "github-runners-489130170427-lead.liatr.io"
     region = "us-east-1"
@@ -18,11 +22,12 @@ remote_state {
 }
 
 terraform {
-  source = "../..//k8s/environments/aws/"
+  source = "../..//k8s/"
 }
 
 inputs = {
-  kube_context = "docker-desktop"
+  kube_context = ""
+  kube_config  = ""
 
   harbor_host     = "harbor.localhost"
   harbor_insecure = true
@@ -33,4 +38,5 @@ inputs = {
   enable_jenkins  = true
   rode_ui_host    = "rode-ui.localhost"
   rode_ui_version = "v0.2.0"
+  update_coredns  = "false"
 }

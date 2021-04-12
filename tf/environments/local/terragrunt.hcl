@@ -1,16 +1,21 @@
 remote_state {
   backend = "local"
+  generate = {
+    path      = "backend.tf"
+    if_exists = "overwrite"
+  }
   config = {
     path = "${path_relative_to_include()}.tfstate"
   }
 }
 
 terraform {
-  source = "../..//k8s/environments/local/"
+  source = "../..//k8s/"
 }
 
 inputs = {
   kube_context = "docker-desktop"
+  kube_config  = "~/.kube/config"
 
   harbor_host     = "harbor.localhost"
   harbor_insecure = true
