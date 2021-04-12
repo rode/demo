@@ -58,6 +58,55 @@ resource "kubernetes_ingress" "rode" {
   }
 }
 
+resource "kubernetes_config_map" "policy" {
+  metadata {
+    name = "rode-policy-configmap"
+    namespace  = kubernetes_namespace.rode.metadata[0].name
+  }
+
+  data = {
+    "loadpolicy.sh" = "${file("${path.module}/loadpolicy.sh")}"
+  }
+}
+
+resource "kubernetes_job" "load_policy" {
+  metadata {
+    name = "rode-policy-creation"
+    namespace  = kubernetes_namespace.rode.metadata[0].name
+  }
+  spec {
+    template {
+      metadata {}
+      spec {
+        container {
+          name    = "alpine-curl"
+          image   = "byrnedo/alpine-curl"
+          command = ["/bin/sh", "-c", "ls /root/ && cat /root/loadpolicy.sh && ./root/loadpolicy.sh"]
+          volume_mount {
+            name = "policy-configmap-volume"
+            mount_path = "/root/loadpolicy.sh"
+            sub_path = "loadpolicy.sh"
+          }
+        }
+        volume {
+          name = "policy-configmap-volume"
+          config_map {
+            name = "rode-policy-configmap"
+            default_mode = "0777"
+          }
+        }
+        restart_policy = "Never"
+      }
+    }
+    backoff_limit = 2
+  }
+  wait_for_completion = true
+  
+  depends_on = [
+    kubernetes_config_map.policy
+  ]
+}
+
 resource "helm_release" "rode_collector_harbor" {
   name       = "rode-collector-harbor"
   namespace  = kubernetes_namespace.rode.metadata[0].name
