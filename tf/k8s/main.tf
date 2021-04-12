@@ -37,7 +37,7 @@ provider "harbor" {
 provider "helm" {
   kubernetes {
     config_context = var.kube_context
-    config_path    = "~/.kube/config"
+    config_path    = var.kube_config
   }
 }
 
