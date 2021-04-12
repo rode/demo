@@ -16,6 +16,7 @@ resource "helm_release" "rode" {
     templatefile("${path.module}/rode-values.yaml.tpl", {
       grafeas_namespace  = var.grafeas_namespace
       elasticsearch_host = var.elasticsearch_host
+      rode_version = var.rode_version
     })
   ]
 }
