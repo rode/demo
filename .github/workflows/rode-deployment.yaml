@@ -12,7 +12,7 @@ jobs:
 
     runs-on: 
     - self-hosted
-    - liatrio-runners-prod
+    - rode-runners-prod
 
     steps:
       # Checks out a copy of your repository on the ubuntu-latest machine
