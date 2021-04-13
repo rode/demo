@@ -85,7 +85,7 @@ resource "kubernetes_job" "load_policy" {
         container {
           name    = "alpine"
           image   = "alpine"
-          command = ["/bin/sh", "-c", "ls /root/ && cat /root/loadpolicy.sh && ./root/loadpolicy.sh"]
+          command = ["/bin/sh", "-c", "/root/loadpolicy.sh"]
           volume_mount {
             name = "policy-configmap-volume"
             mount_path = "/root/loadpolicy.sh"
