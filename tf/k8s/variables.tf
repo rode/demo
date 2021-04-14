@@ -29,5 +29,8 @@ variable "rode_ui_version" {
   default = "v0.3.0"
 }
 variable "rode_version" {
-  default = "v0.3.0"
+  default = "v0.5.0"
+}
+variable "grafeas_version" {
+  default = "v0.6.2"
 }

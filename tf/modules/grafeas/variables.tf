@@ -7,6 +7,4 @@ variable "elasticsearch_host" {}
 variable "grafeas_host" {
   default = ""
 }
-variable "grafeas_version" {
-  default = "v0.6.1"
-}
+variable "grafeas_version" {}
