@@ -9,7 +9,7 @@ resource "helm_release" "rode" {
   namespace  = kubernetes_namespace.rode.metadata[0].name
   chart      = "rode"
   repository = "https://rode.github.io/charts"
-  version    = "0.1.2"
+  version    = "0.2.0"
   wait       = true
 
   values = [

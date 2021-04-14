@@ -1,5 +1,5 @@
 rode:
-  url: http://rode.${namespace}.svc.cluster.local:50052
+  url: http://rode.${namespace}.svc.cluster.local:50051
 
 image:
   tag: ${rode_ui_version}
