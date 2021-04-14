@@ -9,13 +9,14 @@ resource "helm_release" "rode" {
   namespace  = kubernetes_namespace.rode.metadata[0].name
   chart      = "rode"
   repository = "https://rode.github.io/charts"
-  version    = "0.1.2"
+  version    = "0.2.0"
   wait       = true
 
   values = [
     templatefile("${path.module}/rode-values.yaml.tpl", {
       grafeas_namespace  = var.grafeas_namespace
       elasticsearch_host = var.elasticsearch_host
+      rode_version = var.rode_version
     })
   ]
 }

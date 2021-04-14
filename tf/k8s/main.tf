@@ -55,7 +55,8 @@ module "grafeas" {
   elasticsearch_username = module.elasticsearch.username
   elasticsearch_password = module.elasticsearch.password
 
-  grafeas_host = var.grafeas_host
+  grafeas_host    = var.grafeas_host
+  grafeas_version = var.grafeas_version
 }
 
 module "rode" {
@@ -72,6 +73,7 @@ module "rode" {
   elasticsearch_host = module.elasticsearch.host
   rode_ui_host       = var.rode_ui_host
   rode_ui_version    = var.rode_ui_version
+  rode_version       = var.rode_version
 
   depends_on = [
     module.grafeas
@@ -127,7 +129,7 @@ module "harbor_config" {
   source = "../modules/harbor-config"
 
   webhook_endpoint = "http://rode-collector-harbor.rode-demo.svc.cluster.local/webhook/event"
-  depends_on = [
+  depends_on       = [
     module.harbor
   ]
 }

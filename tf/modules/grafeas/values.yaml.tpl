@@ -7,3 +7,6 @@ grafeas:
 curl: {}
 elasticsearch:
   enabled: false
+
+image:
+  tag: "${grafeas_version}"
