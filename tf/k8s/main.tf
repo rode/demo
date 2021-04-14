@@ -43,7 +43,7 @@ provider "helm" {
 
 module "elasticsearch" {
   source    = "../modules/elasticsearch"
-  namespace = "rode-demo-elasticsearch"
+  namespace = var.elasticsearch_namespace
 
   replicas = var.elasticsearch_replicas
 }
@@ -51,7 +51,7 @@ module "elasticsearch" {
 module "grafeas" {
   source = "../modules/grafeas"
 
-  namespace              = "rode-demo-grafeas"
+  namespace              = var.grafeas_namespace
   elasticsearch_host     = module.elasticsearch.host
   elasticsearch_username = module.elasticsearch.username
   elasticsearch_password = module.elasticsearch.password
@@ -68,8 +68,8 @@ module "rode" {
   harbor_password    = module.harbor.harbor_password
   harbor_username    = module.harbor.harbor_username
   harbor_insecure    = var.harbor_insecure
-  namespace          = "rode-demo"
-  grafeas_namespace  = "rode-demo-grafeas"
+  namespace          = var.rode_namespace
+  grafeas_namespace  = var.grafeas_namespace
   elasticsearch_host = module.elasticsearch.host
   rode_ui_host       = var.rode_ui_host
   rode_ui_version    = var.rode_ui_version
@@ -83,13 +83,13 @@ module "rode" {
 module "nginx" {
   count     = var.enable_nginx ? 1 : 0
   source    = "../modules/nginx"
-  namespace = "rode-demo-nginx"
+  namespace = var.nginx_namespace
 }
 
 module "harbor" {
   source = "../modules/harbor"
 
-  namespace   = "rode-demo-harbor"
+  namespace   = var.harbor_namespace
   host        = var.harbor_host
   cert_source = var.harbor_cert_source
 
@@ -129,7 +129,7 @@ module "jenkins" {
 module "harbor_config" {
   source = "../modules/harbor-config"
 
-  webhook_endpoint = "http://rode-collector-harbor.rode-demo.svc.cluster.local/webhook/event"
+  webhook_endpoint = "http://rode-collector-harbor.${var.rode_namespace}.svc.cluster.local/webhook/event"
   depends_on = [
     module.harbor
   ]
