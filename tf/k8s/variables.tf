@@ -25,12 +25,6 @@ variable "enable_jenkins" {
   default = true
 }
 variable "rode_ui_host" {}
-variable "rode_ui_version" {
-  default = "v0.3.0"
-}
-variable "rode_version" {
-  default = "v0.5.0"
-}
-variable "grafeas_version" {
-  default = "v0.6.2"
-}
+variable "rode_ui_version" {}
+variable "rode_version" {}
+variable "grafeas_version" {}
