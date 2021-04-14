@@ -69,6 +69,7 @@ resource "kubernetes_config_map" "policy" {
 //    "loadpolicy.sh" = "${file("${path.module}/loadpolicy.sh")}"
     "loadpolicy.sh" = templatefile("${path.module}/loadpolicy.sh.tpl", {
         policy_data       = tostring(jsonencode(yamldecode(file("${path.module}/policy.yml"))))
+        rode_namespace = kubernetes_namespace.rode.metadata[0].name
     })
   }
 }
