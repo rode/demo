@@ -17,6 +17,7 @@ resource "helm_release" "grafeas" {
       elasticsearch_url      = "http://${var.elasticsearch_host}"
       elasticsearch_username = var.elasticsearch_username
       elasticsearch_password = var.elasticsearch_host
+      grafeas_version        = var.grafeas_version
     })
   ]
 }

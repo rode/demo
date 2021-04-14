@@ -13,4 +13,4 @@ elasticsearch:
 debug: true
 
 image:
-  tag: "v0.1.1"
+  tag: "${rode_version}"

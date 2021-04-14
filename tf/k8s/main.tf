@@ -73,6 +73,7 @@ module "rode" {
   elasticsearch_host = module.elasticsearch.host
   rode_ui_host       = var.rode_ui_host
   rode_ui_version    = var.rode_ui_version
+  rode_version       = var.rode_version
 
   depends_on = [
     module.grafeas
