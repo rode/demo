@@ -3,3 +3,4 @@ variable "namespace" {
 }
 variable "host" {}
 variable "cert_source" {}
+variable "ingress_class" {}

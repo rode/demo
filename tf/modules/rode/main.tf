@@ -9,7 +9,7 @@ resource "helm_release" "rode" {
   namespace  = kubernetes_namespace.rode.metadata[0].name
   chart      = "rode"
   repository = "https://rode.github.io/charts"
-  version    = "0.1.2"
+  version    = "0.2.0"
   wait       = true
 
   values = [
@@ -149,6 +149,7 @@ resource "helm_release" "rode_ui" {
       namespace       = kubernetes_namespace.rode.metadata[0].name
       rode_ui_version = var.rode_ui_version
       rode_ui_host    = var.rode_ui_host
+      ingress_class   = var.ingress_class
     })
   ]
 

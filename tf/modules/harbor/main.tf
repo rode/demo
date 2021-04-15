@@ -50,6 +50,7 @@ resource "helm_release" "harbor" {
       harbor_host        = var.host
       harbor_cert_source = var.cert_source
       registry_user      = local.harbor_registry_user
+      ingress_class      = var.ingress_class
     })
   ]
 }

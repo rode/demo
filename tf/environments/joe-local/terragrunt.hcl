@@ -26,7 +26,8 @@ inputs = {
   enable_jenkins  = true
   elasticsearch_replicas = "3"
   rode_ui_host    = "rode-ui.rode-joe.lead.sandbox.liatr.io"
-  rode_ui_version = "v0.2.0"
+  rode_ui_version = "v0.3.0"
+  rode_version = "v0.5.0"
   update_coredns  = "false"
   rode_namespace= "joe-rode-demo"
   jenkins_namespace = "joe-rode-demo-jenkins"
@@ -34,4 +35,5 @@ inputs = {
   grafeas_namespace = "joe-rode-demo-grafeas"
   harbor_namespace = "joe-rode-demo-harbor"
   nginx_namespace = "joe-rode-demo-nginx"
+  ingress_class =  "toolchain-nginx"
 }

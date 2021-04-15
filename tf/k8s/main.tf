@@ -74,6 +74,7 @@ module "rode" {
   rode_ui_host       = var.rode_ui_host
   rode_ui_version    = var.rode_ui_version
   rode_version       = var.rode_version
+  ingress_class      = var.ingress_class
 
   depends_on = [
     module.grafeas
@@ -92,6 +93,7 @@ module "harbor" {
   namespace   = var.harbor_namespace
   host        = var.harbor_host
   cert_source = var.harbor_cert_source
+  ingress_class      = var.ingress_class
 
   depends_on = [
     module.nginx
@@ -119,6 +121,7 @@ module "jenkins" {
   harbor_namespace = module.harbor.namespace
   harbor_host      = var.harbor_host
   namespace        = var.jenkins_namespace
+  ingress_class    = var.ingress_class
 
   depends_on = [
     module.nginx,

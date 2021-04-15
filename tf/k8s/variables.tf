@@ -54,3 +54,6 @@ variable "harbor_namespace" {
 variable "nginx_namespace" {
   default = "rode-demo-nginx"
 }
+variable "ingress_class" {
+  default = ""
+}
