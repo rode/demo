@@ -7,3 +7,10 @@ controller:
        annotations:
            kubernetes.io/ingress.class: ${ingress_class}
        %{endif}
+       
+rbac:
+  readSecrets: true
+
+serviceAccountAgent:
+  name: jenkins-agent
+

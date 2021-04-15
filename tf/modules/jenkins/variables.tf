@@ -5,3 +5,4 @@ variable "namespace" {}
 variable "ingress_class" {
   default = "nginx"
 }
+variable "deploy_namespace" {}

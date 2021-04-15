@@ -28,6 +28,9 @@ variable "update_coredns" {
 variable "jenkins_host" {
   default = ""
 }
+variable "deploy_namespace" {
+  default = "rode-demo-app"
+}
 variable "enable_jenkins" {
   default = true
 }
@@ -41,7 +44,6 @@ variable "rode_version" {
 variable "grafeas_version" {
   default = ""
 }
-
 variable "jenkins_namespace" {
   default = "rode-demo-jenkins"
 }

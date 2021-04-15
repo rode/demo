@@ -4,6 +4,12 @@ resource "kubernetes_namespace" "jenkins" {
   }
 }
 
+resource "kubernetes_namespace" "deploy" {
+  metadata {
+    name = var.deploy_namespace
+  }
+}
+
 data "kubernetes_secret" "harbor_auth" {
   metadata {
     name      = "harbor-harbor-core"
