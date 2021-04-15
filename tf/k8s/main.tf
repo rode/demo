@@ -123,6 +123,7 @@ module "jenkins" {
   harbor_host      = var.harbor_host
   namespace        = var.jenkins_namespace
   ingress_class    = var.ingress_class
+  deploy_namespace = var.deploy_namespace
 
   depends_on = [
     module.nginx,
