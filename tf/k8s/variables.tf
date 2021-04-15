@@ -32,12 +32,9 @@ variable "enable_jenkins" {
   default = true
 }
 variable "rode_ui_host" {}
-variable "rode_ui_version" {
-  default = "v0.3.0"
-}
-variable "rode_version" {
-  default = "v0.3.0"
-}
+variable "rode_ui_version" {}
+variable "rode_version" {}
+variable "grafeas_version" {}
 
 variable "jenkins_namespace" {
   default = "rode-demo-jenkins"
