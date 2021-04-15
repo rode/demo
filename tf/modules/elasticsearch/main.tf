@@ -37,7 +37,7 @@ resource "helm_release" "elasticsearch" {
   values = [
     templatefile("${path.module}/values.yaml.tpl", {
       elasticsearch_credentials_secret_name = kubernetes_secret.elasticsearch_creds.metadata[0].name
-      replicas = var.replicas
+      replicas                              = var.replicas
     })
   ]
 }

@@ -46,23 +46,23 @@ resource "kubernetes_role" "jenkins_agent" {
 
   rule {
     api_groups = ["apps"]
-    resources = ["deployments", "statefulsets", "replicasets"]
-    verbs = ["*"]
+    resources  = ["deployments", "statefulsets", "replicasets"]
+    verbs      = ["*"]
   }
   rule {
     api_groups = ["networking.k8s.io"]
-    resources = ["ingresses"]
-    verbs = ["*"]
+    resources  = ["ingresses"]
+    verbs      = ["*"]
   }
   rule {
     api_groups = ["policy"]
-    resources = ["poddisruptionbudgets"]
-    verbs = ["*"]
+    resources  = ["poddisruptionbudgets"]
+    verbs      = ["*"]
   }
   rule {
     api_groups = ["rbac.authorization.k8s.io"]
-    resources = ["roles", "rolebindings", "clusterroles", "clusterrolebindings"]
-    verbs = ["*"]
+    resources  = ["roles", "rolebindings", "clusterroles", "clusterrolebindings"]
+    verbs      = ["*"]
   }
 
 }

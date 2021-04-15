@@ -91,10 +91,10 @@ module "nginx" {
 module "harbor" {
   source = "../modules/harbor"
 
-  namespace   = var.harbor_namespace
-  host        = var.harbor_host
-  cert_source = var.harbor_cert_source
-  ingress_class      = var.ingress_class
+  namespace     = var.harbor_namespace
+  host          = var.harbor_host
+  cert_source   = var.harbor_cert_source
+  ingress_class = var.ingress_class
 
   depends_on = [
     module.nginx

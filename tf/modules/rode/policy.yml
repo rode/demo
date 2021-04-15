@@ -1,6 +1,6 @@
 ---
-name: foo
-description: test
+name: Sample Harbor Policy
+description: This is a sample policy
 regoContent: |
   package example1
 

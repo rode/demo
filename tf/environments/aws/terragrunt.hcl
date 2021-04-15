@@ -5,10 +5,10 @@ remote_state {
     if_exists = "overwrite"
   }
   config = {
-    bucket = "github-runners-489130170427-lead.liatr.io"
-    region = "us-east-1"
-    key    = "${get_env("GITHUB_REPOSITORY", "UNDEFINED")}-terraform.tfstate"
-    encrypt = true
+    bucket         = "github-runners-489130170427-lead.liatr.io"
+    region         = "us-east-1"
+    key            = "${get_env("GITHUB_REPOSITORY", "UNDEFINED")}-terraform.tfstate"
+    encrypt        = true
     dynamodb_table = "github-runners-lead"
     s3_bucket_tags = {
       owner = "Terragrunt"
@@ -34,12 +34,12 @@ inputs = {
 
   jenkins_host = "jenkins.rode.lead.prod.liatr.io"
 
-  enable_nginx    = false
-  enable_jenkins  = true
+  enable_nginx           = false
+  enable_jenkins         = true
   elasticsearch_replicas = "3"
-  rode_ui_host    = "rode-ui.rode.lead.prod.liatr.io"
-  update_coredns  = "false"
-  rode_ui_version = "v0.4.0"
-  rode_version    = "v0.5.1"
-  grafeas_version = "v0.6.2"
+  rode_ui_host           = "rode-ui.rode.lead.prod.liatr.io"
+  update_coredns         = "false"
+  rode_ui_version        = "v0.4.0"
+  rode_version           = "v0.5.1"
+  grafeas_version        = "v0.6.2"
 }

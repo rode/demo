@@ -16,7 +16,7 @@ resource "helm_release" "rode" {
     templatefile("${path.module}/rode-values.yaml.tpl", {
       grafeas_namespace  = var.grafeas_namespace
       elasticsearch_host = var.elasticsearch_host
-      rode_version = var.rode_version
+      rode_version       = var.rode_version
     })
   ]
 }
@@ -61,23 +61,23 @@ resource "kubernetes_ingress" "rode" {
 
 resource "kubernetes_config_map" "policy" {
   metadata {
-    name = "rode-policy-configmap"
-    namespace  = kubernetes_namespace.rode.metadata[0].name
+    name      = "rode-policy-configmap"
+    namespace = kubernetes_namespace.rode.metadata[0].name
   }
 
   data = {
-//    "loadpolicy.sh" = "${file("${path.module}/loadpolicy.sh")}"
+    //    "loadpolicy.sh" = "${file("${path.module}/loadpolicy.sh")}"
     "loadpolicy.sh" = templatefile("${path.module}/loadpolicy.sh.tpl", {
-        policy_data       = tostring(jsonencode(yamldecode(file("${path.module}/policy.yml"))))
-        rode_namespace = kubernetes_namespace.rode.metadata[0].name
+      policy_data    = tostring(jsonencode(yamldecode(file("${path.module}/policy.yml"))))
+      rode_namespace = kubernetes_namespace.rode.metadata[0].name
     })
   }
 }
 
 resource "kubernetes_job" "load_policy" {
   metadata {
-    name = "rode-policy-creation"
-    namespace  = kubernetes_namespace.rode.metadata[0].name
+    name      = "rode-policy-creation"
+    namespace = kubernetes_namespace.rode.metadata[0].name
   }
   spec {
     template {
@@ -88,15 +88,15 @@ resource "kubernetes_job" "load_policy" {
           image   = "alpine"
           command = ["/bin/sh", "-c", "/root/loadpolicy.sh"]
           volume_mount {
-            name = "policy-configmap-volume"
+            name       = "policy-configmap-volume"
             mount_path = "/root/loadpolicy.sh"
-            sub_path = "loadpolicy.sh"
+            sub_path   = "loadpolicy.sh"
           }
         }
         volume {
           name = "policy-configmap-volume"
           config_map {
-            name = "rode-policy-configmap"
+            name         = "rode-policy-configmap"
             default_mode = "0777"
           }
         }
