@@ -1,6 +1,9 @@
 clair:
   enabled: false
 
+updateStrategy:
+  type: Recreate
+
 expose:
   tls:
     certSource: ${harbor_cert_source}
