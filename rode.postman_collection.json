@@ -1,0 +1,107 @@
+{
+	"info": {
+		"_postman_id": "77eaffd8-945e-45f7-b4b5-95840825e87d",
+		"name": "rode",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "OPA example policy #1",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "package example1\n\npass = true\n\nviolations[result] {\n    result := {\n        \"id\": \"example1rule1\",\n        \"name\": \"Example 1 Rule 1\",\n        \"description\": \"foo\",\n        \"message\": \"message\",\n        \"link\": \"http://foo.bar\",\n    }\n}\n"
+				},
+				"url": {
+					"raw": "http://localhost:8181/v1/policies/example1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8181",
+					"path": [
+						"v1",
+						"policies",
+						"example1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Elasticsearch occurrences",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9200/grafeas-v1beta1-rode-occurrences/_search",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9200",
+					"path": [
+						"grafeas-v1beta1-rode-occurrences",
+						"_search"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "OPA get example policy",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8181/v1/data/example1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8181",
+					"path": [
+						"v1",
+						"data",
+						"example1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Rode Get Occurrences",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"resourceURI\": \"harbor.localhost/rode-demo/nginx@sha256:b08ecc9f7997452ef24358f3e43b9c66888fadb31f3e5de22fec922975caa75a\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:50052/v1alpha1/occurrences",
+					"host": [
+						"localhost"
+					],
+					"port": "50052",
+					"path": [
+						"v1alpha1",
+						"occurrences"
+					]
+				},
+				"description": "Fetch all occurrences from Rode"
+			},
+			"response": []
+		}
+	]
+}
