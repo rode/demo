@@ -3,6 +3,6 @@ variable "harbor_host" {}
 variable "jenkins_host" {}
 variable "namespace" {}
 variable "ingress_class" {
-  default = "nginx"
+  default = ""
 }
 variable "deploy_namespace" {}
