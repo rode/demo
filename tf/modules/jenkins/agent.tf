@@ -59,11 +59,6 @@ resource "kubernetes_role" "jenkins_agent" {
     resources  = ["poddisruptionbudgets"]
     verbs      = ["*"]
   }
-  rule {
-    api_groups = ["rbac.authorization.k8s.io"]
-    resources  = ["roles", "rolebindings", "clusterroles", "clusterrolebindings"]
-    verbs      = ["*"]
-  }
 
 }
 
