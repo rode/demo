@@ -1,6 +1,9 @@
 name: Rode Deployment
 
-on: push
+on: 
+  push:
+    branches:
+    - main
 
 env:
   NODE_VERSION: '12.16.3'
