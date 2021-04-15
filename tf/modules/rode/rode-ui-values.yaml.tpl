@@ -2,7 +2,9 @@ rode:
   url: http://rode.${namespace}.svc.cluster.local:50051
 
 image:
+%{if rode_ui_version != ""}
   tag: ${rode_ui_version}
+%{endif}
 
 ingress:
   enabled: true

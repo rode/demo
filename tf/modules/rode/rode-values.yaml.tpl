@@ -13,4 +13,6 @@ elasticsearch:
 debug: true
 
 image:
+%{if rode_version != ""}
   tag: "${rode_version}"
+%{endif}

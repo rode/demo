@@ -5,5 +5,5 @@ controller:
        hostName: ${jenkins_host}
        %{if ingress_class != ""}
        annotations:
-         kubernetes.io/ingress.class: ${ingress_class}
+           kubernetes.io/ingress.class: ${ingress_class}
        %{endif}

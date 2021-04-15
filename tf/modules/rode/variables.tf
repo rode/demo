@@ -13,6 +13,12 @@ variable "grafeas_namespace" {
 }
 variable "elasticsearch_host" {}
 variable "rode_ui_host" {}
-variable "rode_ui_version" {}
-variable "rode_version" {}
-variable "ingress_class" {}
+variable "rode_ui_version" {
+  default = ""
+}
+variable "rode_version" {
+  default = ""
+}
+variable "ingress_class" {
+  default = ""
+}
