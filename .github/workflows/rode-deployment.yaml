@@ -1,0 +1,47 @@
+name: Rode Deployment
+
+on: 
+  push:
+    branches:
+    - main
+
+env:
+  NODE_VERSION: '12.16.3'
+  TERRAGRUNT_VERSION: '0.28.14'
+
+jobs:
+  rode-deployment-test:
+    name: Rode-Deployment
+
+    runs-on: 
+    - self-hosted
+    - rode-runners-prod
+
+    steps:
+      # Checks out a copy of your repository on the ubuntu-latest machine
+      - name: Checkout code
+        uses: actions/checkout@v2
+      
+      - name: Node Setup
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Install Helm
+        run: curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
+
+      - name: Setup TF
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: 0.14.9
+
+      - name: Setup Terragrunt
+        run: |
+          curl -f -Lo terragrunt https://github.com/gruntwork-io/terragrunt/releases/download/v${{env.TERRAGRUNT_VERSION}}/terragrunt_linux_amd64 && \
+          chmod +x terragrunt
+
+      - name: Terragrunt plan
+        run: ./terragrunt plan --terragrunt-non-interactive --terragrunt-working-dir ./tf/environments/aws/
+
+      - name: Apply
+        run: ./terragrunt apply -auto-approve --terragrunt-working-dir ./tf/environments/aws/

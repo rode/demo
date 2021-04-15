@@ -3,6 +3,14 @@ controller:
        enabled: true
        apiVersion: "extensions/v1beta1"
        hostName: ${jenkins_host}
-       annotations: {
-           kubernetes.io/ingress.class: nginx
-       }
+       %{if ingress_class != ""}
+       annotations:
+           kubernetes.io/ingress.class: ${ingress_class}
+       %{endif}
+       
+rbac:
+  readSecrets: true
+
+serviceAccountAgent:
+  name: jenkins-agent
+

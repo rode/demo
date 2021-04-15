@@ -1,6 +1,12 @@
 resource "kubernetes_namespace" "jenkins" {
   metadata {
-    name = "jenkins"
+    name = var.namespace
+  }
+}
+
+resource "kubernetes_namespace" "deploy" {
+  metadata {
+    name = var.deploy_namespace
   }
 }
 
@@ -50,7 +56,8 @@ resource "helm_release" "jenkins" {
 
   values = [
     templatefile("${path.module}/values.yaml.tpl", {
-      jenkins_host = var.jenkins_host
+      jenkins_host  = var.jenkins_host
+      ingress_class = var.ingress_class
     })
   ]
 }
