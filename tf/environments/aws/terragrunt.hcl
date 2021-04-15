@@ -34,7 +34,7 @@ inputs = {
 
   jenkins_host = "jenkins.rode.lead.prod.liatr.io"
 
-  enable_nginx           = false
+  enable_nginx           = true
   enable_jenkins         = true
   elasticsearch_replicas = "3"
   rode_ui_host           = "rode-ui.rode.lead.prod.liatr.io"
