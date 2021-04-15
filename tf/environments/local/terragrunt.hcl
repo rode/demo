@@ -26,5 +26,6 @@ inputs = {
   enable_jenkins  = true
   rode_ui_host    = "rode-ui.localhost"
   rode_ui_version = "v0.3.0"
-  rode_version = "v0.3.0"
+  rode_version    = "v0.5.0"
+  grafeas_version = "v0.6.2"
 }

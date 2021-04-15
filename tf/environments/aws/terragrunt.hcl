@@ -38,7 +38,8 @@ inputs = {
   enable_jenkins  = true
   elasticsearch_replicas = "3"
   rode_ui_host    = "rode-ui.int.rode.lead.prod.liatr.io"
-  rode_ui_version = "v0.3.0"
-  rode_version = "v0.3.0"
   update_coredns  = "false"
+  rode_ui_version = "v0.3.0"
+  rode_version    = "v0.5.0"
+  grafeas_version = "v0.6.2"
 }
