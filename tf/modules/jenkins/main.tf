@@ -91,6 +91,7 @@ resource "kubernetes_config_map" "jcasc_pipelines" {
       pipelineOrg           = "rode"
       pipelineRepo          = "demo-app"
       credentialsSecretName = ""
+      deployPipelineRepo    = "demo-app-deployment"
     })
   }
 }
