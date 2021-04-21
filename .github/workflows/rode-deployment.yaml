@@ -48,6 +48,7 @@ jobs:
 
   rode-deployment-test-prod:
     name: Rode-Deployment-Prod
+    needs: rode-deployment-test-sandbox
 
     runs-on: 
     - self-hosted
