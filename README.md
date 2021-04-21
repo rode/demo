@@ -4,7 +4,7 @@ This repository contains a demo / example of Rode's functionality.
 
 Included in the repo is a `/tf` folder that includes the necessary Terraform automation to deploy the services required to run Rode.
 
-Inside the `/app` folder, there is a sample hello-world node app based on an Alpine image with two known medium vulnerabilities that will build on a deployed Jenkins CI server. 
+This demo sets up a Jenkins CI server that will have a job pointed at the [Rode Demo App](https://github.com/rode/demo-app), which is a sample hello-world node app based on an Alpine image with two known medium vulnerabilities.
 
 Simply change the base image in the Dockerfile to `node:current-alpine3.12`, to resolve the vulnerabilities.
 
