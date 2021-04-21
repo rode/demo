@@ -15,7 +15,7 @@ jobs:
 
     runs-on: 
     - self-hosted
-    - github-runners-sandbox
+    - rode-runners-prod
 
     steps:
       # Checks out a copy of your repository on the ubuntu-latest machine
@@ -48,6 +48,7 @@ jobs:
 
   rode-deployment-test-prod:
     name: Rode-Deployment-Prod
+    needs: rode-deployment-test-sandbox
 
     runs-on: 
     - self-hosted
