@@ -22,22 +22,22 @@ remote_state {
 }
 
 terraform {
-  source = "../..//k8s/"
+  source = "../../..//k8s/"
 }
 
 inputs = {
   kube_context = ""
   kube_config  = ""
 
-  harbor_host     = "harbor.rode.lead.prod.liatr.io"
+  harbor_host     = "harbor.rode.lead.sandbox.liatr.io"
   harbor_insecure = true
 
-  jenkins_host = "jenkins.rode.lead.prod.liatr.io"
+  jenkins_host = "jenkins.rode.lead.sandbox.liatr.io"
 
   enable_nginx           = true
   enable_jenkins         = true
   elasticsearch_replicas = "3"
-  rode_ui_host           = "rode-ui.rode.lead.prod.liatr.io"
+  rode_ui_host           = "rode-ui.rode.lead.sandbox.liatr.io"
   update_coredns         = "false"
   rode_ui_version        = "v0.5.0"
   rode_version           = "v0.5.1"
