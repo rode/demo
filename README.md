@@ -44,10 +44,10 @@ rewrite name harbor.localhost ingress-nginx-controller.nginx.svc.cluster.local
 
 ---
 
-To deploy the Rode stack locally, switch to the `tf` directory, then run
+To deploy the Rode stack locally, switch to the `tf/local` directory, then run
 
 ```
-terragrunt apply-all
+terragrunt apply
 ```
 
 ---
