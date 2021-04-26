@@ -19,4 +19,10 @@ registry:
   credentials:
     username: ${registry_user}
 
+notary:
+  enabled: false
+
+chartmuseum:
+  enabled: false
+
 externalURL: https://${harbor_host}
