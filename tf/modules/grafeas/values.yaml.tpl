@@ -9,6 +9,6 @@ elasticsearch:
   enabled: false
 
 image:
-%{if grafeas_version != ""}
+%{~ if grafeas_version != "" }
   tag: "${grafeas_version}"
-%{endif}
+%{~ endif }
