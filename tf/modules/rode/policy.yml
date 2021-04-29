@@ -33,13 +33,6 @@ regoContent: |
       o := input.occurrences[i]
   }
 
-  harbor_scan_vulnerability_low[o] {
-      input.occurrences[i].noteName == "projects/rode/notes/harbor"
-      input.occurrences[i].kind == "VULNERABILITY"
-      input.occurrences[i].vulnerability.effectiveSeverity == "LOW"
-      o := input.occurrences[i]
-  }
-
   harbor_scan_vulnerability_medium[o] {
       input.occurrences[i].noteName == "projects/rode/notes/harbor"
       input.occurrences[i].kind == "VULNERABILITY"
