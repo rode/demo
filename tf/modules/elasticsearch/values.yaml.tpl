@@ -6,9 +6,9 @@ resources:
     memory: "512M"
   limits:
     cpu: "1000m"
-    memory: "512M"
+    memory: "1Gi"
 
-esJavaOpts: "-Xmx128m -Xms128m"
+esJavaOpts: "-Xmx512m -Xms512m"
 
 extraEnvs:
   - name: ELASTIC_USERNAME
