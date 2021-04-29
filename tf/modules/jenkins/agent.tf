@@ -1,7 +1,7 @@
 resource "kubernetes_service_account" "jenkins_agent" {
   metadata {
     name      = "jenkins-agent"
-    namespace = var.namespace
+    namespace = kubernetes_namespace.jenkins.metadata[0].name
 
     labels = {
       "app.kubernetes.io/name"       = "jenkins"
@@ -23,7 +23,7 @@ resource "kubernetes_service_account" "jenkins_agent" {
 resource "kubernetes_role" "jenkins_agent_dev" {
   metadata {
     name      = "jenkins-agent"
-    namespace = "${var.deploy_namespace}-dev"
+    namespace = kubernetes_namespace.deploy_dev.metadata[0].name
 
     labels = {
       "app.kubernetes.io/name"       = "jenkins"
@@ -66,7 +66,7 @@ resource "kubernetes_role" "jenkins_agent_dev" {
 resource "kubernetes_role_binding" "jenkins_agent_dev" {
   metadata {
     name      = "jenkins-agent"
-    namespace = "${var.deploy_namespace}-dev"
+    namespace = kubernetes_namespace.deploy_dev.metadata[0].name
 
     labels = {
       "app.kubernetes.io/name"       = "jenkins"
@@ -98,7 +98,7 @@ resource "kubernetes_role_binding" "jenkins_agent_dev" {
 resource "kubernetes_role" "jenkins_agent_staging" {
   metadata {
     name      = "jenkins-agent"
-    namespace = "${var.deploy_namespace}-staging"
+    namespace = kubernetes_namespace.deploy_staging.metadata[0].name
 
     labels = {
       "app.kubernetes.io/name"       = "jenkins"
@@ -141,7 +141,7 @@ resource "kubernetes_role" "jenkins_agent_staging" {
 resource "kubernetes_role_binding" "jenkins_agent_staging" {
   metadata {
     name      = "jenkins-agent"
-    namespace = "${var.deploy_namespace}-staging"
+    namespace = kubernetes_namespace.deploy_staging.metadata[0].name
 
     labels = {
       "app.kubernetes.io/name"       = "jenkins"
@@ -173,7 +173,7 @@ resource "kubernetes_role_binding" "jenkins_agent_staging" {
 resource "kubernetes_role" "jenkins_agent_prod" {
   metadata {
     name      = "jenkins-agent"
-    namespace = "${var.deploy_namespace}-prod"
+    namespace = kubernetes_namespace.deploy_prod.metadata[0].name
 
     labels = {
       "app.kubernetes.io/name"       = "jenkins"
@@ -216,7 +216,7 @@ resource "kubernetes_role" "jenkins_agent_prod" {
 resource "kubernetes_role_binding" "jenkins_agent_prod" {
   metadata {
     name      = "jenkins-agent"
-    namespace = "${var.deploy_namespace}-prod"
+    namespace = kubernetes_namespace.deploy_prod.metadata[0].name
 
     labels = {
       "app.kubernetes.io/name"       = "jenkins"
