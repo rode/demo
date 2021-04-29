@@ -33,6 +33,7 @@ resource "helm_release" "elasticsearch" {
   repository = "https://helm.elastic.co"
   version    = "7.10.1"
   wait       = true
+  timeout    = 600
 
   values = [
     templatefile("${path.module}/values.yaml.tpl", {
