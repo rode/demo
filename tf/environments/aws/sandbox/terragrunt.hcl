@@ -39,7 +39,7 @@ inputs = {
   elasticsearch_replicas = "3"
   rode_ui_host           = "rode-ui.rode.lead.sandbox.liatr.io"
   update_coredns         = "false"
-  rode_ui_version        = "v0.5.0"
-  rode_version           = "v0.5.1"
-  grafeas_version        = "v0.6.2"
+  rode_ui_version        = "v0.6.0"
+  rode_version           = "v0.6.0"
+  grafeas_version        = "v0.6.3"
 }

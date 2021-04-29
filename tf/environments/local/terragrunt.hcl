@@ -1,10 +1,10 @@
 remote_state {
-  backend = "local"
+  backend  = "local"
   generate = {
     path      = "backend.tf"
     if_exists = "overwrite"
   }
-  config = {
+  config   = {
     path = "${path_relative_to_include()}.tfstate"
   }
 }
@@ -25,8 +25,8 @@ inputs = {
   enable_nginx    = true
   enable_jenkins  = true
   rode_ui_host    = "rode-ui.localhost"
-  rode_ui_version = "v0.5.0"
-  rode_version    = "v0.5.1"
-  grafeas_version = "v0.6.2"
+  rode_ui_version = "v0.6.0"
+  rode_version    = "v0.6.0"
+  grafeas_version = "v0.6.3"
   ingress_name    = "nginx"
 }
