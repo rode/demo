@@ -48,6 +48,11 @@ resource "kubernetes_secret" "jenkins_docker_config" {
 
 locals {
   jenkins_plugins = [
+    "configuration-as-code:1.48",
+    "kubernetes:1.29.2",
+    "workflow-aggregator:2.6",
+    "git:4.7.1",
+
     "job-dsl:1.77",
     "kubernetes-credentials-provider:0.17",
     "sonar:2.13"
@@ -62,7 +67,7 @@ resource "helm_release" "jenkins" {
   namespace  = kubernetes_namespace.jenkins.metadata[0].name
 
   set {
-    name  = "controller.additionalPlugins"
+    name  = "controller.installPlugins"
     value = "{${join(",", local.jenkins_plugins)}}"
   }
 
