@@ -121,6 +121,7 @@ module "jenkins" {
   jenkins_host     = var.jenkins_host
   harbor_namespace = module.harbor.namespace
   harbor_host      = var.harbor_host
+  rode_namespace   = var.rode_namespace
   namespace        = var.jenkins_namespace
   ingress_class    = var.ingress_class
   deploy_namespace = var.deploy_namespace

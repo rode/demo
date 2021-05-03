@@ -26,7 +26,7 @@ inputs = {
   enable_jenkins  = true
   rode_ui_host    = "rode-ui.localhost"
   rode_ui_version = "v0.8.0"
-  rode_version    = "v0.6.0"
+  rode_version    = "v0.6.1"
   grafeas_version = "v0.6.4"
   ingress_name    = "nginx"
 }
