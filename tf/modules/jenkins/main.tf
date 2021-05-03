@@ -48,7 +48,7 @@ resource "kubernetes_secret" "jenkins_docker_config" {
 
 locals {
   jenkins_plugins = [
-    "configuration-as-code:1.48",
+    "configuration-as-code",
     "kubernetes:1.29.2",
     "workflow-aggregator:2.6",
     "git:4.7.1",
