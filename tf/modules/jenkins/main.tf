@@ -98,7 +98,7 @@ resource "kubernetes_config_map" "jcasc_pipelines" {
   metadata {
     name      = "${helm_release.jenkins.name}-jcasc-pipelines"
     namespace = kubernetes_namespace.jenkins.metadata[0].name
-    labels = {
+    labels    = {
       "${helm_release.jenkins.name}-jenkins-config" = "true"
     }
   }
@@ -108,6 +108,8 @@ resource "kubernetes_config_map" "jcasc_pipelines" {
       pipelineOrg           = "rode"
       pipelineRepo          = "demo-app"
       credentialsSecretName = ""
+      harbor_host           = var.harbor_host
+      rode_namespace        = var.rode_namespace
     })
   }
 }
