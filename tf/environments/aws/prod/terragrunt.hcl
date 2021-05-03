@@ -5,7 +5,7 @@ remote_state {
     if_exists = "overwrite"
   }
   config = {
-    bucket         = "github-runners-489130170427-lead.liatr.io"
+    bucket         = "github-runners-${get_aws_account_id()}-lead.liatr.io"
     region         = "us-east-1"
     key            = "${get_env("GITHUB_REPOSITORY", "UNDEFINED")}-terraform.tfstate"
     encrypt        = true
