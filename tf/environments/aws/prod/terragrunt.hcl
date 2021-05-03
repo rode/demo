@@ -41,5 +41,5 @@ inputs = {
   update_coredns         = "false"
   rode_ui_version        = "v0.8.0"
   rode_version           = "v0.6.0"
-  grafeas_version        = "v0.6.3"
+  grafeas_version        = "v0.6.4"
 }
