@@ -29,8 +29,9 @@ inputs = {
   kube_context = ""
   kube_config  = ""
 
-  harbor_host     = "harbor.internal.lead.sandbox.liatr.io"
-  harbor_insecure = true
+  harbor_host        = "harbor.internal.lead.sandbox.liatr.io"
+  harbor_insecure    = false
+  harbor_cert_source = "none"
 
   enable_jenkins = true
   jenkins_host   = "jenkins.internal.lead.sandbox.liatr.io"
