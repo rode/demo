@@ -8,8 +8,9 @@ image:
 
 ingress:
   enabled: true
-  %{~ if ingress_class != ""}
   annotations:
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+  %{~ if ingress_class != ""}
     kubernetes.io/ingress.class: ${ingress_class}
   %{~ endif}
   hosts:
