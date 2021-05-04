@@ -39,6 +39,9 @@ inputs = {
   enable_nginx  = false
   ingress_class = "internal-nginx"
 
+  enable_sonarqube = true
+  sonarqube_host   = "sonarqube.internal.lead.sandbox.liatr.io"
+
   elasticsearch_replicas = "3"
   rode_ui_host           = "rode-ui.internal.lead.sandbox.liatr.io"
   update_coredns         = false

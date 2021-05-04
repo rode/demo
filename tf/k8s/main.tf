@@ -136,7 +136,16 @@ module "harbor_config" {
   source = "../modules/harbor-config"
 
   webhook_endpoint = "http://rode-collector-harbor.${var.rode_namespace}.svc.cluster.local/webhook/event"
-  depends_on = [
+  depends_on       = [
     module.harbor
   ]
+}
+
+module "sonarqube" {
+  count  = var.enable_sonarqube ? 1: 0
+  source = "../modules/sonarqube"
+
+  host          = var.sonarqube_host
+  ingress_class = var.ingress_class
+  namespace     = var.sonarqube_namespace
 }
