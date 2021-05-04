@@ -32,12 +32,12 @@ inputs = {
   harbor_host     = "harbor.internal.lead.sandbox.liatr.io"
   harbor_insecure = true
 
-  jenkins_host = "jenkins.internal.lead.sandbox.liatr.io"
+  enable_jenkins = true
+  jenkins_host   = "jenkins.internal.lead.sandbox.liatr.io"
 
   enable_nginx  = false
   ingress_class = "internal-nginx"
 
-  enable_jenkins         = true
   elasticsearch_replicas = "3"
   rode_ui_host           = "rode-ui.internal.lead.sandbox.liatr.io"
   update_coredns         = false
