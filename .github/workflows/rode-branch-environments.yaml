@@ -51,6 +51,11 @@ jobs:
       - name: Terragrunt plan
         run: ./terragrunt plan --terragrunt-non-interactive --terragrunt-working-dir ./tf/environments/aws/branch_env
 
+      - name: Terragrunt plan destroy
+        run: ./terragrunt plan --terragrunt-non-interactive --terragrunt-working-dir ./tf/environments/aws/branch_env -refresh=false -destroy
+
+      - name: Terragrunt destroy
+        run: ./terragrunt destroy --terragrunt-non-interactive --terragrunt-working-dir ./tf/environments/aws/branch_env -refresh=false  -auto-approve
 #      - name: Apply
 #        run: ./terragrunt apply -auto-approve --terragrunt-working-dir ./tf/environments/aws/prod
 #

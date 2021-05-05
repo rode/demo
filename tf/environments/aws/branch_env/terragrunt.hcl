@@ -1,5 +1,5 @@
 locals {
-  env_hash = "${get_env("RODE_ENV_HASH", "UNDEFINED")}"
+  env_hash = "${lower(get_env("RODE_ENV_HASH", "UNDEFINED"))}"
 }
 remote_state {
   backend  = "s3"
