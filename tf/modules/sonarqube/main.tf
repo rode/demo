@@ -26,3 +26,15 @@ resource "helm_release" "sonarqube" {
     })
   ]
 }
+
+resource "kubernetes_secret" "sonarqube_admin_password" {
+  metadata {
+    namespace = kubernetes_namespace.sonarqube.metadata[0].name
+    name      = "sonarqube-admin-credentials"
+  }
+
+  data = {
+    username = "admin"
+    password = random_password.admin_password.result
+  }
+}
