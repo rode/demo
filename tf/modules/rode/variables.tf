@@ -19,6 +19,9 @@ variable "rode_ui_version" {
 variable "rode_version" {
   default = ""
 }
+variable "build_collector_version" {
+  default = ""
+}
 variable "ingress_class" {
   default = ""
 }

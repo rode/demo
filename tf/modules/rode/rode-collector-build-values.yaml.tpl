@@ -3,3 +3,8 @@ rode:
   insecure: true
 
 debug: true
+
+image:
+%{~ if build_collector_version != "" }
+  tag: "${build_collector_version}"
+%{~ endif }

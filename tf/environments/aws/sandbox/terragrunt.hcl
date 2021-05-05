@@ -39,10 +39,11 @@ inputs = {
   enable_nginx  = false
   ingress_class = "internal-nginx"
 
-  elasticsearch_replicas = "3"
-  rode_ui_host           = "rode-ui.internal.lead.sandbox.liatr.io"
-  update_coredns         = false
-  rode_ui_version        = "v0.8.0"
-  rode_version           = "v0.6.1"
-  grafeas_version        = "v0.6.4"
+  elasticsearch_replicas  = "3"
+  rode_ui_host            = "rode-ui.internal.lead.sandbox.liatr.io"
+  update_coredns          = false
+  rode_ui_version         = "v0.8.0"
+  rode_version            = "v0.6.1"
+  grafeas_version         = "v0.6.4"
+  build_collector_version = "v0.3.0"
 }
