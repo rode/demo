@@ -48,4 +48,11 @@ inputs = {
   rode_ui_version        = "v0.8.0"
   rode_version           = "v0.6.1"
   grafeas_version        = "v0.6.4"
+  rode_namespace = "rode-demo-${local.env_hash}"
+  deploy_namespace = "rode-demo-app-${local.env_hash}"
+  jenkins_namespace = "rode-demo-jenkins-${local.env_hash}"
+  elasticsearch_namespace = "rode-demo-elasticsearch-${local.env_hash}"
+  grafeas_namespace = "rode-demo-grafeas-${local.env_hash}"
+  harbor_namespace = "rode-demo-harbor-${local.env_hash}"
+
 }
