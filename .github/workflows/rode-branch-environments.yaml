@@ -49,7 +49,9 @@ jobs:
           chmod +x terragrunt
 
       - name: Terragrunt plan
-        run: ./terragrunt plan --terragrunt-non-interactive --terragrunt-working-dir ./tf/environments/aws/branch_env
+        run: |
+          ./terragrunt force-unlock --terragrunt-non-interactive --terragrunt-working-dir ./tf/environments/aws/branch_env -force 57b660ea-1d34-9e53-7b86-be6ca2add845
+          ./terragrunt plan --terragrunt-non-interactive --terragrunt-working-dir ./tf/environments/aws/branch_env
 
       - name: Terragrunt plan destroy
         run: ./terragrunt plan --terragrunt-non-interactive --terragrunt-working-dir ./tf/environments/aws/branch_env -refresh=false -destroy
