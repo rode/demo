@@ -48,4 +48,8 @@ inputs = {
   rode_ui_version        = "v0.8.0"
   rode_version           = "v0.6.1"
   grafeas_version        = "v0.6.4"
+
+  namespace_annotations = {
+    "downscaler/exclude" = "true"
+  }
 }

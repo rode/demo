@@ -1,6 +1,7 @@
 resource "kubernetes_namespace" "sonarqube" {
   metadata {
-    name = var.namespace
+    name        = var.namespace
+    annotations = var.namespace_annotations
   }
 }
 
