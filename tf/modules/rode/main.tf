@@ -162,7 +162,7 @@ resource "helm_release" "rode_collector_build" {
   namespace  = kubernetes_namespace.rode.metadata[0].name
   repository = "https://rode.github.io/charts"
   chart      = "rode-collector-build"
-  version    = "0.1.0"
+  version    = "0.2.0"
   wait       = true
 
   values = [
