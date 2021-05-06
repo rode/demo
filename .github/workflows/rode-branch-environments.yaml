@@ -50,14 +50,9 @@ jobs:
 
       - name: Terragrunt plan
         run: |
-          ./terragrunt force-unlock --terragrunt-non-interactive --terragrunt-working-dir ./tf/environments/aws/branch_env -force 57b660ea-1d34-9e53-7b86-be6ca2add845
           ./terragrunt plan --terragrunt-non-interactive --terragrunt-working-dir ./tf/environments/aws/branch_env
 
-      - name: Terragrunt plan destroy
-        run: ./terragrunt plan --terragrunt-non-interactive --terragrunt-working-dir ./tf/environments/aws/branch_env -refresh=false -destroy
 
-      - name: Terragrunt destroy
-        run: ./terragrunt destroy --terragrunt-non-interactive --terragrunt-working-dir ./tf/environments/aws/branch_env -refresh=false  -auto-approve
-#      - name: Apply
-#        run: ./terragrunt apply -auto-approve --terragrunt-working-dir ./tf/environments/aws/prod
-#
+      - name: Apply
+        run: ./terragrunt apply -auto-approve --terragrunt-non-interactive --terragrunt-working-dir ./tf/environments/aws/branch_env
+
