@@ -3,7 +3,7 @@ name: Rode Branch Environment Setup
 on:
   push:
     branches:
-      - branch-environments
+      - 'branch-environments**'
 
 env:
   NODE_VERSION: '12.16.3'
