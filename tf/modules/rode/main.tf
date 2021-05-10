@@ -171,7 +171,7 @@ resource "helm_release" "rode_collector_build" {
 
   values = [
     templatefile("${path.module}/rode-collector-build-values.yaml.tpl", {
-      namespace = kubernetes_namespace.rode.metadata[0].name
+      namespace               = kubernetes_namespace.rode.metadata[0].name
       build_collector_version = var.build_collector_version
     })
   ]
