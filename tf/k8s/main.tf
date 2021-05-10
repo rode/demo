@@ -77,7 +77,7 @@ module "rode" {
   elasticsearch_host    = module.elasticsearch.host
   rode_ui_host          = var.rode_ui_host
   rode_ui_version       = var.rode_ui_version
-  rode_version          = var.rode_version
+  build_collector_version = var.build_collector_versionrode_version          = var.rode_version
   ingress_class         = var.ingress_class
 
   depends_on = [

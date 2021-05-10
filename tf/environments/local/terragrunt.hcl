@@ -20,17 +20,18 @@ inputs = {
   harbor_host     = "harbor.localhost"
   harbor_insecure = true
 
-  enable_jenkins  = true
-  jenkins_host = "jenkins.localhost"
+  enable_jenkins = true
+  jenkins_host   = "jenkins.localhost"
 
-  enable_nginx    = true
+  enable_nginx = true
 
   enable_sonarqube = true
   sonarqube_host   = "sonarqube.localhost"
 
-  rode_ui_host    = "rode-ui.localhost"
-  rode_ui_version = "v0.8.0"
-  rode_version    = "v0.6.1"
-  grafeas_version = "v0.6.4"
-  ingress_name    = "nginx"
+  rode_ui_host            = "rode-ui.localhost"
+  rode_ui_version         = "v0.8.0"
+  rode_version            = "v0.6.1"
+  grafeas_version         = "v0.6.4"
+  build_collector_version = "v0.3.0"
+  ingress_name            = "nginx"
 }

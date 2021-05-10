@@ -44,6 +44,9 @@ variable "rode_version" {
 variable "grafeas_version" {
   default = ""
 }
+variable "build_collector_version" {
+  default = ""
+}
 variable "jenkins_namespace" {
   default = "rode-demo-jenkins"
 }
