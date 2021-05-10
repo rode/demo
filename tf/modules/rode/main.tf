@@ -1,6 +1,7 @@
 resource "kubernetes_namespace" "rode" {
   metadata {
-    name = var.namespace
+    name        = var.namespace
+    annotations = var.namespace_annotations
   }
 }
 
@@ -25,8 +26,8 @@ resource "kubernetes_ingress" "rode" {
   count = var.host == "" ? 0 : 1
 
   metadata {
-    namespace = kubernetes_namespace.rode.metadata[0].name
-    name      = "rode"
+    namespace   = kubernetes_namespace.rode.metadata[0].name
+    name        = "rode"
     annotations = {
       "nginx.ingress.kubernetes.io/backend-protocol" = "GRPC"
     }
@@ -85,7 +86,10 @@ resource "kubernetes_job" "load_policy" {
         container {
           name    = "alpine"
           image   = "alpine"
-          command = ["/bin/sh", "-c", "/root/loadpolicy.sh"]
+          command = [
+            "/bin/sh",
+            "-c",
+            "/root/loadpolicy.sh"]
           volume_mount {
             name       = "policy-configmap-volume"
             mount_path = "/root/loadpolicy.sh"
@@ -167,7 +171,7 @@ resource "helm_release" "rode_collector_build" {
 
   values = [
     templatefile("${path.module}/rode-collector-build-values.yaml.tpl", {
-      namespace = kubernetes_namespace.rode.metadata[0].name
+      namespace               = kubernetes_namespace.rode.metadata[0].name
       build_collector_version = var.build_collector_version
     })
   ]

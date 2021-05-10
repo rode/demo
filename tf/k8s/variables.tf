@@ -65,3 +65,14 @@ variable "nginx_namespace" {
 variable "ingress_class" {
   default = ""
 }
+variable "enable_sonarqube" {
+  default = true
+}
+variable "sonarqube_host" {}
+variable "sonarqube_namespace" {
+  default = "rode-demo-sonarqube"
+}
+variable "namespace_annotations" {
+  type    = map(string)
+  default = {}
+}

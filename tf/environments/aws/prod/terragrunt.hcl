@@ -39,6 +39,9 @@ inputs = {
   enable_nginx  = false
   ingress_class = "internal-nginx"
 
+  enable_sonarqube = true
+  sonarqube_host   = "sonarqube.internal.lead.prod.liatr.io"
+
   elasticsearch_replicas  = "3"
   rode_ui_host            = "rode-ui.internal.lead.prod.liatr.io"
   update_coredns          = false
@@ -46,4 +49,8 @@ inputs = {
   rode_version            = "v0.6.1"
   grafeas_version         = "v0.6.4"
   build_collector_version = "v0.3.0"
+
+  namespace_annotations = {
+    "downscaler/exclude" = "true"
+  }
 }

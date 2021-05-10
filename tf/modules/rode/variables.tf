@@ -8,6 +8,10 @@ variable "harbor_insecure" {}
 variable "namespace" {
   default = "rode"
 }
+variable "namespace_annotations" {
+  type    = map(string)
+  default = {}
+}
 variable "grafeas_namespace" {
   default = "grafeas"
 }

@@ -1,6 +1,7 @@
 resource "kubernetes_namespace" "grafeas" {
   metadata {
-    name = var.namespace
+    name        = var.namespace
+    annotations = var.namespace_annotations
   }
 }
 

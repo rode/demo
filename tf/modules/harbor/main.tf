@@ -1,6 +1,7 @@
 resource "kubernetes_namespace" "harbor" {
   metadata {
-    name = var.namespace
+    name        = var.namespace
+    annotations = var.namespace_annotations
   }
 }
 
@@ -42,7 +43,9 @@ resource "helm_release" "harbor" {
   }
 
   lifecycle {
-    ignore_changes = [set_sensitive]
+    ignore_changes = [
+      set_sensitive
+    ]
   }
 
   values = [

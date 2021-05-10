@@ -1,12 +1,9 @@
 variable "namespace" {
-  default = "elasticsearch"
+  default = "sonarqube"
 }
-
 variable "namespace_annotations" {
   type    = map(string)
   default = {}
 }
-
-variable "replicas" {
-  default = "1"
-}
+variable "host" {}
+variable "ingress_class" {}
