@@ -43,7 +43,7 @@ inputs = {
   sonarqube_host   = "sonarqube.internal.lead.sandbox.liatr.io"
 
   elasticsearch_replicas  = "3"
-  rode_host   = "rode.internal.lead.sandbox.liatr.io"
+  rode_host               = "rode.internal.lead.sandbox.liatr.io"
   rode_ui_host            = "rode-ui.internal.lead.sandbox.liatr.io"
   update_coredns          = false
   rode_ui_version         = "v0.8.0"
