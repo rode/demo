@@ -76,3 +76,8 @@ variable "namespace_annotations" {
   type    = map(string)
   default = {}
 }
+
+variable "environments" {
+  type    = set(string)
+  default = ["dev", "staging", "prod"]
+}
