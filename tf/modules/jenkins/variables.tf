@@ -11,3 +11,8 @@ variable "ingress_class" {
   default = ""
 }
 variable "deploy_namespace" {}
+
+variable "environments" {
+  type    = set(string)
+  default = []
+}

@@ -5,24 +5,6 @@ resource "kubernetes_namespace" "jenkins" {
   }
 }
 
-resource "kubernetes_namespace" "deploy_dev" {
-  metadata {
-    name = "${var.deploy_namespace}-dev"
-  }
-}
-
-resource "kubernetes_namespace" "deploy_staging" {
-  metadata {
-    name = "${var.deploy_namespace}-staging"
-  }
-}
-
-resource "kubernetes_namespace" "deploy_prod" {
-  metadata {
-    name = "${var.deploy_namespace}-prod"
-  }
-}
-
 data "kubernetes_secret" "harbor_auth" {
   metadata {
     name      = "harbor-harbor-core"
