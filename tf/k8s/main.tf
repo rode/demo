@@ -120,6 +120,15 @@ module "coredns" {
   ]
 }
 
+module "demo_app_setup" {
+  source = "../modules/demo-app-setup"
+
+  environments     = var.environments
+  harbor_host      = var.harbor_host
+  harbor_namespace = var.harbor_namespace
+  deploy_namespace = var.deploy_namespace
+}
+
 module "jenkins" {
   count  = var.enable_jenkins ? 1 : 0
   source = "../modules/jenkins"
@@ -132,10 +141,12 @@ module "jenkins" {
   namespace_annotations = var.namespace_annotations
   ingress_class         = var.ingress_class
   deploy_namespace      = var.deploy_namespace
+  environments          = var.environments
 
   depends_on = [
     module.nginx,
-    module.harbor
+    module.harbor,
+    module.demo_app_setup
   ]
 }
 
