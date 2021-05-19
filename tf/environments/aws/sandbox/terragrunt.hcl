@@ -36,7 +36,7 @@ inputs = {
   enable_jenkins = true
   jenkins_host   = "jenkins.internal.lead.sandbox.liatr.io"
 
-  enable_nginx  = false
+  enable_nginx  = true
   ingress_class = "internal-nginx"
 
   enable_sonarqube = true
