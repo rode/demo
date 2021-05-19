@@ -184,3 +184,22 @@ resource "helm_release" "rode_collector_build" {
     helm_release.rode
   ]
 }
+
+resource "helm_release" "rode_collector_tfsec" {
+  name       = "rode-collector-tfsec"
+  namespace  = kubernetes_namespace.rode.metadata[0].name
+  repository = "https://rode.github.io/charts"
+  chart      = "rode-collector-tfsec"
+  version    = "0.1.0"
+  wait       = true
+
+  values = [
+    templatefile("${path.module}/rode-collector-tfsec-values.yaml.tpl", {
+      namespace               = kubernetes_namespace.rode.metadata[0].name
+    })
+  ]
+
+  depends_on = [
+    helm_release.rode
+  ]
+}
