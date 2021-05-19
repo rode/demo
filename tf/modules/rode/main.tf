@@ -124,12 +124,16 @@ resource "helm_release" "rode_collector_harbor" {
   version    = "0.0.3"
   wait       = true
 
+  set_sensitive {
+    name  = "harbor.password"
+    value = var.harbor_password
+  }
+
   values = [
     templatefile("${path.module}/rode-collector-harbor-values.yaml.tpl", {
       namespace       = kubernetes_namespace.rode.metadata[0].name
       harbor_url      = var.harbor_url
       harbor_username = var.harbor_username
-      harbor_password = var.harbor_password
       harbor_insecure = var.harbor_insecure
     })
   ]
