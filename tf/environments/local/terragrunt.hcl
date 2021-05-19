@@ -30,8 +30,8 @@ inputs = {
 
   rode_ui_host            = "rode-ui.localhost"
   rode_ui_version         = "v0.9.0"
-  rode_version            = "v0.6.1"
-  grafeas_version         = "v0.6.4"
+  rode_version            = "v0.8.0"
+  grafeas_version         = "v0.7.0"
   build_collector_version = "v0.3.0"
   ingress_name            = "nginx"
 }
