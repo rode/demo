@@ -196,10 +196,42 @@ resource "helm_release" "rode_collector_tfsec" {
   values = [
     templatefile("${path.module}/rode-collector-tfsec-values.yaml.tpl", {
       namespace               = kubernetes_namespace.rode.metadata[0].name
+      tfsec_collector_version = var.tfsec_collector_version
     })
   ]
 
   depends_on = [
     helm_release.rode
   ]
+}
+
+resource "kubernetes_ingress" "rode_collector_tfsec" {
+  count = var.tfsec_collector_host == "" ? 0 : 1
+
+  metadata {
+    namespace   = kubernetes_namespace.rode.metadata[0].name
+    name        = "rode-collector-tfsec"
+  }
+
+  spec {
+    rule {
+      host = var.tfsec_collector_host
+
+      http {
+        path {
+          path = "/"
+          backend {
+            service_name = "rode-collector-tfsec"
+            service_port = 8083
+          }
+        }
+      }
+    }
+
+    tls {
+      hosts = [
+        var.tfsec_collector_host
+      ]
+    }
+  }
 }

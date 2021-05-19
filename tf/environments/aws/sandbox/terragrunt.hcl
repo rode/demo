@@ -50,4 +50,6 @@ inputs = {
   rode_version            = "v0.8.0"
   grafeas_version         = "v0.7.0"
   build_collector_version = "v0.3.0"
+  tfsec_collector_version = "v0.1.0"
+  tfsec_collector_host    = "tfsec-collector.rode.lead.sandbox.liatr.io"
 }

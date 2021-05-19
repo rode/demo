@@ -3,3 +3,8 @@ rode:
   insecure: true
 
 debug: true
+
+image:
+%{~ if tfsec_collector_version != "" }
+  tag: "${tfsec_collector_version}"
+%{~ endif }
