@@ -28,9 +28,6 @@ resource "kubernetes_ingress" "rode" {
   metadata {
     namespace   = kubernetes_namespace.rode.metadata[0].name
     name        = "rode"
-    annotations = {
-      "nginx.ingress.kubernetes.io/backend-protocol" = "GRPC"
-    }
   }
   spec {
     backend {
@@ -124,12 +121,16 @@ resource "helm_release" "rode_collector_harbor" {
   version    = "0.0.3"
   wait       = true
 
+  set_sensitive {
+    name  = "harbor.password"
+    value = var.harbor_password
+  }
+
   values = [
     templatefile("${path.module}/rode-collector-harbor-values.yaml.tpl", {
       namespace       = kubernetes_namespace.rode.metadata[0].name
       harbor_url      = var.harbor_url
       harbor_username = var.harbor_username
-      harbor_password = var.harbor_password
       harbor_insecure = var.harbor_insecure
     })
   ]
@@ -179,4 +180,55 @@ resource "helm_release" "rode_collector_build" {
   depends_on = [
     helm_release.rode
   ]
+}
+
+resource "helm_release" "rode_collector_tfsec" {
+  name       = "rode-collector-tfsec"
+  namespace  = kubernetes_namespace.rode.metadata[0].name
+  repository = "https://rode.github.io/charts"
+  chart      = "rode-collector-tfsec"
+  version    = "0.1.0"
+  wait       = true
+
+  values = [
+    templatefile("${path.module}/rode-collector-tfsec-values.yaml.tpl", {
+      namespace               = kubernetes_namespace.rode.metadata[0].name
+      tfsec_collector_version = var.tfsec_collector_version
+    })
+  ]
+
+  depends_on = [
+    helm_release.rode
+  ]
+}
+
+resource "kubernetes_ingress" "rode_collector_tfsec" {
+  count = var.tfsec_collector_host == "" ? 0 : 1
+
+  metadata {
+    namespace   = kubernetes_namespace.rode.metadata[0].name
+    name        = "rode-collector-tfsec"
+  }
+
+  spec {
+    rule {
+      host = var.tfsec_collector_host
+
+      http {
+        path {
+          path = "/"
+          backend {
+            service_name = "rode-collector-tfsec"
+            service_port = 8083
+          }
+        }
+      }
+    }
+
+    tls {
+      hosts = [
+        var.tfsec_collector_host
+      ]
+    }
+  }
 }

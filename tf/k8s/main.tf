@@ -79,6 +79,8 @@ module "rode" {
   rode_ui_version         = var.rode_ui_version
   build_collector_version = var.build_collector_version
   rode_version            = var.rode_version
+  tfsec_collector_host    = var.tfsec_collector_host
+  tfsec_collector_version = var.tfsec_collector_version
   ingress_class           = var.ingress_class
 
   depends_on = [

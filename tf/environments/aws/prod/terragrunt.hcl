@@ -36,20 +36,22 @@ inputs = {
   enable_jenkins = true
   jenkins_host   = "jenkins.internal.lead.prod.liatr.io"
 
-  enable_nginx  = false
+  enable_nginx  = true
   ingress_class = "internal-nginx"
 
   enable_sonarqube = true
   sonarqube_host   = "sonarqube.internal.lead.prod.liatr.io"
 
   elasticsearch_replicas  = "3"
-  rode_host               = "rode.internal.lead.prod.liatr.io"
+  rode_host               = "rode.rode.lead.prod.liatr.io"
   rode_ui_host            = "rode-ui.internal.lead.prod.liatr.io"
   update_coredns          = false
   rode_ui_version         = "v0.9.0"
-  rode_version            = "v0.6.1"
-  grafeas_version         = "v0.6.4"
+  rode_version            = "v0.8.0"
+  grafeas_version         = "v0.7.0"
   build_collector_version = "v0.3.0"
+  tfsec_collector_version = "v0.1.0"
+  tfsec_collector_host    = "tfsec-collector.rode.lead.prod.liatr.io"
 
   namespace_annotations = {
     "downscaler/exclude" = "true"

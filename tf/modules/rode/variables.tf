@@ -26,6 +26,15 @@ variable "rode_version" {
 variable "build_collector_version" {
   default = ""
 }
+
+variable "tfsec_collector_version" {
+  default = ""
+}
+
+variable "tfsec_collector_host" {
+  default = ""
+}
+
 variable "ingress_class" {
   default = ""
 }

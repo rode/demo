@@ -47,6 +47,15 @@ variable "grafeas_version" {
 variable "build_collector_version" {
   default = ""
 }
+
+variable "tfsec_collector_version" {
+  default = ""
+}
+
+variable "tfsec_collector_host" {
+  default = ""
+}
+
 variable "jenkins_namespace" {
   default = "rode-demo-jenkins"
 }
