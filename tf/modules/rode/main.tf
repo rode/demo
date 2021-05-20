@@ -28,9 +28,6 @@ resource "kubernetes_ingress" "rode" {
   metadata {
     namespace   = kubernetes_namespace.rode.metadata[0].name
     name        = "rode"
-    annotations = {
-      "nginx.ingress.kubernetes.io/backend-protocol" = "GRPC"
-    }
   }
   spec {
     backend {
