@@ -129,6 +129,10 @@ module "demo_app_setup" {
   harbor_host      = var.harbor_host
   harbor_namespace = var.harbor_namespace
   deploy_namespace = var.deploy_namespace
+
+  depends_on = [
+    module.harbor
+  ]
 }
 
 module "jenkins" {
