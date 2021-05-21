@@ -3,6 +3,9 @@ name: Rode Policy
 on:
   push:
 
+env:
+  POLICY_PATH: tf/modules/rode/policies
+
 jobs:
   policy-test:
     runs-on: ubuntu-latest
@@ -14,8 +17,8 @@ jobs:
           chmod 755 opa
       - name: Check Formatting
         run: |
-          echo 'Run "opa fmt -w policies" to fix formatting issues'
-          test -z "$(./opa fmt -l policies)"
+          echo 'Run "opa fmt -w ${{ env.POLICIES_PATH }}" to fix formatting issues'
+          test -z "$(./opa fmt -l ${{ env.POLICIES_PATH }})"
       - name: Run Tests
         run: |
-          ./opa test -v policies
+          ./opa test -v ${{ env.POLICIES_PATH }}
