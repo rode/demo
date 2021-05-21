@@ -8,12 +8,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: OPA format
-        uses: docker://openpolicyagent/opa:0.24.0-debug
-        with:
-          entrypoint: sh
-          args: |
-            echo "Checking formatting"
-            test -z "$(./opa fmt -l policies)"
-            echo "Running Rego tests"
-            ./opa test -v policies
+      - name: OPA Setup
+        run: |
+          curl -L -o /usr/local/bin/opa https://openpolicyagent.org/downloads/v0.24.0/opa_linux_amd64
+          chmod 755 /usr/local/bin/opa
+      - name: Check Formatting
+        run: |
+          echo "Checking formatting"
+          test -z "$(./opa fmt -l policies)"
+      - name: Run Tests
+        run: |
+          opa test -v policies
