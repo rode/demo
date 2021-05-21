@@ -6,11 +6,12 @@ on:
 jobs:
   policy-test:
     runs-on: ubuntu-latest
-    container: openpolicyagent/opa:0.24.0-debug
     steps:
       - uses: actions/checkout@v2
       - name: OPA format
-        run: test -z "$(opa fmt -l policies)"
-      - name: Policy tests
+        uses: docker://openpolicyagent/opa:0.24.0-debug
         run: |
+          echo "Checking formatting"
+          test -z "$(opa fmt -l policies)"
+          echo "Running Rego tests"
           opa test -v policies
