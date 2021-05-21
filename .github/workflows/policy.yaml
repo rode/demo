@@ -4,7 +4,7 @@ on:
   push:
 
 env:
-  POLICY_PATH: tf/modules/rode/policies
+  POLICIES_PATH: tf/modules/rode/policies
 
 jobs:
   policy-test:

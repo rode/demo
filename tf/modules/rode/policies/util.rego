@@ -6,7 +6,6 @@ vuln_occurrences(noteName, severity, count) = x {
 	ids := generate_ids(count)
 
 	x := [occurrence |
-		ids[i]
 		occurrence := {
 			"noteName": noteName,
 			"kind": "VULNERABILITY",
@@ -21,7 +20,6 @@ disc_occurrences(noteName, count) = x {
 	ids := generate_ids(count)
 
 	x := [occurrence |
-		ids[i]
 		occurrence := {
 			"createTime": "",
 			"noteName": noteName,
