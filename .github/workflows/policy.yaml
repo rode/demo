@@ -14,7 +14,7 @@ jobs:
           chmod 755 opa
       - name: Check Formatting
         run: |
-          echo "Checking formatting"
+          echo 'Run "opa fmt -w policies" to fix formatting issues'
           test -z "$(./opa fmt -l policies)"
       - name: Run Tests
         run: |

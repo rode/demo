@@ -18,7 +18,7 @@ test_vuln_no_discovery {
 }
 
 test_no_vuln_scan {
-    pass with input as {"occurrences": disc_occurrences(harbor_note, "FINISHED_SUCCESS", 1)}
+	pass with input as {"occurrences": disc_occurrences(harbor_note, "FINISHED_SUCCESS", 1)}
 }
 
 test_high_vuln_below_threshold {
