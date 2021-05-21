@@ -60,6 +60,7 @@ resource "kubernetes_ingress" "rode" {
 locals {
   policies = yamldecode(templatefile("${path.module}/policies.yml", {
     harbor_policy = file(abspath("${path.module}/policies/harbor.rego"))
+    tfsec_policy = file(abspath("${path.module}/policies/tfsec.rego"))
   }))
 }
 
