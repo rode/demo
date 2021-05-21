@@ -1,0 +1,16 @@
+name: Rode Policy
+
+on:
+  push:
+
+jobs:
+  policy-test:
+    runs-on: ubuntu-latest
+    container: openpolicyagent/opa:0.24.0
+    steps:
+      - uses: actions/checkout@v2
+      - name: OPA format
+        run: test -z "$(opa fmt -l policies)"
+      - name: Policy tests
+        run: |
+          opa test -v policies
