@@ -26,8 +26,8 @@ resource "kubernetes_ingress" "rode" {
   count = var.host == "" ? 0 : 1
 
   metadata {
-    namespace   = kubernetes_namespace.rode.metadata[0].name
-    name        = "rode"
+    namespace = kubernetes_namespace.rode.metadata[0].name
+    name      = "rode"
   }
   spec {
     backend {
@@ -57,6 +57,12 @@ resource "kubernetes_ingress" "rode" {
   }
 }
 
+locals {
+  policies = yamldecode(templatefile("${path.module}/policies.yml", {
+    harbor_policy = file(abspath("${path.module}/policies/harbor.rego"))
+  }))
+}
+
 resource "kubernetes_config_map" "policy" {
   metadata {
     name      = "rode-policy-configmap"
@@ -65,7 +71,7 @@ resource "kubernetes_config_map" "policy" {
 
   data = {
     "loadpolicy.sh" = templatefile("${path.module}/loadpolicy.sh.tpl", {
-      policy_data    = tostring(jsonencode(yamldecode(file("${path.module}/policy.yml"))))
+      policies       = local.policies
       rode_namespace = kubernetes_namespace.rode.metadata[0].name
     })
   }
@@ -206,8 +212,8 @@ resource "kubernetes_ingress" "rode_collector_tfsec" {
   count = var.tfsec_collector_host == "" ? 0 : 1
 
   metadata {
-    namespace   = kubernetes_namespace.rode.metadata[0].name
-    name        = "rode-collector-tfsec"
+    namespace = kubernetes_namespace.rode.metadata[0].name
+    name      = "rode-collector-tfsec"
   }
 
   spec {
