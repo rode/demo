@@ -18,31 +18,31 @@ test_vuln_no_discovery {
 }
 
 test_no_vuln_scan {
-	pass with input as {"occurrences": disc_occurrences(harbor_note, "FINISHED_SUCCESS", 1)}
+	pass with input as {"occurrences": disc_occurrences(harbor_note, 1)}
 }
 
 test_high_vuln_below_threshold {
-	occurrences := array.concat(disc_occurrences(harbor_note, "FINISHED_SUCCESS", 1), vuln_occurrences(harbor_note, "HIGH", 2))
+	occurrences := array.concat(disc_occurrences(harbor_note, 1), vuln_occurrences(harbor_note, "HIGH", 2))
 	pass with input as {"occurrences": occurrences}
 }
 
 test_high_vuln_above_threshold {
-	occurrences := array.concat(disc_occurrences(harbor_note, "FINISHED_SUCCESS", 1), vuln_occurrences(harbor_note, "HIGH", 3))
+	occurrences := array.concat(disc_occurrences(harbor_note, 1), vuln_occurrences(harbor_note, "HIGH", 3))
 	not pass with input as {"occurrences": occurrences}
 }
 
 test_medium_vuln_above_threshold {
-	occurrences := array.concat(disc_occurrences(harbor_note, "FINISHED_SUCCESS", 1), vuln_occurrences(harbor_note, "MEDIUM", 11))
+	occurrences := array.concat(disc_occurrences(harbor_note, 1), vuln_occurrences(harbor_note, "MEDIUM", 11))
 	not pass with input as {"occurrences": occurrences}
 }
 
 test_low_vuln_above_threshold {
-	occurrences := array.concat(disc_occurrences(harbor_note, "FINISHED_SUCCESS", 1), vuln_occurrences(harbor_note, "LOW", 11))
+	occurrences := array.concat(disc_occurrences(harbor_note, 1), vuln_occurrences(harbor_note, "LOW", 11))
 	not pass with input as {"occurrences": occurrences}
 }
 
 test_mix_vulns_pass {
-	discovery := disc_occurrences(harbor_note, "FINISHED_SUCCESS", 1)
+	discovery := disc_occurrences(harbor_note, 1)
 	low := vuln_occurrences(harbor_note, "LOW", 5)
 	medium := vuln_occurrences(harbor_note, "MEDIUM", 5)
 	high := vuln_occurrences(harbor_note, "HIGH", 1)
@@ -52,7 +52,7 @@ test_mix_vulns_pass {
 }
 
 test_mix_vulns_fail {
-	discovery := disc_occurrences(harbor_note, "FINISHED_SUCCESS", 1)
+	discovery := disc_occurrences(harbor_note, 1)
 	low := vuln_occurrences(harbor_note, "LOW", 11)
 	medium := vuln_occurrences(harbor_note, "MEDIUM", 5)
 	high := vuln_occurrences(harbor_note, "HIGH", 3)

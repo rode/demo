@@ -17,7 +17,7 @@ vuln_occurrences(noteName, severity, count) = x {
 	]
 }
 
-disc_occurrences(noteName, status, count) = x {
+disc_occurrences(noteName, count) = x {
 	ids := generate_ids(count)
 
 	x := [occurrence |
@@ -27,7 +27,7 @@ disc_occurrences(noteName, status, count) = x {
 			"noteName": noteName,
 			"kind": "DISCOVERY",
 			"name": sprintf("%s/%s", [project, uuid.rfc4122(ids[i])]),
-			"discovered": {"discovered": {"analysisStatus": status}},
+			"discovered": {"discovered": {"analysisStatus": "FINISHED_SUCCESS"}},
 		}
 	]
 }
