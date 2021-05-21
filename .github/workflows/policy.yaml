@@ -10,8 +10,9 @@ jobs:
       - uses: actions/checkout@v2
       - name: OPA format
         uses: docker://openpolicyagent/opa:0.24.0-debug
-        run: |
-          echo "Checking formatting"
-          test -z "$(opa fmt -l policies)"
-          echo "Running Rego tests"
-          opa test -v policies
+        with:
+          entrypoint: sh -c |
+            echo "Checking formatting"
+            test -z "$(opa fmt -l policies)"
+            echo "Running Rego tests"
+            opa test -v policies
