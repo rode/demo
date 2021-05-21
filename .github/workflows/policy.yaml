@@ -11,8 +11,9 @@ jobs:
       - name: OPA format
         uses: docker://openpolicyagent/opa:0.24.0-debug
         with:
-          entrypoint: sh -c |
+          entrypoint: sh
+          args: |
             echo "Checking formatting"
-            test -z "$(opa fmt -l policies)"
+            test -z "$(./opa fmt -l policies)"
             echo "Running Rego tests"
-            opa test -v policies
+            ./opa test -v policies
