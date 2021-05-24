@@ -9,7 +9,7 @@ vuln_occurrences(noteName, severity, count) = x {
 		occurrence := {
 			"noteName": noteName,
 			"kind": "VULNERABILITY",
-			# rule results are a set, so we need a unique field to prevent those
+			# rule results are a set, so we need a unique field to prevent occurrences from being collapsed
 			"name": sprintf("%s/%s", [project, uuid.rfc4122(ids[i])]),
 			"vulnerability": {"effectiveSeverity": severity},
 		}
