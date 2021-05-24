@@ -1,0 +1,24 @@
+name: Rode Policy
+
+on:
+  push:
+
+env:
+  POLICIES_PATH: tf/modules/rode/policies
+
+jobs:
+  policy-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: OPA Setup
+        run: |
+          curl -L -o opa https://openpolicyagent.org/downloads/v0.24.0/opa_linux_amd64
+          chmod 755 opa
+      - name: Check Formatting
+        run: |
+          echo 'Run "opa fmt -w ${{ env.POLICIES_PATH }}" to fix formatting issues'
+          test -z "$(./opa fmt -l ${{ env.POLICIES_PATH }})"
+      - name: Run Tests
+        run: |
+          ./opa test -v ${{ env.POLICIES_PATH }}

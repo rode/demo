@@ -1,0 +1,8 @@
+- name: Sample Harbor Policy
+  description: This is a sample policy for Harbor vulnerabilites.
+  regoContent: |
+    ${indent(4, harbor_policy)}
+- name: Sample tfsec Policy
+  description: This is a sample policy for tfsec vulnerabilites.
+  regoContent: |
+    ${indent(4, tfsec_policy)}
