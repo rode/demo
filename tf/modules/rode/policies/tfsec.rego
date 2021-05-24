@@ -39,7 +39,7 @@ violations[result] {
 		"id": "tfsec_scan_completed",
 		"name": "tfsec Scan",
 		"description": "Verify tfsec scan completed",
-		"message": sprintf("tfsec scanned Terraform source code %v times. Last completed at %v", [count(finished)]),
+		"message": sprintf("tfsec scanned Terraform source code %v times.", [count(finished)]),
 	}
 }
 
