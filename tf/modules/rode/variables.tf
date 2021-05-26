@@ -26,6 +26,9 @@ variable "rode_version" {
 variable "build_collector_version" {
   default = ""
 }
+variable "harbor_collector_version" {
+  default = ""
+}
 
 variable "tfsec_collector_version" {
   default = ""

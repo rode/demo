@@ -42,14 +42,15 @@ inputs = {
   enable_sonarqube = true
   sonarqube_host   = "sonarqube.internal.lead.sandbox.liatr.io"
 
-  elasticsearch_replicas  = "3"
-  rode_host               = "rode.rode.lead.sandbox.liatr.io"
-  rode_ui_host            = "rode-ui.internal.lead.sandbox.liatr.io"
-  update_coredns          = false
-  rode_ui_version         = "v0.10.0"
-  rode_version            = "v0.8.0"
-  grafeas_version         = "v0.7.0"
-  build_collector_version = "v0.3.0"
-  tfsec_collector_version = "v0.1.0"
-  tfsec_collector_host    = "tfsec-collector.rode.lead.sandbox.liatr.io"
+  elasticsearch_replicas   = "3"
+  rode_host                = "rode.rode.lead.sandbox.liatr.io"
+  rode_ui_host             = "rode-ui.internal.lead.sandbox.liatr.io"
+  update_coredns           = false
+  rode_ui_version          = "v0.10.0"
+  rode_version             = "v0.8.0"
+  grafeas_version          = "v0.7.0"
+  build_collector_version  = "v0.3.0"
+  harbor_collector_version = "v0.1.0"
+  tfsec_collector_version  = "v0.1.0"
+  tfsec_collector_host     = "tfsec-collector.rode.lead.sandbox.liatr.io"
 }

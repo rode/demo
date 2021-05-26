@@ -9,35 +9,35 @@ violation_count[v] {
 }
 
 harbor_scan_finished[o] {
-	input.occurrences[i].noteName == "projects/rode/notes/harbor"
+	startswith(input.occurrences[i].noteName, "projects/rode/notes/harbor-scan")
 	input.occurrences[i].kind == "DISCOVERY"
 	input.occurrences[i].discovered.discovered.analysisStatus == "FINISHED_SUCCESS"
 	o := input.occurrences[i]
 }
 
 harbor_scan_last[t] {
-	input.occurrences[i].noteName == "projects/rode/notes/harbor"
+	startswith(input.occurrences[i].noteName, "projects/rode/notes/harbor-scan")
 	input.occurrences[i].kind == "DISCOVERY"
 	input.occurrences[i].discovered.discovered.analysisStatus == "FINISHED_SUCCESS"
 	t := input.occurrences[i].createTime
 }
 
 harbor_scan_vulnerability_low[o] {
-	input.occurrences[i].noteName == "projects/rode/notes/harbor"
+	startswith(input.occurrences[i].noteName, "projects/rode/notes/harbor-scan")
 	input.occurrences[i].kind == "VULNERABILITY"
 	input.occurrences[i].vulnerability.effectiveSeverity == "LOW"
 	o := input.occurrences[i]
 }
 
 harbor_scan_vulnerability_medium[o] {
-	input.occurrences[i].noteName == "projects/rode/notes/harbor"
+	startswith(input.occurrences[i].noteName, "projects/rode/notes/harbor-scan")
 	input.occurrences[i].kind == "VULNERABILITY"
 	input.occurrences[i].vulnerability.effectiveSeverity == "MEDIUM"
 	o := input.occurrences[i]
 }
 
 harbor_scan_vulnerability_high[o] {
-	input.occurrences[i].noteName == "projects/rode/notes/harbor"
+	startswith(input.occurrences[i].noteName, "projects/rode/notes/harbor-scan")
 	input.occurrences[i].kind == "VULNERABILITY"
 	input.occurrences[i].vulnerability.effectiveSeverity == "HIGH"
 	o := input.occurrences[i]

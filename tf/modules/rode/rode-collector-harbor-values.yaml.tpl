@@ -8,3 +8,8 @@ harbor:
   insecure: ${harbor_insecure}
 
 debug: true
+
+image:
+%{~ if harbor_collector_version != "" }
+  tag: "${harbor_collector_version}"
+%{~ endif }
