@@ -60,7 +60,7 @@ resource "kubernetes_ingress" "rode" {
 locals {
   policies = yamldecode(templatefile("${path.module}/policies.yml", {
     harbor_policy = file(abspath("${path.module}/policies/harbor.rego"))
-    tfsec_policy = file(abspath("${path.module}/policies/tfsec.rego"))
+    tfsec_policy  = file(abspath("${path.module}/policies/tfsec.rego"))
   }))
 }
 
@@ -135,10 +135,11 @@ resource "helm_release" "rode_collector_harbor" {
 
   values = [
     templatefile("${path.module}/rode-collector-harbor-values.yaml.tpl", {
-      namespace       = kubernetes_namespace.rode.metadata[0].name
-      harbor_url      = var.harbor_url
-      harbor_username = var.harbor_username
-      harbor_insecure = var.harbor_insecure
+      namespace                = kubernetes_namespace.rode.metadata[0].name
+      harbor_url               = var.harbor_url
+      harbor_username          = var.harbor_username
+      harbor_insecure          = var.harbor_insecure
+      harbor_collector_version = var.harbor_collector_version
     })
   ]
 

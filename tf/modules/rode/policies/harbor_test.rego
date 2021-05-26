@@ -3,7 +3,7 @@ package rode.demo.harbor
 import data.rode.demo.util.disc_occurrences
 import data.rode.demo.util.vuln_occurrences
 
-harbor_note := "projects/rode/notes/harbor"
+harbor_note := "projects/rode/notes/harbor-scan-901c731d-5fc5-4a4b-95fe-105388306720"
 
 test_no_data {
 	not pass with input as {}

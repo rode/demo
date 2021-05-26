@@ -67,21 +67,22 @@ module "rode" {
 
   host = var.rode_host
 
-  harbor_url              = "https://${var.harbor_host}"
-  harbor_password         = module.harbor.harbor_password
-  harbor_username         = module.harbor.harbor_username
-  harbor_insecure         = var.harbor_insecure
-  namespace               = var.rode_namespace
-  namespace_annotations   = var.namespace_annotations
-  grafeas_namespace       = var.grafeas_namespace
-  elasticsearch_host      = module.elasticsearch.host
-  rode_ui_host            = var.rode_ui_host
-  rode_ui_version         = var.rode_ui_version
-  build_collector_version = var.build_collector_version
-  rode_version            = var.rode_version
-  tfsec_collector_host    = var.tfsec_collector_host
-  tfsec_collector_version = var.tfsec_collector_version
-  ingress_class           = var.ingress_class
+  harbor_url               = "https://${var.harbor_host}"
+  harbor_password          = module.harbor.harbor_password
+  harbor_username          = module.harbor.harbor_username
+  harbor_insecure          = var.harbor_insecure
+  harbor_collector_version = var.harbor_collector_version
+  namespace                = var.rode_namespace
+  namespace_annotations    = var.namespace_annotations
+  grafeas_namespace        = var.grafeas_namespace
+  elasticsearch_host       = module.elasticsearch.host
+  rode_ui_host             = var.rode_ui_host
+  rode_ui_version          = var.rode_ui_version
+  build_collector_version  = var.build_collector_version
+  rode_version             = var.rode_version
+  tfsec_collector_host     = var.tfsec_collector_host
+  tfsec_collector_version  = var.tfsec_collector_version
+  ingress_class            = var.ingress_class
 
   depends_on = [
     module.grafeas

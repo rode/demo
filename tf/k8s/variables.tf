@@ -7,6 +7,9 @@ variable "harbor_cert_source" {
 variable "harbor_insecure" {
   default = false
 }
+variable "harbor_collector_version" {
+  default = ""
+}
 variable "elasticsearch_replicas" {
   default = "1"
 }
