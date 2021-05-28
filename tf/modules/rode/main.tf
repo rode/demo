@@ -125,7 +125,7 @@ resource "helm_release" "rode_collector_harbor" {
   namespace  = kubernetes_namespace.rode.metadata[0].name
   chart      = "rode-collector-harbor"
   repository = "https://rode.github.io/charts"
-  version    = "0.0.3"
+  version    = "0.1.0"
   wait       = true
 
   set_sensitive {
