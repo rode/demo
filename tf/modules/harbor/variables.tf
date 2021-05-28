@@ -8,3 +8,8 @@ variable "namespace_annotations" {
 variable "host" {}
 variable "cert_source" {}
 variable "ingress_class" {}
+variable "harbor_collector_version" {
+  default = ""
+}
+variable "harbor_insecure" {}
+variable "rode_host" {}

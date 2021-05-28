@@ -1,5 +1,5 @@
 rode:
-  host: rode.${namespace}.svc.cluster.local:50051
+  host: ${rode_host}
   insecure: true
 
 harbor:

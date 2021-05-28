@@ -1,10 +1,6 @@
 variable "host" {
   default = ""
 }
-variable "harbor_url" {}
-variable "harbor_username" {}
-variable "harbor_password" {}
-variable "harbor_insecure" {}
 variable "namespace" {
   default = "rode"
 }
@@ -24,9 +20,6 @@ variable "rode_version" {
   default = ""
 }
 variable "build_collector_version" {
-  default = ""
-}
-variable "harbor_collector_version" {
   default = ""
 }
 

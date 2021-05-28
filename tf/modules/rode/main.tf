@@ -121,34 +121,6 @@ resource "kubernetes_job" "load_policy" {
   ]
 }
 
-resource "helm_release" "rode_collector_harbor" {
-  name       = "rode-collector-harbor"
-  namespace  = kubernetes_namespace.rode.metadata[0].name
-  chart      = "rode-collector-harbor"
-  repository = "https://rode.github.io/charts"
-  version    = "0.1.0"
-  wait       = true
-
-  set_sensitive {
-    name  = "harbor.password"
-    value = var.harbor_password
-  }
-
-  values = [
-    templatefile("${path.module}/rode-collector-harbor-values.yaml.tpl", {
-      namespace                = kubernetes_namespace.rode.metadata[0].name
-      harbor_url               = var.harbor_url
-      harbor_username          = var.harbor_username
-      harbor_insecure          = var.harbor_insecure
-      harbor_collector_version = var.harbor_collector_version
-    })
-  ]
-
-  depends_on = [
-    helm_release.rode
-  ]
-}
-
 resource "helm_release" "rode_ui" {
   name       = "rode-ui"
   namespace  = kubernetes_namespace.rode.metadata[0].name
