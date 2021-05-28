@@ -1,3 +1,11 @@
+locals {
+  policies = yamldecode(templatefile("${path.module}/policies.yml", {
+    harbor_policy = file(abspath("${path.module}/policies/harbor.rego"))
+    tfsec_policy  = file(abspath("${path.module}/policies/tfsec.rego"))
+  }))
+  rode_port = 50051
+}
+
 resource "kubernetes_namespace" "rode" {
   metadata {
     name        = var.namespace
@@ -32,7 +40,7 @@ resource "kubernetes_ingress" "rode" {
   spec {
     backend {
       service_name = "rode"
-      service_port = 50051
+      service_port = local.rode_port
     }
 
     rule {
@@ -43,7 +51,7 @@ resource "kubernetes_ingress" "rode" {
           path = "/"
           backend {
             service_name = "rode"
-            service_port = 50051
+            service_port = local.rode_port
           }
         }
       }
@@ -55,13 +63,6 @@ resource "kubernetes_ingress" "rode" {
       ]
     }
   }
-}
-
-locals {
-  policies = yamldecode(templatefile("${path.module}/policies.yml", {
-    harbor_policy = file(abspath("${path.module}/policies/harbor.rego"))
-    tfsec_policy  = file(abspath("${path.module}/policies/tfsec.rego"))
-  }))
 }
 
 resource "kubernetes_config_map" "policy" {

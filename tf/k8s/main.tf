@@ -170,8 +170,10 @@ module "sonarqube" {
   count  = var.enable_sonarqube ? 1: 0
   source = "../modules/sonarqube"
 
-  host                  = var.sonarqube_host
-  ingress_class         = var.ingress_class
-  namespace             = var.sonarqube_namespace
-  namespace_annotations = var.namespace_annotations
+  host                        = var.sonarqube_host
+  ingress_class               = var.ingress_class
+  namespace                   = var.sonarqube_namespace
+  namespace_annotations       = var.namespace_annotations
+  rode_host                   = module.rode.rode_internal_host
+  sonarqube_collector_version = var.sonarqube_collector_version
 }

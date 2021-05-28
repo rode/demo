@@ -7,3 +7,7 @@ variable "namespace_annotations" {
 }
 variable "host" {}
 variable "ingress_class" {}
+variable "rode_host" {}
+variable "sonarqube_collector_version" {
+  default = ""
+}
