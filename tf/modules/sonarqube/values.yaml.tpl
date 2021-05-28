@@ -13,8 +13,5 @@ ingress:
     - hosts:
         - ${host}
 
-account:
-  adminPassword: "${admin_password}"
-
 sonarProperties:
   "sonar.core.serverBaseURL": "https://${host}"

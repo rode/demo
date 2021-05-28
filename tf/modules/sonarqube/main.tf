@@ -20,11 +20,15 @@ resource "helm_release" "sonarqube" {
 
   values = [
     templatefile("${path.module}/values.yaml.tpl", {
-      admin_password = random_password.admin_password.result
       host           = var.host
       ingress_class  = var.ingress_class
     })
   ]
+
+  set_sensitive {
+    name  = "account.adminPassword"
+    value = random_password.admin_password.result
+  }
 }
 
 resource "kubernetes_secret" "sonarqube_admin_password" {
