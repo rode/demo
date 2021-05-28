@@ -8,6 +8,10 @@ output "password" {
 
 output "host" {
   value = "elasticsearch-master.${kubernetes_namespace.elasticsearch.metadata[0].name}.svc.cluster.local:9200"
+
+  depends_on = [
+    helm_release.elasticsearch
+  ]
 }
 
 output "namespace" {

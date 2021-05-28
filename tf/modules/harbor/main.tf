@@ -57,3 +57,27 @@ resource "helm_release" "harbor" {
     })
   ]
 }
+
+resource "helm_release" "rode_collector_harbor" {
+  name       = "rode-collector-harbor"
+  namespace  = kubernetes_namespace.harbor.metadata[0].name
+  chart      = "rode-collector-harbor"
+  repository = "https://rode.github.io/charts"
+  version    = "0.1.0"
+  wait       = true
+
+  set_sensitive {
+    name  = "harbor.password"
+    value = random_password.harbor_admin_password.result
+  }
+
+  values = [
+    templatefile("${path.module}/rode-collector-harbor-values.yaml.tpl", {
+      rode_host                = var.rode_host
+      harbor_url               = "https://${var.host}"
+      harbor_username          = "admin"
+      harbor_insecure          = var.harbor_insecure
+      harbor_collector_version = var.harbor_collector_version
+    })
+  ]
+}

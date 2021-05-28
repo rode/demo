@@ -84,6 +84,9 @@ variable "sonarqube_host" {}
 variable "sonarqube_namespace" {
   default = "rode-demo-sonarqube"
 }
+variable "sonarqube_collector_version" {
+  default = ""
+}
 variable "namespace_annotations" {
   type    = map(string)
   default = {}

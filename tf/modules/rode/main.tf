@@ -1,3 +1,11 @@
+locals {
+  policies = yamldecode(templatefile("${path.module}/policies.yml", {
+    harbor_policy = file(abspath("${path.module}/policies/harbor.rego"))
+    tfsec_policy  = file(abspath("${path.module}/policies/tfsec.rego"))
+  }))
+  rode_port = 50051
+}
+
 resource "kubernetes_namespace" "rode" {
   metadata {
     name        = var.namespace
@@ -32,7 +40,7 @@ resource "kubernetes_ingress" "rode" {
   spec {
     backend {
       service_name = "rode"
-      service_port = 50051
+      service_port = local.rode_port
     }
 
     rule {
@@ -43,7 +51,7 @@ resource "kubernetes_ingress" "rode" {
           path = "/"
           backend {
             service_name = "rode"
-            service_port = 50051
+            service_port = local.rode_port
           }
         }
       }
@@ -55,13 +63,6 @@ resource "kubernetes_ingress" "rode" {
       ]
     }
   }
-}
-
-locals {
-  policies = yamldecode(templatefile("${path.module}/policies.yml", {
-    harbor_policy = file(abspath("${path.module}/policies/harbor.rego"))
-    tfsec_policy  = file(abspath("${path.module}/policies/tfsec.rego"))
-  }))
 }
 
 resource "kubernetes_config_map" "policy" {
@@ -117,34 +118,6 @@ resource "kubernetes_job" "load_policy" {
   depends_on = [
     helm_release.rode,
     kubernetes_config_map.policy
-  ]
-}
-
-resource "helm_release" "rode_collector_harbor" {
-  name       = "rode-collector-harbor"
-  namespace  = kubernetes_namespace.rode.metadata[0].name
-  chart      = "rode-collector-harbor"
-  repository = "https://rode.github.io/charts"
-  version    = "0.0.3"
-  wait       = true
-
-  set_sensitive {
-    name  = "harbor.password"
-    value = var.harbor_password
-  }
-
-  values = [
-    templatefile("${path.module}/rode-collector-harbor-values.yaml.tpl", {
-      namespace                = kubernetes_namespace.rode.metadata[0].name
-      harbor_url               = var.harbor_url
-      harbor_username          = var.harbor_username
-      harbor_insecure          = var.harbor_insecure
-      harbor_collector_version = var.harbor_collector_version
-    })
-  ]
-
-  depends_on = [
-    helm_release.rode
   ]
 }
 
