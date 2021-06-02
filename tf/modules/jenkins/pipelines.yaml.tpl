@@ -24,15 +24,17 @@ jobs:
           }
         }
       }
+
+%{~ if sonarqube_host != "" }
 unclassified:
   sonarGlobalConfiguration:
     buildWrapperEnabled: false
     installations:
     - name: "SonarQube"
-      serverUrl: "http://sonarqube-sonarqube"
-      triggers:
-        skipScmCause: false
-        skipUpstreamCause: false
+      serverUrl: "https://${sonarqube_host}"
+      credentialsId: "${sonarqube_credentials}"
+%{~ endif }
+
 jenkins:
   globalNodeProperties:
     - envVars:
