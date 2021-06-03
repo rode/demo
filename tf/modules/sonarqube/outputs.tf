@@ -21,7 +21,7 @@ output "sonarqube_host" {
 }
 
 output "sonarqube_collector_url" {
-  value      = "http://rode-collector-sonarqube.${var.namespace}.svc.cluster.local/webhook/event"
+  value      = "http://rode-collector-sonarqube.${var.namespace}/webhook/event"
   depends_on = [
     helm_release.sonarqube
   ]

@@ -78,8 +78,6 @@ output "jenkins_admin_password" {
 }
 
 resource "kubernetes_secret" "sonarcube_credentials" {
-  count = var.sonarqube_token == "" ? 0 : 1
-
   metadata {
     name        = "jenkins-credential-sonarqube-token"
     namespace   = kubernetes_namespace.jenkins.metadata[0].name
@@ -112,7 +110,7 @@ resource "kubernetes_config_map" "jcasc_pipelines" {
       credentialsSecretName = ""
       harbor_host           = var.harbor_host
       sonarqube_host        = var.sonarqube_host
-      sonarqube_credentials = var.sonarqube_token != "" ? kubernetes_secret.sonarcube_credentials[0].metadata[0].name : ""
+      sonarqube_credentials = kubernetes_secret.sonarcube_credentials.metadata[0].name
       rode_namespace        = var.rode_namespace
     })
   }

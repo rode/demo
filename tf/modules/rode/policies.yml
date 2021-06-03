@@ -6,3 +6,7 @@
   description: This is a sample policy for tfsec vulnerabilites.
   regoContent: |
     ${indent(4, tfsec_policy)}
+- name: Sample SonarQube Policy
+  description: This is a sample policy for SonarQube code analysis
+  regoContent: |
+    ${indent(4, sonarqube_policy)}

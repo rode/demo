@@ -20,8 +20,8 @@ terraform {
       version = "0.3.4"
     }
     sonarqube = {
-      source  = "github.com/jdamata/sonarqube"
-      version = "0.1"
+      source  = "jdamata/sonarqube"
+      version = "0.0.5"
     }
   }
 }

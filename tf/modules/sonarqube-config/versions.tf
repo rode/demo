@@ -2,8 +2,8 @@ terraform {
   required_version = ">= 0.13.1"
   required_providers {
     sonarqube = {
-      source  = "github.com/jdamata/sonarqube"
-      version = "0.1"
+      source  = "jdamata/sonarqube"
+      version = "0.0.5"
     }
   }
 }
