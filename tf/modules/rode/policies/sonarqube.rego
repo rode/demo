@@ -40,6 +40,6 @@ violations[result] {
 		"id": "sonar_scan_completed",
 		"name": "SonarQube Analysis Finished",
 		"description": "Verify SonarQube analysis finished successfully",
-		"message": sprintf("SonarQube analysis completed at %v", finished),
+		"message": sprintf("SonarQube analysis completed at %v", [finished]),
 	}
 }
