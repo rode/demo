@@ -33,7 +33,7 @@ inputs = {
   ingress_name         = "nginx"
 
   rode_ui_version             = "v0.12.0"
-  rode_version                = "v0.9.1"
+  rode_version                = "v0.9.2"
   grafeas_version             = "v0.8.2"
   build_collector_version     = "v0.3.0"
   harbor_collector_version    = "v0.1.0"
