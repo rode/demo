@@ -48,7 +48,7 @@ inputs = {
   tfsec_collector_host   = "tfsec-collector.rode.lead.prod.liatr.io"
   update_coredns         = false
 
-  rode_ui_version             = "v0.11.1"
+  rode_ui_version             = "v0.12.0"
   rode_version                = "v0.9.1"
   grafeas_version             = "v0.8.2"
   build_collector_version     = "v0.3.0"

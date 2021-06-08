@@ -38,7 +38,7 @@ locals {
 
     "job-dsl:1.77",
     "kubernetes-credentials-provider:0.17",
-    "sonar:2.13"
+    "sonar:2.13.1"
   ]
 }
 
@@ -77,6 +77,23 @@ output "jenkins_admin_password" {
   value = data.kubernetes_secret.jenkins.data.jenkins-admin-password
 }
 
+resource "kubernetes_secret" "sonarcube_credentials" {
+  metadata {
+    name        = "jenkins-credential-sonarqube-token"
+    namespace   = kubernetes_namespace.jenkins.metadata[0].name
+    labels      = {
+      "jenkins.io/credentials-type" = "secretText"
+    }
+    annotations = {
+      "jenkins.io/credentials-description" = "Sonarqube Credentials"
+    }
+  }
+  type = "Opaque"
+  data = {
+    text = var.sonarqube_token
+  }
+}
+
 resource "kubernetes_config_map" "jcasc_pipelines" {
   metadata {
     name      = "${helm_release.jenkins.name}-jcasc-pipelines"
@@ -92,6 +109,8 @@ resource "kubernetes_config_map" "jcasc_pipelines" {
       pipelineRepo          = "demo-app"
       credentialsSecretName = ""
       harbor_host           = var.harbor_host
+      sonarqube_host        = var.sonarqube_host
+      sonarqube_credentials = kubernetes_secret.sonarcube_credentials.metadata[0].name
       rode_namespace        = var.rode_namespace
     })
   }

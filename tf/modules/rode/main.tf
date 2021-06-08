@@ -1,7 +1,8 @@
 locals {
-  policies = yamldecode(templatefile("${path.module}/policies.yml", {
-    harbor_policy = file(abspath("${path.module}/policies/harbor.rego"))
-    tfsec_policy  = file(abspath("${path.module}/policies/tfsec.rego"))
+  policies  = yamldecode(templatefile("${path.module}/policies.yml", {
+    harbor_policy    = file(abspath("${path.module}/policies/harbor.rego"))
+    tfsec_policy     = file(abspath("${path.module}/policies/tfsec.rego"))
+    sonarqube_policy = file(abspath("${path.module}/policies/sonarqube.rego"))
   }))
   rode_port = 50051
 }

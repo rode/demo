@@ -11,13 +11,17 @@ terraform {
       version = "2.0.3"
     }
 
-    random = {
+    random    = {
       source  = "hashicorp/random"
       version = "3.0.1"
     }
-    harbor = {
+    harbor    = {
       source  = "liatrio/harbor"
       version = "0.3.4"
+    }
+    sonarqube = {
+      source  = "jdamata/sonarqube"
+      version = "0.0.5"
     }
   }
 }
@@ -39,6 +43,13 @@ provider "helm" {
     config_context = var.kube_context
     config_path    = var.kube_config
   }
+}
+
+provider "sonarqube" {
+  host              = var.enable_sonarqube ? "https://${module.sonarqube[0].sonarqube_host}" : ""
+  user              = var.enable_sonarqube ? module.sonarqube[0].sonarqube_username : ""
+  pass              = var.enable_sonarqube ? module.sonarqube[0].sonarqube_password : ""
+  installed_version = "8.5"
 }
 
 module "elasticsearch" {
@@ -134,36 +145,6 @@ module "demo_app_setup" {
   ]
 }
 
-module "jenkins" {
-  count  = var.enable_jenkins ? 1 : 0
-  source = "../modules/jenkins"
-
-  jenkins_host          = var.jenkins_host
-  harbor_namespace      = module.harbor.namespace
-  harbor_host           = var.harbor_host
-  rode_namespace        = var.rode_namespace
-  namespace             = var.jenkins_namespace
-  namespace_annotations = var.namespace_annotations
-  ingress_class         = var.ingress_class
-  deploy_namespace      = var.deploy_namespace
-  environments          = var.environments
-
-  depends_on = [
-    module.nginx,
-    module.harbor,
-    module.demo_app_setup
-  ]
-}
-
-module "harbor_config" {
-  source = "../modules/harbor-config"
-
-  webhook_endpoint = "http://rode-collector-harbor.${var.harbor_namespace}.svc.cluster.local/webhook/event"
-  depends_on       = [
-    module.harbor
-  ]
-}
-
 module "sonarqube" {
   count  = var.enable_sonarqube ? 1: 0
   source = "../modules/sonarqube"
@@ -174,4 +155,44 @@ module "sonarqube" {
   namespace_annotations       = var.namespace_annotations
   rode_host                   = module.rode.rode_internal_host
   sonarqube_collector_version = var.sonarqube_collector_version
+}
+
+module "sonarqube_config" {
+  count  = var.enable_sonarqube ? 1 : 0
+  source = "../modules/sonarqube-config"
+
+  sonarqube_collector_url = module.sonarqube[0].sonarqube_collector_url
+}
+
+module "jenkins" {
+  count  = var.enable_jenkins ? 1 : 0
+  source = "../modules/jenkins"
+
+  harbor_namespace      = module.harbor.namespace
+  harbor_host           = var.harbor_host
+  jenkins_host          = var.jenkins_host
+  sonarqube_host        = var.sonarqube_host
+  sonarqube_token       = var.enable_sonarqube ? module.sonarqube_config[0].sonarqube_token : ""
+  rode_namespace        = var.rode_namespace
+  namespace             = var.jenkins_namespace
+  namespace_annotations = var.namespace_annotations
+  ingress_class         = var.ingress_class
+  deploy_namespace      = var.deploy_namespace
+  environments          = var.environments
+
+  depends_on = [
+    module.nginx,
+    module.harbor,
+    module.demo_app_setup,
+    module.sonarqube,
+  ]
+}
+
+module "harbor_config" {
+  source = "../modules/harbor-config"
+
+  webhook_endpoint = "http://rode-collector-harbor.${var.harbor_namespace}.svc.cluster.local/webhook/event"
+  depends_on       = [
+    module.harbor
+  ]
 }

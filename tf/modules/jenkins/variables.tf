@@ -1,6 +1,12 @@
 variable "harbor_namespace" {}
 variable "harbor_host" {}
 variable "jenkins_host" {}
+variable "sonarqube_host" {
+  default = ""
+}
+variable "sonarqube_token" {
+  default = ""
+}
 variable "rode_namespace" {}
 variable "namespace" {}
 variable "namespace_annotations" {
