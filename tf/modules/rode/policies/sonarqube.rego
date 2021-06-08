@@ -1,4 +1,4 @@
-package rode.demo.sonar1
+package rode.demo.sonar
 
 pass {
 	count(violation_count) == 0
