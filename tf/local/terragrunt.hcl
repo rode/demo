@@ -1,10 +1,10 @@
 remote_state {
-  backend = "local"
+  backend  = "local"
   generate = {
     path      = "backend.tf"
     if_exists = "overwrite_terragrunt"
   }
-  config = {
+  config   = {
     path = "${path_relative_to_include()}.tfstate"
   }
 }
@@ -18,9 +18,11 @@ inputs = {
 
   jenkins_host = "jenkins.localhost"
 
-  enable_nginx   = true
-  enable_jenkins = true
-  rode_ui_host   = "rode-ui.localhost"
+  enable_nginx     = true
+  enable_jenkins   = true
+  rode_ui_host     = "rode-ui.localhost"
+  enable_sonarqube = true
+  sonarqube_host   = "sonarqube.localhost"
 
   rode_ui_version = "v0.10.0"
   rode_version    = "v0.5.1"
