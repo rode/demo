@@ -30,6 +30,7 @@ Copy and paste the lines below to your /etc/hosts file.
 127.0.0.1 harbor.localhost
 127.0.0.1 jenkins.localhost
 127.0.0.1 rode-ui.localhost
+127.0.0.1 sonarqube.localhost
 ```
 ---
 Additionally, a rewrite may need to be added to your clusters DNS server to send Harbor traffic through the nginx controller. Automation is in place to update the CoreDNS configmap to include this rewrite, but in the event of a failed image deployment to Harbor inside the cluster, you may look to add the rewrite show below in the data block. (If your cluster is
@@ -58,7 +59,7 @@ terragrunt apply
 
 To retrieve the Jenkins admin password for authentication use the command below to copy it to your clipboard.
 
-```
+```shell
 kubectl get secret -n jenkins jenkins -o jsonpath="{.data.jenkins-admin-password}" | base64 --decode | pbcopy
 ```
 
@@ -66,8 +67,16 @@ kubectl get secret -n jenkins jenkins -o jsonpath="{.data.jenkins-admin-password
 
 To retrieve the Harbor admin password for authentication use the command below to copy it to your clipboard.
 
-```
+```shell
 kubectl get secret -n rode-demo-harbor harbor-harbor-core -o jsonpath="{.data.HARBOR_ADMIN_PASSWORD}" | base64 --decode | pbcopy
+```
+
+### SonarQube admin password
+
+To access the SonarQube instance, retrieve the password by using the following command: 
+
+```shell
+kubectl -n rode-demo-sonarqube get secret sonarqube-admin-credentials -o jsonpath="{.data.password}" | base64 --decode | pbcopy
 ```
 
 ## Pushing Images To Harbor
