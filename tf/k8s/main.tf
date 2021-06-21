@@ -23,6 +23,11 @@ terraform {
       source  = "jdamata/sonarqube"
       version = "0.0.5"
     }
+
+    keycloak = {
+      source = "mrparkers/keycloak"
+      version = "3.1.1"
+    }
   }
 }
 
@@ -43,6 +48,14 @@ provider "helm" {
     config_context = var.kube_context
     config_path    = var.kube_config
   }
+}
+
+provider "keycloak" {
+    client_id     = "admin-cli"
+    username      = "keycloak"
+    password      = var.enable_keycloak ? module.keycloak[0].keycloak_admin_password : ""
+    url           = var.enable_keycloak ? "https://${var.keycloak_host}" : ""
+    tls_insecure_skip_verify = true // TODO: add var
 }
 
 provider "sonarqube" {
@@ -195,4 +208,13 @@ module "harbor_config" {
   depends_on       = [
     module.harbor
   ]
+}
+
+module "keycloak" {
+  count  = var.enable_keycloak ? 1 : 0
+  source = "../modules/keycloak"
+
+  namespace_annotations = var.namespace_annotations
+  ingress_class         = var.ingress_class
+  keycloak_host         = var.keycloak_host
 }

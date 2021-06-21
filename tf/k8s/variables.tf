@@ -96,3 +96,11 @@ variable "environments" {
   type    = set(string)
   default = ["dev", "staging", "prod"]
 }
+
+variable "keycloak_host" {
+  default = ""
+}
+
+variable "enable_keycloak" {
+  default = true
+}
