@@ -55,7 +55,8 @@ provider "keycloak" {
     username      = "keycloak"
     password      = var.enable_keycloak ? module.keycloak[0].keycloak_admin_password : ""
     url           = var.enable_keycloak ? "https://${var.keycloak_host}" : ""
-    tls_insecure_skip_verify = true // TODO: add var
+    tls_insecure_skip_verify = var.keycloak_tls_insecure_skip_verify
+    initial_login  = false
 }
 
 provider "sonarqube" {

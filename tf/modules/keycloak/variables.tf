@@ -1,6 +1,6 @@
 variable "namespace" {
-  type = string
-  default = "keycloak"
+  type    = string
+  default = "rode-demo-keycloak"
 }
 
 variable "namespace_annotations" {
@@ -8,9 +8,9 @@ variable "namespace_annotations" {
 }
 
 variable "ingress_class" {
-    type = string
+  type = string
 }
 
 variable "keycloak_host" {
-    type = string
+  type = string
 }

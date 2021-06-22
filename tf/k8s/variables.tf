@@ -104,3 +104,7 @@ variable "keycloak_host" {
 variable "enable_keycloak" {
   default = true
 }
+
+variable "keycloak_tls_insecure_skip_verify" {
+  default = false
+}

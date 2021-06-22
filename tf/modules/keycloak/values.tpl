@@ -19,7 +19,7 @@ extraEnv: |
   - name: KEYCLOAK_PASSWORD_FILE
     value: /secrets/creds/admin_password
   - name: KEYCLOAK_LOGLEVEL
-    value: "DEBUG"
+    value: "INFO"
 
 
 ingress:
