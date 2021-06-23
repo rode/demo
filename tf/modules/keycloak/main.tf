@@ -15,11 +15,6 @@ resource "random_password" "postgres_password" {
   special = false
 }
 
-resource "random_password" "policy_admin_password" {
-  length  = 12
-  special = false
-}
-
 resource "kubernetes_secret" "keycloak_credentials" {
   metadata {
     name      = "keycloak-credentials"
@@ -30,7 +25,6 @@ resource "kubernetes_secret" "keycloak_credentials" {
   data = {
     admin_username             = "keycloak"
     admin_password             = random_password.keycloak_admin_password.result
-    rode_policy_admin_password = random_password.policy_admin_password.result
   }
 }
 
@@ -75,13 +69,6 @@ resource "keycloak_openid_client" "rode" {
   enabled     = true
 }
 
-resource "keycloak_role" "policy_admin_role" {
-  realm_id    = keycloak_realm.rode_demo.id
-  client_id   = keycloak_openid_client.rode.id
-  name        = "Policy Administrator"
-  description = "Rode Policy Administrator"
-}
-
 resource "keycloak_openid_client" "rode_ui" {
   realm_id  = keycloak_realm.rode_demo.id
   client_id = "rode-ui"
@@ -112,41 +99,4 @@ resource "keycloak_openid_audience_protocol_mapper" "rode_audience" {
   name      = "rode-audience-mapper"
 
   included_custom_audience = "rode"
-}
-
-resource "keycloak_user" "policy_admin" {
-  realm_id = keycloak_realm.rode_demo.id
-  username = "rode-policy-admin"
-  enabled  = true
-
-  email      = "policy-admin@rode.liatrio.com"
-  first_name = "Policy"
-  last_name  = "Administrator"
-
-  initial_password {
-    value = random_password.policy_admin_password.result
-  }
-}
-
-resource "keycloak_group" "rode_policy_admins" {
-  realm_id = keycloak_realm.rode_demo.id
-  name     = "rode-policy-admins"
-}
-
-resource "keycloak_user_groups" "policy_admin" {
-  realm_id = keycloak_realm.rode_demo.id
-  user_id  = keycloak_user.policy_admin.id
-
-  group_ids = [
-    keycloak_group.rode_policy_admins.id
-  ]
-}
-
-resource "keycloak_group_roles" "policy_admin_group_role" {
-  realm_id = keycloak_realm.rode_demo.id
-  group_id = keycloak_group.rode_policy_admins.id
-
-  role_ids = [
-    keycloak_role.policy_admin_role.id,
-  ]
 }
