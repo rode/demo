@@ -27,13 +27,6 @@ ingress:
   annotations:
     kubernetes.io/ingress.class: "${ingress_class}"
     nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
-    nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
-    nginx.ingress.kubernetes.io/configuration-snippet: |
-      more_set_headers "X-Forwarded-Proto: https";
-    ingress.kubernetes.io/proxy-body-size: "0"
-    ingress.kubernetes.io/proxy-read-timeout: "600"
-    ingress.kubernetes.io/proxy-send-timeout: "600"
-    nginx.ingress.kubernetes.io/proxy-body-size: "0"
   rules:
   - host: ${ingress_hostname}
     paths:

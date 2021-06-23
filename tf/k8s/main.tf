@@ -25,7 +25,7 @@ terraform {
     }
 
     keycloak = {
-      source = "mrparkers/keycloak"
+      source  = "mrparkers/keycloak"
       version = "3.1.1"
     }
   }
@@ -51,12 +51,12 @@ provider "helm" {
 }
 
 provider "keycloak" {
-    client_id     = "admin-cli"
-    username      = "keycloak"
-    password      = var.enable_keycloak ? module.keycloak[0].keycloak_admin_password : ""
-    url           = var.enable_keycloak ? "https://${var.keycloak_host}" : ""
-    tls_insecure_skip_verify = var.keycloak_tls_insecure_skip_verify
-    initial_login  = false
+  client_id                = "admin-cli"
+  username                 = "keycloak"
+  password                 = var.enable_keycloak ? module.keycloak[0].keycloak_admin_password : ""
+  url                      = var.enable_keycloak ? "https://${var.keycloak_host}" : ""
+  tls_insecure_skip_verify = var.keycloak_tls_insecure_skip_verify
+  initial_login            = false
 }
 
 provider "sonarqube" {
