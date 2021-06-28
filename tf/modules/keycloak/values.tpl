@@ -20,7 +20,13 @@ extraEnv: |
     value: /secrets/creds/admin_password
   - name: KEYCLOAK_LOGLEVEL
     value: "INFO"
-
+  - name: JAVA_OPTS
+    value: >-
+      -XX:+UseContainerSupport
+      -XX:MaxRAMPercentage=50.0
+      -Djava.net.preferIPv4Stack=true
+      -Djboss.modules.system.pkgs=$JBOSS_MODULES_SYSTEM_PKGS
+      -Djava.awt.headless=true
 
 ingress:
   enabled: true
@@ -38,10 +44,7 @@ ingress:
 
 resources:
   requests:
-    memory: 600Mi
-    cpu: 50m
-  limits:
-    memory: 800Mi
+    memory: 1Gi
     cpu: 1
 
 postgresql:
