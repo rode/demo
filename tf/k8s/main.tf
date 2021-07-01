@@ -124,6 +124,7 @@ module "coredns" {
   source = "../modules/coredns"
 
   harbor_host       = var.harbor_host
+  sonarqube_host    = var.sonarqube_host
   nginx_service_url = module.nginx[0].service_url
 
   depends_on = [
