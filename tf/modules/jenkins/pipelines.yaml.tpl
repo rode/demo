@@ -31,7 +31,7 @@ unclassified:
     buildWrapperEnabled: false
     installations:
     - name: "SonarQube"
-      serverUrl: "https://${sonarqube_host}"
+      serverUrl: "http://${sonarqube_host}"
       credentialsId: "${sonarqube_credentials}"
 %{~ endif }
 
