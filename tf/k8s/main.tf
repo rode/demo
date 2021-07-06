@@ -26,7 +26,7 @@ terraform {
 
     keycloak = {
       source  = "mrparkers/keycloak"
-      version = "3.1.1"
+      version = "3.2.0-rc.0"
     }
   }
 }
