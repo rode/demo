@@ -89,7 +89,7 @@ resource "keycloak_openid_audience_protocol_mapper" "rode_ui_audience" {
   client_id = keycloak_openid_client.rode_ui.id
   name      = "rode-ui-audience-mapper"
 
-  included_custom_audience = "rode-ui"
+  included_client_audience = keycloak_openid_client.rode_ui.client_id
 }
 
 // ensure that tokens rode-ui receives can be used with Rode
@@ -98,5 +98,5 @@ resource "keycloak_openid_audience_protocol_mapper" "rode_audience" {
   client_id = keycloak_openid_client.rode_ui.id
   name      = "rode-audience-mapper"
 
-  included_custom_audience = "rode"
+  included_client_audience = keycloak_openid_client.rode.client_id
 }
