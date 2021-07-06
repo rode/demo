@@ -46,7 +46,7 @@ provider "helm" {
 }
 
 provider "sonarqube" {
-  host              = var.enable_sonarqube ? "https://${module.sonarqube[0].sonarqube_host}" : ""
+  host              = var.enable_sonarqube ? "http://${module.sonarqube[0].sonarqube_host}" : ""
   user              = var.enable_sonarqube ? module.sonarqube[0].sonarqube_username : ""
   pass              = var.enable_sonarqube ? module.sonarqube[0].sonarqube_password : ""
   installed_version = "8.5"
@@ -124,6 +124,7 @@ module "coredns" {
   source = "../modules/coredns"
 
   harbor_host       = var.harbor_host
+  sonarqube_host    = var.sonarqube_host
   nginx_service_url = module.nginx[0].service_url
 
   depends_on = [

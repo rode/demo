@@ -2,16 +2,13 @@ ingress:
   enabled: true
   annotations:
     nginx.ingress.kubernetes.io/proxy-body-size: 32m
-    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "false"
   %{~ if ingress_class != ""}
     kubernetes.io/ingress.class: ${ingress_class}
   %{~ endif}
   hosts:
     - name: ${host}
       path: "/"
-  tls:
-    - hosts:
-        - ${host}
 
 sonarProperties:
-  "sonar.core.serverBaseURL": "https://${host}"
+  "sonar.core.serverBaseURL": "http://${host}"

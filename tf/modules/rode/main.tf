@@ -109,10 +109,10 @@ resource "kubernetes_job" "load_policy" {
             default_mode = "0777"
           }
         }
-        restart_policy = "Never"
+        restart_policy = "OnFailure"
       }
     }
-    backoff_limit = 2
+    backoff_limit = 10
   }
   wait_for_completion = true
 
