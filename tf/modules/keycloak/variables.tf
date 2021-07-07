@@ -14,3 +14,7 @@ variable "ingress_class" {
 variable "keycloak_host" {
   type = string
 }
+
+variable "rode_ui_host" {
+  type = string
+}

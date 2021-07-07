@@ -23,12 +23,11 @@ resource "kubernetes_secret" "keycloak_credentials" {
   type = "Opaque"
 
   data = {
-    admin_username             = "keycloak"
-    admin_password             = random_password.keycloak_admin_password.result
+    admin_username = "keycloak"
+    admin_password = random_password.keycloak_admin_password.result
   }
 }
 
-// TODO: upgrade keycloak
 resource "helm_release" "keycloak" {
   repository = "https://codecentric.github.io/helm-charts"
   name       = "keycloak"
@@ -62,40 +61,28 @@ resource "keycloak_realm" "rode_demo" {
 }
 
 resource "keycloak_openid_client" "rode" {
-  realm_id    = keycloak_realm.rode_demo.id
-  client_id   = "rode"
-  name        = "Rode"
-  access_type = "BEARER-ONLY"
-  enabled     = true
-}
-
-resource "keycloak_openid_client" "rode_ui" {
-  realm_id  = keycloak_realm.rode_demo.id
-  client_id = "rode-ui"
-
-  name    = "Rode UI"
-  enabled = true
-
-  standard_flow_enabled        = true
-  direct_access_grants_enabled = true
+  realm_id                     = keycloak_realm.rode_demo.id
+  client_id                    = "rode"
+  name                         = "Rode"
   access_type                  = "CONFIDENTIAL"
-  valid_redirect_uris = [
-    "https://rode-ui.local/callback"
+  // Rode UI uses the authorization code flow
+  standard_flow_enabled        = true
+  // password grant allows for easier local development and testing
+  direct_access_grants_enabled = true
+  // client credentials for the collectors and enforcers
+  service_accounts_enabled     = true
+  enabled                      = true
+  valid_redirect_uris          = [
+    "http://localhost:3000/",
+    "http://localhost:3000/callback",
+    "https://${var.rode_ui_host}/",
+    "https://${var.rode_ui_host}/callback"
   ]
 }
 
-resource "keycloak_openid_audience_protocol_mapper" "rode_ui_audience" {
-  realm_id  = keycloak_realm.rode_demo.id
-  client_id = keycloak_openid_client.rode_ui.id
-  name      = "rode-ui-audience-mapper"
-
-  included_client_audience = keycloak_openid_client.rode_ui.client_id
-}
-
-// ensure that tokens rode-ui receives can be used with Rode
 resource "keycloak_openid_audience_protocol_mapper" "rode_audience" {
   realm_id  = keycloak_realm.rode_demo.id
-  client_id = keycloak_openid_client.rode_ui.id
+  client_id = keycloak_openid_client.rode.id
   name      = "rode-audience-mapper"
 
   included_client_audience = keycloak_openid_client.rode.client_id
