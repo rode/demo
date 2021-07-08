@@ -42,6 +42,9 @@ inputs = {
   enable_sonarqube = true
   sonarqube_host   = "sonarqube.internal.lead.sandbox.liatr.io"
 
+  enable_keycloak = true
+  keycloak_host   = "keycloak.internal.lead.sandbox.liatr.io"
+
   elasticsearch_replicas = "3"
   rode_host              = "rode.rode.lead.sandbox.liatr.io"
   rode_ui_host           = "rode-ui.internal.lead.sandbox.liatr.io"
