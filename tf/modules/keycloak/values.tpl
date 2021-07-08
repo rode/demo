@@ -44,7 +44,10 @@ ingress:
 
 resources:
   requests:
-    memory: 1Gi
+    memory: 750Mi
+    cpu: 1
+  limits:
+    memory: 750Mi
     cpu: 1
 
 postgresql:
@@ -55,3 +58,12 @@ postgresql:
     limits:
       memory: 128Mi
       cpu: 500m
+
+startupProbe: ""
+
+livenessProbe: |
+  httpGet:
+    path: /auth/
+    port: http
+  initialDelaySeconds: 120
+  timeoutSeconds: 5

@@ -33,7 +33,7 @@ resource "helm_release" "keycloak" {
   name       = "keycloak"
   namespace  = kubernetes_namespace.keycloak.metadata[0].name
   chart      = "keycloak"
-  version    = "9.0.5"
+  version    = "11.0.1"
   timeout    = 1200
   wait       = true
 
