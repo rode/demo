@@ -69,8 +69,6 @@ resource "keycloak_openid_client" "rode" {
   standard_flow_enabled        = true
   // password grant allows for easier local development and testing
   direct_access_grants_enabled = true
-  // client credentials for the collectors and enforcers
-  service_accounts_enabled     = true
   enabled                      = true
   valid_redirect_uris          = [
     "http://localhost:3000/",
