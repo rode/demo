@@ -28,6 +28,9 @@ inputs = {
   enable_sonarqube = true
   sonarqube_host   = "sonarqube.localhost"
 
+  enable_keycloak = true
+  keycloak_host   = "keycloak.localhost"
+
   tfsec_collector_host = "tfsec-collector.localhost"
   rode_ui_host         = "rode-ui.localhost"
   ingress_name         = "nginx"

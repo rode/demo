@@ -96,3 +96,15 @@ variable "environments" {
   type    = set(string)
   default = ["dev", "staging", "prod"]
 }
+
+variable "keycloak_host" {
+  default = ""
+}
+
+variable "enable_keycloak" {
+  default = true
+}
+
+variable "keycloak_tls_insecure_skip_verify" {
+  default = false
+}
