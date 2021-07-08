@@ -1,3 +1,9 @@
+locals {
+  rode_service_accounts = toset([
+    "collector",
+    "enforcer"])
+}
+
 resource "kubernetes_namespace" "keycloak" {
   metadata {
     name        = var.namespace
@@ -82,6 +88,33 @@ resource "keycloak_openid_audience_protocol_mapper" "rode_audience" {
   realm_id  = keycloak_realm.rode_demo.id
   client_id = keycloak_openid_client.rode.id
   name      = "rode-audience-mapper"
+
+  included_client_audience = keycloak_openid_client.rode.client_id
+}
+
+resource "keycloak_openid_client" "service_account" {
+  for_each                 = local.rode_service_accounts
+  realm_id                 = keycloak_realm.rode_demo.id
+  client_id                = "rode-${each.key}"
+  name                     = "Generic Rode ${title(each.key)}"
+  access_type              = "CONFIDENTIAL"
+  service_accounts_enabled = true
+  enabled                  = true
+}
+
+resource "keycloak_openid_client_service_account_role" "service_account_role" {
+  for_each                = local.rode_service_accounts
+  realm_id                = keycloak_realm.rode_demo.id
+  service_account_user_id = keycloak_openid_client.service_account[each.key].service_account_user_id
+  client_id               = keycloak_openid_client.rode.id
+  role                    = keycloak_role.demo_role[title(each.key)].name
+}
+
+resource "keycloak_openid_audience_protocol_mapper" "service_account_audience" {
+  for_each  = local.rode_service_accounts
+  realm_id  = keycloak_realm.rode_demo.id
+  client_id = keycloak_openid_client.service_account[each.key].id
+  name      = "${each.key}-audience-mapper"
 
   included_client_audience = keycloak_openid_client.rode.client_id
 }
