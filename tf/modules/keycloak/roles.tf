@@ -9,7 +9,7 @@ locals {
   ])
 
   users = tomap({
-  for role in local.roles : role => replace(lower(role), " ", "-")
+    for role in local.roles : role => replace(lower(role), " ", "-")
   })
 }
 
@@ -73,6 +73,6 @@ resource "kubernetes_secret" "user_credentials" {
   type = "Opaque"
 
   data = {
-  for role, user in local.users : user => random_password.demo_user_password[role].result
+    for role, user in local.users : user => random_password.demo_user_password[role].result
   }
 }

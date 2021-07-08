@@ -1,7 +1,5 @@
 locals {
-  rode_service_accounts = toset([
-    "collector",
-    "enforcer"])
+  rode_service_accounts = toset(["collector", "enforcer"])
 }
 
 resource "kubernetes_namespace" "keycloak" {
@@ -67,16 +65,16 @@ resource "keycloak_realm" "rode_demo" {
 }
 
 resource "keycloak_openid_client" "rode" {
-  realm_id                     = keycloak_realm.rode_demo.id
-  client_id                    = "rode"
-  name                         = "Rode"
-  access_type                  = "CONFIDENTIAL"
+  realm_id    = keycloak_realm.rode_demo.id
+  client_id   = "rode"
+  name        = "Rode"
+  access_type = "CONFIDENTIAL"
   // Rode UI uses the authorization code flow
-  standard_flow_enabled        = true
+  standard_flow_enabled = true
   // password grant allows for easier local development and testing
   direct_access_grants_enabled = true
   enabled                      = true
-  valid_redirect_uris          = [
+  valid_redirect_uris = [
     "http://localhost:3000/",
     "http://localhost:3000/callback",
     "https://${var.rode_ui_host}/",
