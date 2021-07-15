@@ -46,8 +46,8 @@ resource "kubernetes_secret" "sonarqube_admin_password" {
 resource "helm_release" "rode_collector_sonarqube" {
   name       = "rode-collector-sonarqube"
   namespace  = kubernetes_namespace.sonarqube.metadata[0].name
-  chart      = "/Users/parker/Developer/rode-charts/charts/rode-collector-sonarqube"
-#  repository = "https://rode.github.io/charts"
+  chart      = "rode-collector-sonarqube"
+  repository = "https://rode.github.io/charts"
   version    = "0.1.0"
   wait       = true
 
