@@ -38,7 +38,7 @@ resource "azuread_application" "rode" {
   dynamic "app_role" {
     for_each = local.roles
     content {
-      allowed_member_types = ["User"]
+      allowed_member_types = ["User", "Application"]
       enabled      = true
       description  = app_role.value
       display_name = app_role.value
