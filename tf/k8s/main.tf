@@ -26,7 +26,7 @@ terraform {
 
     keycloak = {
       source  = "mrparkers/keycloak"
-      version = "3.2.0-rc.0"
+      version = "3.2.0"
     }
   }
 }
@@ -104,6 +104,12 @@ module "rode" {
   tfsec_collector_version = var.tfsec_collector_version
   ingress_class           = var.ingress_class
 
+  oidc_auth_enabled = var.enable_keycloak
+  oidc_issuer       = var.enable_keycloak ? module.keycloak[0].issuer_url : ""
+
+  oidc_rode_client_id     = var.enable_keycloak ? module.keycloak[0].rode_client_id : ""
+  oidc_rode_client_secret = var.enable_keycloak ? module.keycloak[0].rode_client_secret : ""
+
   depends_on = [
     module.grafeas
   ]
@@ -127,6 +133,11 @@ module "harbor" {
   harbor_insecure          = var.harbor_insecure
   harbor_collector_version = var.harbor_collector_version
   rode_host                = module.rode.rode_internal_host
+
+  oidc_auth_enabled  = var.enable_keycloak
+  oidc_client_id     = var.enable_keycloak ? module.keycloak[0].service_account_client_id["collector"] : ""
+  oidc_client_secret = var.enable_keycloak ? module.keycloak[0].service_account_client_secret["collector"] : ""
+  oidc_token_url     = var.enable_keycloak ? module.keycloak[0].token_url : ""
 
   depends_on = [
     module.nginx
@@ -169,6 +180,11 @@ module "sonarqube" {
   namespace_annotations       = var.namespace_annotations
   rode_host                   = module.rode.rode_internal_host
   sonarqube_collector_version = var.sonarqube_collector_version
+
+  oidc_auth_enabled  = var.enable_keycloak
+  oidc_client_id     = var.enable_keycloak ? module.keycloak[0].service_account_client_id["collector"] : ""
+  oidc_client_secret = var.enable_keycloak ? module.keycloak[0].service_account_client_secret["collector"] : ""
+  oidc_token_url     = var.enable_keycloak ? module.keycloak[0].token_url : ""
 }
 
 module "sonarqube_config" {

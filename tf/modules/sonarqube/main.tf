@@ -46,16 +46,25 @@ resource "kubernetes_secret" "sonarqube_admin_password" {
 resource "helm_release" "rode_collector_sonarqube" {
   name       = "rode-collector-sonarqube"
   namespace  = kubernetes_namespace.sonarqube.metadata[0].name
-  chart      = "rode-collector-sonarqube"
-  repository = "https://rode.github.io/charts"
-  version    = "0.0.1"
+  chart      = "/Users/parker/Developer/rode-charts/charts/rode-collector-sonarqube"
+#  repository = "https://rode.github.io/charts"
+  version    = "0.1.0"
   wait       = true
+
+  set_sensitive {
+    name  = "rode.auth.oidc.clientSecret"
+    value = var.oidc_client_secret
+  }
 
   values = [
     templatefile("${path.module}/rode-collector-sonarqube-values.yaml.tpl", {
       namespace                   = kubernetes_namespace.sonarqube.metadata[0].name
       sonarqube_collector_version = var.sonarqube_collector_version
       rode_host                   = var.rode_host
+
+      oidc_auth_enabled = var.oidc_auth_enabled
+      oidc_client_id    = var.oidc_client_id
+      oidc_token_url    = var.oidc_token_url
     })
   ]
 }

@@ -5,3 +5,35 @@ output "keycloak_admin_password" {
     helm_release.keycloak
   ]
 }
+
+output "rode_client_id" {
+  value = keycloak_openid_client.rode.client_id
+}
+
+output "rode_client_secret" {
+  value = keycloak_openid_client.rode.client_secret
+
+  sensitive = true
+}
+
+output "service_account_client_id" {
+  value = tomap({
+    for s in local.rode_service_accounts : s => keycloak_openid_client.service_account[s].client_id
+  })
+}
+
+output "service_account_client_secret" {
+  value = tomap({
+    for s in local.rode_service_accounts : s => keycloak_openid_client.service_account[s].client_secret
+  })
+
+  sensitive = true
+}
+
+output "token_url" {
+  value = "https://${var.keycloak_host}/auth/realms/${keycloak_realm.rode_demo.realm}/protocol/openid-connect/token"
+}
+
+output "issuer_url" {
+  value = "https://${var.keycloak_host}/auth/realms/${keycloak_realm.rode_demo.realm}"
+}

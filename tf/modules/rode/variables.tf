@@ -34,3 +34,22 @@ variable "tfsec_collector_host" {
 variable "ingress_class" {
   default = ""
 }
+
+variable "oidc_auth_enabled" {
+  type    = bool
+  default = false
+}
+
+variable "oidc_issuer" {
+  type = string
+  default = ""
+}
+
+variable "oidc_rode_client_id" {
+  type = string
+  default = ""
+}
+variable "oidc_rode_client_secret" {
+  type = string
+  default = ""
+}
