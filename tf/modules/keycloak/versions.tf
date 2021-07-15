@@ -3,7 +3,7 @@ terraform {
   required_providers {
     keycloak = {
       source  = "mrparkers/keycloak"
-      version = "3.2.0-rc.0"
+      version = "3.2.0"
     }
   }
 }

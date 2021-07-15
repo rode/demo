@@ -19,7 +19,7 @@ resource "helm_release" "rode" {
   namespace  = kubernetes_namespace.rode.metadata[0].name
   chart      = "rode"
   repository = "https://rode.github.io/charts"
-  version    = "0.2.0"
+  version    = "0.3.0"
   wait       = true
 
   values = [
@@ -27,6 +27,11 @@ resource "helm_release" "rode" {
       grafeas_namespace  = var.grafeas_namespace
       elasticsearch_host = var.elasticsearch_host
       rode_version       = var.rode_version
+
+      oidc_auth_enabled           = var.oidc_auth_enabled
+      oidc_auth_issuer            = var.oidc_issuer
+      oidc_auth_required_audience = var.oidc_rode_client_id
+      oidc_auth_role_claim_path   = var.oidc_auth_enabled ? "resource_access.${var.oidc_rode_client_id}.roles" : ""
     })
   ]
 }
@@ -127,8 +132,13 @@ resource "helm_release" "rode_ui" {
   namespace  = kubernetes_namespace.rode.metadata[0].name
   chart      = "rode-ui"
   repository = "https://rode.github.io/charts"
-  version    = "0.2.0"
+  version    = "0.3.0"
   wait       = true
+
+  set_sensitive {
+    name  = "rode.auth.oidc.clientSecret"
+    value = var.oidc_rode_client_secret
+  }
 
   values = [
     templatefile("${path.module}/rode-ui-values.yaml.tpl", {
@@ -136,6 +146,10 @@ resource "helm_release" "rode_ui" {
       rode_ui_version = var.rode_ui_version
       rode_ui_host    = var.rode_ui_host
       ingress_class   = var.ingress_class
+
+      oidc_auth_enabled = var.oidc_auth_enabled
+      oidc_client_id    = var.oidc_rode_client_id
+      oidc_issuer       = var.oidc_issuer
     })
   ]
 
