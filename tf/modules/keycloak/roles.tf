@@ -17,7 +17,7 @@ resource "keycloak_role" "demo_role" {
   for_each  = local.roles
   realm_id  = keycloak_realm.rode_demo.id
   client_id = keycloak_openid_client.rode.id
-  name      = each.key
+  name      = replace(each.key, " ", "")
 }
 
 resource "keycloak_group" "demo_group" {
