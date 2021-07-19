@@ -26,8 +26,8 @@ terraform {
 }
 
 inputs = {
-  kube_context = "arn:aws:eks:us-east-1:489130170427:cluster/lead"
-  kube_config  = "~/.kube/config"
+  kube_context = ""
+  kube_config  = ""
 
   harbor_host        = "harbor.internal.lead.prod.liatr.io"
   harbor_insecure    = false
