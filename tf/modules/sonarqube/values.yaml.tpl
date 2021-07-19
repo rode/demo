@@ -15,3 +15,4 @@ ingress:
 
 sonarProperties:
   "sonar.core.serverBaseURL": "https://${host}"
+  "sonar.log.level": "DEBUG"
