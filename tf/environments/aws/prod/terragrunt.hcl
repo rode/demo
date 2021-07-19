@@ -26,8 +26,8 @@ terraform {
 }
 
 inputs = {
-  kube_context = ""
-  kube_config  = ""
+  kube_context = "arn:aws:eks:us-east-1:489130170427:cluster/lead"
+  kube_config  = "~/.kube/config"
 
   harbor_host        = "harbor.internal.lead.prod.liatr.io"
   harbor_insecure    = false
@@ -51,8 +51,8 @@ inputs = {
   tfsec_collector_host   = "tfsec-collector.rode.lead.prod.liatr.io"
   update_coredns         = false
 
-  rode_ui_version             = "v0.12.0"
-  rode_version                = "v0.9.2"
+  rode_ui_version             = "v0.17.2"
+  rode_version                = "v0.14.2"
   grafeas_version             = "v0.8.2"
   build_collector_version     = "v0.3.0"
   harbor_collector_version    = "v0.1.0"
