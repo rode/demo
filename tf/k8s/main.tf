@@ -106,9 +106,13 @@ module "rode" {
 
   oidc_auth_enabled = var.enable_keycloak
   oidc_issuer       = var.enable_keycloak ? module.keycloak[0].issuer_url : ""
+  oidc_token_url    = var.enable_keycloak ? module.keycloak[0].token_url : ""
 
   oidc_rode_client_id     = var.enable_keycloak ? module.keycloak[0].rode_client_id : ""
   oidc_rode_client_secret = var.enable_keycloak ? module.keycloak[0].rode_client_secret : ""
+
+  oidc_admin_username = var.enable_keycloak ? module.keycloak[0].admin_username : ""
+  oidc_admin_password = var.enable_keycloak ? module.keycloak[0].admin_password : ""
 
   depends_on = [
     module.grafeas

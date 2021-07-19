@@ -81,7 +81,26 @@ resource "kubernetes_config_map" "policy" {
     "loadpolicy.sh" = templatefile("${path.module}/loadpolicy.sh.tpl", {
       policies       = local.policies
       rode_namespace = kubernetes_namespace.rode.metadata[0].name
+
+      oidc_auth_enabled = var.oidc_auth_enabled
+      oidc_token_url    = var.oidc_token_url
     })
+  }
+}
+
+resource "kubernetes_secret" "auth_credentials" {
+  count = var.oidc_auth_enabled ? 1 : 0
+
+  metadata {
+    name      = "rode-policy-auth-credentials"
+    namespace = kubernetes_namespace.rode.metadata[0].name
+  }
+
+  data = {
+    USERNAME      = var.oidc_admin_username
+    PASSWORD      = var.oidc_admin_password
+    CLIENT_ID     = var.oidc_rode_client_id
+    CLIENT_SECRET = var.oidc_rode_client_secret
   }
 }
 
@@ -100,11 +119,21 @@ resource "kubernetes_job" "load_policy" {
           command = [
             "/bin/sh",
             "-c",
-            "/root/loadpolicy.sh"]
+            "/root/loadpolicy.sh"
+          ]
           volume_mount {
             name       = "policy-configmap-volume"
             mount_path = "/root/loadpolicy.sh"
             sub_path   = "loadpolicy.sh"
+          }
+          // if auth is enabled, populate the job with environment variables needed to authenticate policy creation API calls
+          dynamic env_from {
+            for_each = var.oidc_auth_enabled ? [0] : []
+            content {
+              secret_ref {
+                name = kubernetes_secret.auth_credentials[0].metadata[0].name
+              }
+            }
           }
         }
         volume {

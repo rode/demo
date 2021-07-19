@@ -41,15 +41,31 @@ variable "oidc_auth_enabled" {
 }
 
 variable "oidc_issuer" {
-  type = string
+  type    = string
+  default = ""
+}
+
+variable "oidc_token_url" {
+  type    = string
   default = ""
 }
 
 variable "oidc_rode_client_id" {
-  type = string
+  type    = string
   default = ""
 }
+
 variable "oidc_rode_client_secret" {
-  type = string
+  type    = string
+  default = ""
+}
+
+variable "oidc_admin_username" {
+  type    = string
+  default = ""
+}
+
+variable "oidc_admin_password" {
+  type    = string
   default = ""
 }

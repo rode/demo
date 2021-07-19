@@ -37,3 +37,11 @@ output "token_url" {
 output "issuer_url" {
   value = "https://${var.keycloak_host}/auth/realms/${keycloak_realm.rode_demo.realm}"
 }
+
+output "admin_username" {
+  value = keycloak_user.demo_user["Administrator"].username
+}
+
+output "admin_password" {
+  value = random_password.demo_user_password["Administrator"].result
+}
