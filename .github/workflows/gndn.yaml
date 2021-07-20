@@ -1,0 +1,25 @@
+name: test workflow
+
+on: 
+  push:
+
+env:
+  NODE_VERSION: '12.16.3'
+  TERRAGRUNT_VERSION: '0.28.14'
+
+jobs:
+  test:
+    name: test workflow
+
+    runs-on: 
+    - self-hosted
+    - rode-runners-prod
+
+    steps:
+      # Checks out a copy of your repository on the ubuntu-latest machine
+      - name: Checkout code
+        uses: actions/checkout@v2
+      
+      - name: hello
+        run: echo "Hello!"
+
