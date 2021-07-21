@@ -59,7 +59,8 @@ resource "helm_release" "keycloak" {
 }
 
 resource "time_sleep" "wait_for_keycloak" {
-  create_duration = "30s"
+  create_duration  = "30s"
+  destroy_duration = "15s"
 
   depends_on = [
     helm_release.keycloak,
