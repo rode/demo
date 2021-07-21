@@ -214,6 +214,10 @@ module "jenkins" {
   deploy_namespace      = var.deploy_namespace
   environments          = var.environments
 
+  oidc_client_id     = var.enable_keycloak ? module.keycloak[0].service_account_client_id["collector"] : ""
+  oidc_client_secret = var.enable_keycloak ? module.keycloak[0].service_account_client_secret["collector"] : ""
+  oidc_token_url     = var.enable_keycloak ? module.keycloak[0].token_url : ""
+
   depends_on = [
     module.nginx,
     module.harbor,
