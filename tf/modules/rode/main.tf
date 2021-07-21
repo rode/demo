@@ -213,13 +213,14 @@ resource "helm_release" "rode_collector_tfsec" {
   namespace  = kubernetes_namespace.rode.metadata[0].name
   repository = "https://rode.github.io/charts"
   chart      = "rode-collector-tfsec"
-  version    = "0.1.0"
+  version    = "0.2.0"
   wait       = true
 
   values = [
     templatefile("${path.module}/rode-collector-tfsec-values.yaml.tpl", {
       namespace               = kubernetes_namespace.rode.metadata[0].name
       tfsec_collector_version = var.tfsec_collector_version
+      oidc_auth_enabled       = var.oidc_auth_enabled
     })
   ]
 
