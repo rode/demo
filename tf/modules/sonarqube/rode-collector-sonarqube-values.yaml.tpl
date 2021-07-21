@@ -8,6 +8,7 @@ rode:
       enabled: ${oidc_auth_enabled}
       clientId: ${oidc_client_id}
       tokenUrl: ${oidc_token_url}
+      tlsInsecureSkipVerify: true
 
 debug: true
 
