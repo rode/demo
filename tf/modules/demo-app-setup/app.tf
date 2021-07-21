@@ -24,7 +24,7 @@ resource "kubernetes_secret" "image_pull_secret" {
 
   type = "kubernetes.io/dockerconfigjson"
   data = {
-    ".dockerconfigjson" = templatefile("${path.module}/dockercfg-test.tpl", {
+    ".dockerconfigjson" = templatefile("${path.module}/dockercfg.tpl", {
       username = "admin"
       password = data.kubernetes_secret.harbor.data.HARBOR_ADMIN_PASSWORD
       url      = "https://${var.harbor_host}"
