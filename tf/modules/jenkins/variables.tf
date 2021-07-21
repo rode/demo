@@ -22,3 +22,16 @@ variable "environments" {
   type    = set(string)
   default = []
 }
+
+variable "oidc_client_id" {
+  type    = string
+  default = ""
+}
+variable "oidc_client_secret" {
+  type    = string
+  default = ""
+}
+variable "oidc_token_url" {
+  type    = string
+  default = ""
+}
