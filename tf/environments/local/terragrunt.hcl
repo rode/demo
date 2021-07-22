@@ -35,11 +35,11 @@ inputs = {
   rode_ui_host         = "rode-ui.localhost"
   ingress_name         = "nginx"
 
-  rode_ui_version             = "v0.12.0"
-  rode_version                = "v0.9.2"
+  rode_ui_version             = "v0.17.3"
+  rode_version                = "v0.14.4"
   grafeas_version             = "v0.8.2"
-  build_collector_version     = "v0.3.0"
-  harbor_collector_version    = "v0.1.0"
-  tfsec_collector_version     = "v0.1.0"
-  sonarqube_collector_version = "v0.1.0"
+  build_collector_version     = "v0.3.3"
+  harbor_collector_version    = "v0.2.1"
+  tfsec_collector_version     = "v0.1.1"
+  sonarqube_collector_version = "v0.2.0"
 }
