@@ -152,7 +152,11 @@ module "coredns" {
   count  = var.enable_nginx && var.update_coredns ? 1 : 0
   source = "../modules/coredns"
 
-  harbor_host       = var.harbor_host
+  rewrite_hosts = [
+    var.harbor_host,
+    var.keycloak_host,
+    var.sonarqube_host,
+  ]
   nginx_service_url = module.nginx[0].service_url
 
   depends_on = [
