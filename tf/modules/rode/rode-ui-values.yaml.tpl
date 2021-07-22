@@ -9,6 +9,12 @@ rode:
 
 appUrl: https://${rode_ui_host}
 
+%{~ if oidc_tls_insecure_skip_verify }
+extraEnvVars:
+  - name: NODE_TLS_REJECT_UNAUTHORIZED
+    value: "0"
+%{~ endif }
+
 image:
 %{~ if rode_ui_version != "" }
   tag: ${rode_ui_version}

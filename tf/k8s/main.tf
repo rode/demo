@@ -8,7 +8,7 @@ terraform {
 
     helm = {
       source  = "hashicorp/helm"
-      version = "2.0.3"
+      version = "2.2.0"
     }
 
     random    = {
@@ -104,9 +104,10 @@ module "rode" {
   tfsec_collector_version = var.tfsec_collector_version
   ingress_class           = var.ingress_class
 
-  oidc_auth_enabled = var.enable_keycloak
-  oidc_issuer       = var.enable_keycloak ? module.keycloak[0].issuer_url : ""
-  oidc_token_url    = var.enable_keycloak ? module.keycloak[0].token_url : ""
+  oidc_auth_enabled             = var.enable_keycloak
+  oidc_issuer                   = var.enable_keycloak ? module.keycloak[0].issuer_url : ""
+  oidc_token_url                = var.enable_keycloak ? module.keycloak[0].token_url : ""
+  oidc_tls_insecure_skip_verify = var.keycloak_tls_insecure_skip_verify
 
   oidc_rode_client_id     = var.enable_keycloak ? module.keycloak[0].rode_client_id : ""
   oidc_rode_client_secret = var.enable_keycloak ? module.keycloak[0].rode_client_secret : ""
@@ -158,11 +159,6 @@ module "coredns" {
     var.sonarqube_host,
   ]
   nginx_service_url = module.nginx[0].service_url
-
-  depends_on = [
-    module.nginx,
-    module.harbor
-  ]
 }
 
 module "demo_app_setup" {
@@ -209,7 +205,7 @@ module "jenkins" {
   harbor_namespace      = module.harbor.namespace
   harbor_host           = var.harbor_host
   jenkins_host          = var.jenkins_host
-  sonarqube_host        = var.sonarqube_host
+  sonarqube_url         = var.enable_sonarqube ? "http://sonarqube-sonarqube.${var.sonarqube_namespace}.svc.cluster.local:9000" : ""
   sonarqube_token       = var.enable_sonarqube ? module.sonarqube_config[0].sonarqube_token : ""
   rode_namespace        = var.rode_namespace
   namespace             = var.jenkins_namespace

@@ -126,7 +126,7 @@ resource "kubernetes_config_map" "jcasc_pipelines" {
       pipelineRepo          = "demo-app"
       credentialsSecretName = ""
       harbor_host           = var.harbor_host
-      sonarqube_host        = var.sonarqube_host
+      sonarqube_url         = var.sonarqube_url
       sonarqube_credentials = kubernetes_secret.sonarcube_credentials.metadata[0].name
       rode_namespace        = var.rode_namespace
     })

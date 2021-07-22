@@ -1,7 +1,7 @@
 variable "harbor_namespace" {}
 variable "harbor_host" {}
 variable "jenkins_host" {}
-variable "sonarqube_host" {
+variable "sonarqube_url" {
   default = ""
 }
 variable "sonarqube_token" {

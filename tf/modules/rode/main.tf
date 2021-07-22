@@ -176,9 +176,10 @@ resource "helm_release" "rode_ui" {
       rode_ui_host    = var.rode_ui_host
       ingress_class   = var.ingress_class
 
-      oidc_auth_enabled = var.oidc_auth_enabled
-      oidc_client_id    = var.oidc_rode_client_id
-      oidc_issuer       = var.oidc_issuer
+      oidc_auth_enabled             = var.oidc_auth_enabled
+      oidc_client_id                = var.oidc_rode_client_id
+      oidc_issuer                   = var.oidc_issuer
+      oidc_tls_insecure_skip_verify = var.oidc_tls_insecure_skip_verify
     })
   ]
 

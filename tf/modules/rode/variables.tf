@@ -69,3 +69,8 @@ variable "oidc_admin_password" {
   type    = string
   default = ""
 }
+
+variable "oidc_tls_insecure_skip_verify" {
+  type    = bool
+  default = false
+}

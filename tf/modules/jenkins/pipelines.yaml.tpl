@@ -25,13 +25,13 @@ jobs:
         }
       }
 
-%{~ if sonarqube_host != "" }
+%{~ if sonarqube_url != "" }
 unclassified:
   sonarGlobalConfiguration:
     buildWrapperEnabled: false
     installations:
     - name: "SonarQube"
-      serverUrl: "https://${sonarqube_host}"
+      serverUrl: "${sonarqube_url}"
       credentialsId: "${sonarqube_credentials}"
 %{~ endif }
 

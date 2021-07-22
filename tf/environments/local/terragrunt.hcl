@@ -30,6 +30,7 @@ inputs = {
 
   enable_keycloak = true
   keycloak_host   = "keycloak.localhost"
+  keycloak_tls_insecure_skip_verify = true
 
   tfsec_collector_host = "tfsec-collector.localhost"
   rode_ui_host         = "rode-ui.localhost"
