@@ -60,10 +60,11 @@ provider "keycloak" {
 }
 
 provider "sonarqube" {
-  host              = var.enable_sonarqube ? "https://${module.sonarqube[0].sonarqube_host}" : ""
-  user              = var.enable_sonarqube ? module.sonarqube[0].sonarqube_username : ""
-  pass              = var.enable_sonarqube ? module.sonarqube[0].sonarqube_password : ""
-  installed_version = "8.5"
+  host                     = var.enable_sonarqube ? "https://${module.sonarqube[0].sonarqube_host}" : ""
+  user                     = var.enable_sonarqube ? module.sonarqube[0].sonarqube_username : ""
+  pass                     = var.enable_sonarqube ? module.sonarqube[0].sonarqube_password : ""
+  installed_version        = "8.5"
+  tls_insecure_skip_verify = var.sonarqube_tls_insecure_skip_verify
 }
 
 module "elasticsearch" {

@@ -25,11 +25,12 @@ inputs = {
 
   enable_nginx = true
 
-  enable_sonarqube = true
-  sonarqube_host   = "sonarqube.localhost"
+  enable_sonarqube                   = true
+  sonarqube_host                     = "sonarqube.localhost"
+  sonarqube_tls_insecure_skip_verify = true
 
-  enable_keycloak = true
-  keycloak_host   = "keycloak.localhost"
+  enable_keycloak                   = true
+  keycloak_host                     = "keycloak.localhost"
   keycloak_tls_insecure_skip_verify = true
 
   tfsec_collector_host = "tfsec-collector.localhost"

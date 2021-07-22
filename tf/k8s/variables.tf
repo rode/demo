@@ -84,6 +84,10 @@ variable "sonarqube_host" {}
 variable "sonarqube_namespace" {
   default = "rode-demo-sonarqube"
 }
+variable "sonarqube_tls_insecure_skip_verify" {
+  type    = bool
+  default = false
+}
 variable "sonarqube_collector_version" {
   default = ""
 }
@@ -94,7 +98,11 @@ variable "namespace_annotations" {
 
 variable "environments" {
   type    = set(string)
-  default = ["dev", "staging", "prod"]
+  default = [
+    "dev",
+    "staging",
+    "prod"
+  ]
 }
 
 variable "keycloak_host" {
