@@ -38,10 +38,10 @@ inputs = {
   ingress_name         = "nginx"
 
   rode_ui_version             = "v0.17.3"
-  rode_version                = "v0.14.4"
+  rode_version                = "v0.14.5"
   grafeas_version             = "v0.8.2"
   build_collector_version     = "v0.3.3"
   harbor_collector_version    = "v0.2.1"
   tfsec_collector_version     = "v0.1.1"
-  sonarqube_collector_version = "v0.2.0"
+  sonarqube_collector_version = "v0.2.1"
 }
