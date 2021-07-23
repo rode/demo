@@ -15,3 +15,5 @@ rbac:
 serviceAccountAgent:
   name: jenkins-agent
 
+persistence:
+  size: 1Gi

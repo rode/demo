@@ -58,6 +58,8 @@ postgresql:
     limits:
       memory: 128Mi
       cpu: 500m
+  persistence:
+    size: 1Gi
 
 startupProbe: ""
 

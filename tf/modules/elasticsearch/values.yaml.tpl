@@ -21,3 +21,8 @@ extraEnvs:
       secretKeyRef:
         name: ${elasticsearch_credentials_secret_name}
         key: password
+
+volumeClaimTemplate:
+  resources:
+    requests:
+      storage: 5Gi
