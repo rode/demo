@@ -1,8 +1,8 @@
 {
   "auths": {
     "${url}": {
-      "email": "${email}",
-      "auth": "${auth}"
+      "username": "${username}",
+      "password": "${password}"
     }
   }
 }

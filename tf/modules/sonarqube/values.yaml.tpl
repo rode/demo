@@ -15,3 +15,15 @@ ingress:
 
 sonarProperties:
   "sonar.core.serverBaseURL": "https://${host}"
+  "sonar.log.level": "DEBUG"
+
+postgresql:
+  resources:
+    requests:
+      memory: 64Mi
+      cpu: 10m
+    limits:
+      memory: 128Mi
+      cpu: 500m
+  persistence:
+    size: 1Gi

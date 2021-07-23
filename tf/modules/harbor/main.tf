@@ -63,12 +63,17 @@ resource "helm_release" "rode_collector_harbor" {
   namespace  = kubernetes_namespace.harbor.metadata[0].name
   chart      = "rode-collector-harbor"
   repository = "https://rode.github.io/charts"
-  version    = "0.1.0"
+  version    = "0.2.0"
   wait       = true
 
   set_sensitive {
     name  = "harbor.password"
     value = random_password.harbor_admin_password.result
+  }
+
+  set_sensitive {
+    name  = "rode.auth.oidc.clientSecret"
+    value = var.oidc_client_secret
   }
 
   values = [
@@ -78,6 +83,10 @@ resource "helm_release" "rode_collector_harbor" {
       harbor_username          = "admin"
       harbor_insecure          = var.harbor_insecure
       harbor_collector_version = var.harbor_collector_version
+
+      oidc_auth_enabled = var.oidc_auth_enabled
+      oidc_client_id    = var.oidc_client_id
+      oidc_token_url    = var.oidc_token_url
     })
   ]
 }

@@ -17,7 +17,7 @@ resource "kubernetes_config_map" "original_coredns" {
 }
 
 locals {
-  rewrite_line      = "rewrite name ${var.harbor_host} ${var.nginx_service_url}"
+  rewrite_line      = indent(4, join("\n", formatlist("rewrite name %s ${var.nginx_service_url}", compact(var.rewrite_hosts))))
   corefile_modified = <<EOF
 ${replace(kubernetes_config_map.original_coredns.data.Corefile, ".:53 {\n", ".:53 {\n    ${local.rewrite_line}\n")}
   EOF

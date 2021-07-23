@@ -19,7 +19,7 @@ resource "helm_release" "rode" {
   namespace  = kubernetes_namespace.rode.metadata[0].name
   chart      = "rode"
   repository = "https://rode.github.io/charts"
-  version    = "0.2.0"
+  version    = "0.3.0"
   wait       = true
 
   values = [
@@ -27,6 +27,11 @@ resource "helm_release" "rode" {
       grafeas_namespace  = var.grafeas_namespace
       elasticsearch_host = var.elasticsearch_host
       rode_version       = var.rode_version
+
+      oidc_auth_enabled           = var.oidc_auth_enabled
+      oidc_auth_issuer            = var.oidc_issuer
+      oidc_auth_required_audience = var.oidc_rode_client_id
+      oidc_auth_role_claim_path   = var.oidc_auth_enabled ? "resource_access.${var.oidc_rode_client_id}.roles" : ""
     })
   ]
 }
@@ -76,7 +81,26 @@ resource "kubernetes_config_map" "policy" {
     "loadpolicy.sh" = templatefile("${path.module}/loadpolicy.sh.tpl", {
       policies       = local.policies
       rode_namespace = kubernetes_namespace.rode.metadata[0].name
+
+      oidc_auth_enabled = var.oidc_auth_enabled
+      oidc_token_url    = var.oidc_token_url
     })
+  }
+}
+
+resource "kubernetes_secret" "auth_credentials" {
+  count = var.oidc_auth_enabled ? 1 : 0
+
+  metadata {
+    name      = "rode-policy-auth-credentials"
+    namespace = kubernetes_namespace.rode.metadata[0].name
+  }
+
+  data = {
+    USERNAME      = var.oidc_admin_username
+    PASSWORD      = var.oidc_admin_password
+    CLIENT_ID     = var.oidc_rode_client_id
+    CLIENT_SECRET = var.oidc_rode_client_secret
   }
 }
 
@@ -95,11 +119,21 @@ resource "kubernetes_job" "load_policy" {
           command = [
             "/bin/sh",
             "-c",
-            "/root/loadpolicy.sh"]
+            "/root/loadpolicy.sh"
+          ]
           volume_mount {
             name       = "policy-configmap-volume"
             mount_path = "/root/loadpolicy.sh"
             sub_path   = "loadpolicy.sh"
+          }
+          // if auth is enabled, populate the job with environment variables needed to authenticate policy creation API calls
+          dynamic env_from {
+            for_each = var.oidc_auth_enabled ? [0] : []
+            content {
+              secret_ref {
+                name = kubernetes_secret.auth_credentials[0].metadata[0].name
+              }
+            }
           }
         }
         volume {
@@ -127,8 +161,13 @@ resource "helm_release" "rode_ui" {
   namespace  = kubernetes_namespace.rode.metadata[0].name
   chart      = "rode-ui"
   repository = "https://rode.github.io/charts"
-  version    = "0.2.0"
+  version    = "0.3.0"
   wait       = true
+
+  set_sensitive {
+    name  = "rode.auth.oidc.clientSecret"
+    value = var.oidc_rode_client_secret
+  }
 
   values = [
     templatefile("${path.module}/rode-ui-values.yaml.tpl", {
@@ -136,6 +175,11 @@ resource "helm_release" "rode_ui" {
       rode_ui_version = var.rode_ui_version
       rode_ui_host    = var.rode_ui_host
       ingress_class   = var.ingress_class
+
+      oidc_auth_enabled             = var.oidc_auth_enabled
+      oidc_client_id                = var.oidc_rode_client_id
+      oidc_issuer                   = var.oidc_issuer
+      oidc_tls_insecure_skip_verify = var.oidc_tls_insecure_skip_verify
     })
   ]
 
@@ -149,13 +193,14 @@ resource "helm_release" "rode_collector_build" {
   namespace  = kubernetes_namespace.rode.metadata[0].name
   repository = "https://rode.github.io/charts"
   chart      = "rode-collector-build"
-  version    = "0.2.0"
+  version    = "0.3.0"
   wait       = true
 
   values = [
     templatefile("${path.module}/rode-collector-build-values.yaml.tpl", {
       namespace               = kubernetes_namespace.rode.metadata[0].name
       build_collector_version = var.build_collector_version
+      oidc_auth_enabled       = var.oidc_auth_enabled
     })
   ]
 
@@ -169,13 +214,14 @@ resource "helm_release" "rode_collector_tfsec" {
   namespace  = kubernetes_namespace.rode.metadata[0].name
   repository = "https://rode.github.io/charts"
   chart      = "rode-collector-tfsec"
-  version    = "0.1.0"
+  version    = "0.2.0"
   wait       = true
 
   values = [
     templatefile("${path.module}/rode-collector-tfsec-values.yaml.tpl", {
       namespace               = kubernetes_namespace.rode.metadata[0].name
       tfsec_collector_version = var.tfsec_collector_version
+      oidc_auth_enabled       = var.oidc_auth_enabled
     })
   ]
 

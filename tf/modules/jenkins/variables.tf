@@ -1,7 +1,7 @@
 variable "harbor_namespace" {}
 variable "harbor_host" {}
 variable "jenkins_host" {}
-variable "sonarqube_host" {
+variable "sonarqube_url" {
   default = ""
 }
 variable "sonarqube_token" {
@@ -21,4 +21,17 @@ variable "deploy_namespace" {}
 variable "environments" {
   type    = set(string)
   default = []
+}
+
+variable "oidc_client_id" {
+  type    = string
+  default = ""
+}
+variable "oidc_client_secret" {
+  type    = string
+  default = ""
+}
+variable "oidc_token_url" {
+  type    = string
+  default = ""
 }

@@ -8,7 +8,7 @@ terraform {
 
     helm = {
       source  = "hashicorp/helm"
-      version = "2.0.3"
+      version = "2.2.0"
     }
 
     random    = {
@@ -21,12 +21,12 @@ terraform {
     }
     sonarqube = {
       source  = "jdamata/sonarqube"
-      version = "0.0.5"
+      version = "0.0.7"
     }
 
     keycloak = {
       source  = "mrparkers/keycloak"
-      version = "3.2.0-rc.0"
+      version = "3.2.0"
     }
   }
 }
@@ -60,10 +60,11 @@ provider "keycloak" {
 }
 
 provider "sonarqube" {
-  host              = var.enable_sonarqube ? "https://${module.sonarqube[0].sonarqube_host}" : ""
-  user              = var.enable_sonarqube ? module.sonarqube[0].sonarqube_username : ""
-  pass              = var.enable_sonarqube ? module.sonarqube[0].sonarqube_password : ""
-  installed_version = "8.5"
+  host                     = var.enable_sonarqube ? "https://${module.sonarqube[0].sonarqube_host}" : ""
+  user                     = var.enable_sonarqube ? module.sonarqube[0].sonarqube_username : ""
+  pass                     = var.enable_sonarqube ? module.sonarqube[0].sonarqube_password : ""
+  installed_version        = "8.5"
+  tls_insecure_skip_verify = var.sonarqube_tls_insecure_skip_verify
 }
 
 module "elasticsearch" {
@@ -104,6 +105,17 @@ module "rode" {
   tfsec_collector_version = var.tfsec_collector_version
   ingress_class           = var.ingress_class
 
+  oidc_auth_enabled             = var.enable_keycloak
+  oidc_issuer                   = var.enable_keycloak ? module.keycloak[0].issuer_url : ""
+  oidc_token_url                = var.enable_keycloak ? module.keycloak[0].token_url : ""
+  oidc_tls_insecure_skip_verify = var.keycloak_tls_insecure_skip_verify
+
+  oidc_rode_client_id     = var.enable_keycloak ? module.keycloak[0].rode_client_id : ""
+  oidc_rode_client_secret = var.enable_keycloak ? module.keycloak[0].rode_client_secret : ""
+
+  oidc_admin_username = var.enable_keycloak ? module.keycloak[0].admin_username : ""
+  oidc_admin_password = var.enable_keycloak ? module.keycloak[0].admin_password : ""
+
   depends_on = [
     module.grafeas
   ]
@@ -128,6 +140,11 @@ module "harbor" {
   harbor_collector_version = var.harbor_collector_version
   rode_host                = module.rode.rode_internal_host
 
+  oidc_auth_enabled  = var.enable_keycloak
+  oidc_client_id     = var.enable_keycloak ? module.keycloak[0].service_account_client_id["collector"] : ""
+  oidc_client_secret = var.enable_keycloak ? module.keycloak[0].service_account_client_secret["collector"] : ""
+  oidc_token_url     = var.enable_keycloak ? module.keycloak[0].token_url : ""
+
   depends_on = [
     module.nginx
   ]
@@ -137,13 +154,12 @@ module "coredns" {
   count  = var.enable_nginx && var.update_coredns ? 1 : 0
   source = "../modules/coredns"
 
-  harbor_host       = var.harbor_host
-  nginx_service_url = module.nginx[0].service_url
-
-  depends_on = [
-    module.nginx,
-    module.harbor
+  rewrite_hosts = [
+    var.harbor_host,
+    var.keycloak_host,
+    var.sonarqube_host,
   ]
+  nginx_service_url = module.nginx[0].service_url
 }
 
 module "demo_app_setup" {
@@ -169,6 +185,11 @@ module "sonarqube" {
   namespace_annotations       = var.namespace_annotations
   rode_host                   = module.rode.rode_internal_host
   sonarqube_collector_version = var.sonarqube_collector_version
+
+  oidc_auth_enabled  = var.enable_keycloak
+  oidc_client_id     = var.enable_keycloak ? module.keycloak[0].service_account_client_id["collector"] : ""
+  oidc_client_secret = var.enable_keycloak ? module.keycloak[0].service_account_client_secret["collector"] : ""
+  oidc_token_url     = var.enable_keycloak ? module.keycloak[0].token_url : ""
 }
 
 module "sonarqube_config" {
@@ -185,7 +206,7 @@ module "jenkins" {
   harbor_namespace      = module.harbor.namespace
   harbor_host           = var.harbor_host
   jenkins_host          = var.jenkins_host
-  sonarqube_host        = var.sonarqube_host
+  sonarqube_url         = var.enable_sonarqube ? "http://sonarqube-sonarqube.${var.sonarqube_namespace}.svc.cluster.local:9000" : ""
   sonarqube_token       = var.enable_sonarqube ? module.sonarqube_config[0].sonarqube_token : ""
   rode_namespace        = var.rode_namespace
   namespace             = var.jenkins_namespace
@@ -193,6 +214,10 @@ module "jenkins" {
   ingress_class         = var.ingress_class
   deploy_namespace      = var.deploy_namespace
   environments          = var.environments
+
+  oidc_client_id     = var.enable_keycloak ? module.keycloak[0].service_account_client_id["collector"] : ""
+  oidc_client_secret = var.enable_keycloak ? module.keycloak[0].service_account_client_secret["collector"] : ""
+  oidc_token_url     = var.enable_keycloak ? module.keycloak[0].token_url : ""
 
   depends_on = [
     module.nginx,

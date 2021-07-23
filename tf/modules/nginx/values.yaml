@@ -2,3 +2,5 @@ controller:
   kind: Deployment
   service:
     enabled: true
+  admissionWebhooks:
+    enabled: false

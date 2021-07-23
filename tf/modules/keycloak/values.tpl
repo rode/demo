@@ -58,6 +58,8 @@ postgresql:
     limits:
       memory: 128Mi
       cpu: 500m
+  persistence:
+    size: 1Gi
 
 startupProbe: ""
 
@@ -65,5 +67,7 @@ livenessProbe: |
   httpGet:
     path: /auth/
     port: http
-  initialDelaySeconds: 120
+  initialDelaySeconds: 240
   timeoutSeconds: 5
+  periodSeconds: 10
+  failureThreshold: 2

@@ -29,6 +29,23 @@ resource "kubernetes_secret" "jenkins_docker_config" {
   type = "Opaque"
 }
 
+resource "kubernetes_secret" "jenkins_oidc_credentials" {
+  metadata {
+    name      = "jenkins-oidc-credentials"
+    namespace = kubernetes_namespace.jenkins.metadata[0].name
+  }
+
+  data = {
+    "credentials.json" = templatefile("${path.module}/oidc-credentials.tpl", {
+      oidc_token_url     = var.oidc_token_url
+      oidc_client_id     = var.oidc_client_id
+      oidc_client_secret = var.oidc_client_secret
+    })
+  }
+
+  type = "Opaque"
+}
+
 locals {
   jenkins_plugins = [
     "configuration-as-code",
@@ -109,7 +126,7 @@ resource "kubernetes_config_map" "jcasc_pipelines" {
       pipelineRepo          = "demo-app"
       credentialsSecretName = ""
       harbor_host           = var.harbor_host
-      sonarqube_host        = var.sonarqube_host
+      sonarqube_url         = var.sonarqube_url
       sonarqube_credentials = kubernetes_secret.sonarcube_credentials.metadata[0].name
       rode_namespace        = var.rode_namespace
     })
