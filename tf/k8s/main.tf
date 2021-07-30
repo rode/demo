@@ -244,4 +244,8 @@ module "keycloak" {
   ingress_class         = var.ingress_class
   keycloak_host         = var.keycloak_host
   rode_ui_host          = var.rode_ui_host
+
+  depends_on = [
+    module.nginx,
+  ]
 }
