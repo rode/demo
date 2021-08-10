@@ -52,8 +52,8 @@ inputs = {
   update_coredns         = false
 
   rode_ui_version             = "v0.17.4"
-  rode_version                = "v0.14.5"
-  grafeas_version             = "v0.8.2"
+  rode_version                = "v0.14.7"
+  grafeas_version             = "v0.8.8"
   build_collector_version     = "v0.3.3"
   harbor_collector_version    = "v0.2.2"
   tfsec_collector_version     = "v0.1.2"
