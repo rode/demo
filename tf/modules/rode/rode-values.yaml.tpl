@@ -10,7 +10,7 @@ grafeas:
 elasticsearch:
   host: http://${elasticsearch_host}
 
-debug: true
+debug: false
 
 image:
 %{~ if rode_version != "" }
