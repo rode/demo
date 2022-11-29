@@ -116,3 +116,11 @@ variable "enable_keycloak" {
 variable "keycloak_tls_insecure_skip_verify" {
   default = false
 }
+
+variable "enable_azuread" {
+  default = false
+}
+
+variable "azure_tenant_id" {
+  default = ""
+}

@@ -28,6 +28,11 @@ terraform {
       source  = "mrparkers/keycloak"
       version = "3.2.0"
     }
+
+    azuread = {
+      source = "hashicorp/azuread"
+      version = "1.6.0"
+    }
   }
 }
 
@@ -65,6 +70,10 @@ provider "sonarqube" {
   pass                     = var.enable_sonarqube ? module.sonarqube[0].sonarqube_password : ""
   installed_version        = "8.5"
   tls_insecure_skip_verify = var.sonarqube_tls_insecure_skip_verify
+}
+
+provider "azuread" {
+  tenant_id       = var.azure_tenant_id
 }
 
 module "elasticsearch" {
@@ -248,4 +257,11 @@ module "keycloak" {
   depends_on = [
     module.nginx,
   ]
+}
+
+module "azuread" {
+  count  = var.enable_azuread ? 1 : 0
+  source = "../modules/azuread"
+
+  rode_ui_host          = var.rode_ui_host
 }
